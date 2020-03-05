@@ -1,0 +1,31 @@
+
+server:
+  port: 8080
+  servlet:
+    jsp:
+      init-parameters:
+        development: true
+    context-path: /bank
+
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/page/
+      suffix: .jsp
+    hiddenmethod:
+      filter:
+        enabled: true
+    static-path-pattern: /static/**
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.1.105:3306/lianxi?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&useSSL=false
+
+# Mybatis-Plus \u914D\u7F6E
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml # Mapper XML \u626B\u5305\u8DEF\u5F84
+  type-aliases-package: com.dj.bank.pojo # \u7C7B\u522B\u540D
+  configuration:
+    map-underscore-to-camel-case: true
