@@ -9,11 +9,14 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -104,6 +107,24 @@ public class UserController {
         } catch (Exception e) {
             e.printStackTrace();
             return false;
+        }
+    }
+
+    /**
+     * 可借款金额
+     * @param session
+     * @return
+     */
+    @GetMapping("getPayMoneyAllByUserId")
+    public ResultModel<Object> getBorrowMoneyByUserId (HttpSession session, Model model){
+        try {
+            BankUser bankUser = (BankUser) session.getAttribute("user");
+            BankUser bankUser1 = userService.getPayMoneyAllByUserId(bankUser.getId());
+            model.addAttribute("payMoneyAll", bankUser1.getPayMoneyAll());
+            return new ResultModel<Object>().success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<Object>().error(SystemConstant.ERROR + e.getMessage());
         }
     }
 }

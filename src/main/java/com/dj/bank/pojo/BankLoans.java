@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -21,43 +20,38 @@ import java.math.BigDecimal;
  */
 @Data
 @Accessors(chain = true)
-@TableName("bank_user")
-public class BankUser {
+@TableName("bank_loans")
+public class BankLoans {
 
+    /**
+     * 主键id
+     */
     @TableId(type = IdType.AUTO)
     private Integer id;
 
-    private String userName;
-
-    private String password;
-
-    private String phone;
-
-    private String email;
+    /**
+     * 用户id
+     */
+    private String userId;
 
     /**
-     * 1男，2女
+     * 总待还金额(捐款金额)
      */
-    private Integer sex;
+    private BigDecimal payMoneyAll;
 
+    /**
+     * 本月代还金额
+     */
+    private BigDecimal payMoneyMonth;
+
+    /**
+     * 剩余还款月
+     */
+    private BigDecimal payMonthNumber;
 
     /**
      * 1在，2无
      */
     private Integer isDel;
-
-    private String salt;
-
-    private String message;
-
-    private Integer age;
-
-    /**
-     * 1,用户，2，管理员
-     */
-    private Integer type;
-
-    @TableField(exist = false)
-    private BigDecimal payMoneyAll;
 
 }

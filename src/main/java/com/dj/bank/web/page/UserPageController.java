@@ -39,4 +39,13 @@ public class UserPageController {
         model.addAttribute("salt", salt);
         return "user/user_add";
     }
+
+    /**
+     * 去借款
+     * @return
+     */
+    @RequestMapping("toBorrowMoney")
+    private String toBorrowMoney() {
+        return "user/user_borrow_money";
+    }
 }
