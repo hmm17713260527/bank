@@ -35,7 +35,7 @@
                         } else {
                             html += "<td>中国银行</td>"
                         }
-                        html += "<td><input type='button' value='修改' onclick='toBorrow("+u.id+")'></td>"
+                        html += "<td><input type='button' value='借款' onclick='toBorrow("+u.id+")'></td>"
                         html += "</tr>"
                     }
                     $("#tbd").html(html);

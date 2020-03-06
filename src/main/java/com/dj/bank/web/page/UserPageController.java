@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -75,8 +76,12 @@ public class UserPageController {
         queryWrapper.eq("p_id", SystemConstant.REFUND_DATE);
         List<BaseData> baseDataList = baseDataService.list(queryWrapper);
         BankCard bankCard = bankCardService.getLoans(id);
+        if (bankCard.getPayMoneyAll() != null) {
+            bankCard.setBorrowBalance(bankCard.getBorrowBalance().subtract(bankCard.getPayMoneyAll()));
+        }
         model.addAttribute("baseDataList", baseDataList);
         model.addAttribute("bankCard", bankCard);
+
         return "user/user_borrow";
     }
 

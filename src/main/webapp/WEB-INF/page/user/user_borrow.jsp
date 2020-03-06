@@ -31,31 +31,37 @@
 
         $.validator.setDefaults({
             submitHandler: function() {
-                $.get("<%=request.getContextPath()%>/user/updateLoansById",
-                    $("#fm").serialize(),
-                    function(data){
-                        if(data.code == -1){
-                            layer.close(index);
-                            layer.msg(data.msg, {icon: 5});
-                            return
-                        }
-                        layer.msg(data.msg, {
-                            icon: 6,
-                            time: 2000
-                        }, function(){
-                            parent.window.location.href = "<%=request.getContextPath()%>/user/toBorrowMoney";
-                        });
-                    }
-                )
+                if ($("#money").val() > ${bankCard.borrowBalance}) {
+                    layer.msg("剩余可借金额不足", {icon: 5});
+                    return
+                }
+                <%--$.get("<%=request.getContextPath()%>/user/updateLoansById",--%>
+                <%--    $("#fm").serialize(),--%>
+                <%--    function(data){--%>
+                <%--        if(data.code == -1){--%>
+                <%--            layer.close(index);--%>
+                <%--            layer.msg(data.msg, {icon: 5});--%>
+                <%--            return--%>
+                <%--        }--%>
+                <%--        layer.msg(data.msg, {--%>
+                <%--            icon: 6,--%>
+                <%--            time: 2000--%>
+                <%--        }, function(){--%>
+                <%--            parent.window.location.href = "<%=request.getContextPath()%>/user/toBorrowMoney";--%>
+                <%--        });--%>
+                <%--    }--%>
+                <%--)--%>
             }
         });
+
+
     </script>
 
 </head>
 <body>
 <form id="fm">
-    剩余可借金额:30000<br>
-    借款金额:<input type="text" name="payMoneyAll"  oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" placeholder="请输入借款金额"><br>
+    剩余可借金额:${bankCard.borrowBalance}<br>
+    借款金额:<input type="text" name="payMoneyAll" id="money" oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" placeholder="请输入借款金额"><br>
     还款年限
     <select name="payMonthNumber">
         <c:forEach items="${baseDataList}" var="b">
