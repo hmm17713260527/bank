@@ -77,6 +77,10 @@ public class BankCardController {
     @RequestMapping("insertCard")
     public ResultModel<Object> insertCard(BankCard bankCard, HttpSession session){
         try {
+            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_RESOURCE);
+            bankCard.setUserId(user.getId()).setReputationValue(60).setIntegral(1000)
+                    .setCreateTime(new Date()).setBalance(SystemConstant.NULL)
+                    .setBorrowBalance(SystemConstant.NULL);
             bankCardService.save(bankCard);
             return new ResultModel<>().success();
         }catch (Exception e){

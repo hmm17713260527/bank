@@ -66,7 +66,6 @@ public class ShiroRealm extends AuthorizingRealm {
 
             Session session = SecurityUtils.getSubject().getSession();
             session.setAttribute(SystemConstant.USER_RESOURCE, user);
-
         } catch (Exception e) {
             throw new AccountException(e.getMessage());
         }

@@ -50,7 +50,7 @@ public class BankCard {
     /**
      * 卡上剩余积分
      */
-    private String integral;
+    private Integer integral;
 
     /**
      * 银行卡信誉值

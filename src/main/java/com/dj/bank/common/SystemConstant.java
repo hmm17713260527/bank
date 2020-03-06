@@ -1,5 +1,7 @@
 package com.dj.bank.common;
 
+import java.math.BigDecimal;
+
 public interface SystemConstant {
 
     /**
@@ -141,7 +143,7 @@ public interface SystemConstant {
      * @param null:
      * @return: null
      **/
-    String NULL  = null;
+    BigDecimal NULL  = null;
     /**
      * @Description: 银行类型p_id = 10
      * @Author: Liuwf

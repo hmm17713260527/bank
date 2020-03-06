@@ -12,7 +12,6 @@
 <body>
 
 <form id = "frm">
-
    银行卡类型：
     <select name = "type" onblur="getNumber(this)">
         <c:forEach items="${baseDataList}" var="base">
@@ -74,7 +73,7 @@
                         time: 2000 //2秒关闭（如果不配置，默认是3秒）
                     }, function(){
 
-                        parent.window.location.href = "<%=request.getContextPath()%>/order/toList";
+                        parent.window.location.href = "<%=request.getContextPath()%>/index/toIndex";
                     });
                 })
         }
