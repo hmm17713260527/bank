@@ -142,44 +142,13 @@ public interface SystemConstant {
      **/
     String NULL  = null;
     /**
-     * @Description: 资源类型 = 1
+     * @Description: 银行类型p_id = 10
      * @Author: Liuwf
      * @Date:
      * @param null:
      * @return: null
      **/
-    Integer ONE = 1;
-    /**
-     * @Description:parentid= 7
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
-    Integer HOUSE_TYPE_PARENT_ID = 7;
-    /**
-     * @Description:parentid= 12
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
-    Integer HOUSE_NUMBER_PARENT_ID= 12;
-    /**
-     * @Description:房间类型id
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
-    Integer HOUSE_TYPE_ID = 7;
-    /**
-     * @Description:房间号id
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
-    Integer HOUSE_NUMBER_ID = 12;
+    Integer BANK_TYPE_PID= 10;
+
 
 }
