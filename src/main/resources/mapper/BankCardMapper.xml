@@ -16,12 +16,13 @@
 
     <select id="getLoans" resultType="com.dj.bank.pojo.BankCard">
         SELECT
-            <include refid="LOANSCOLUMN" />
+            c.reputation_value,
+            l.pay_money_all,
+            c.borrow_balance
         FROM
-        bank_card c
-
+            bank_card c
         LEFT JOIN bank_loans l ON c.id = l.bank_card_jd
         WHERE
-        c.id = #{id}
+            c.id = #{id}
     </select>
 </mapper>

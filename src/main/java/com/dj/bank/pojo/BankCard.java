@@ -1,6 +1,7 @@
 package com.dj.bank.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -70,5 +71,13 @@ public class BankCard {
      *11:工商银行 12:建设银行 13:农业银行 14中国银行
      */
     private Integer type;
+
+    @TableField(exist = false)
+    private BigDecimal payMoneyAll;
+
+    /**
+     * 剩余可借金额
+     */
+    private BigDecimal borrowBalance;
 
 }

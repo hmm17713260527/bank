@@ -27,4 +27,5 @@ public class SystemConstant {
      * 还款分期
      */
     public static final Integer REFUND_DATE = 5;
+
 }
