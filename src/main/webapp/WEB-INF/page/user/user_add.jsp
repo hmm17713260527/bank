@@ -202,7 +202,7 @@
         管理员<input type="radio" name="type" value="2"><br />
     <input type="hidden" name="isDel" value="1">
     <input type="hidden" name="salt" value="${salt}" id="salt">
-    <a href="<%=request.getContextPath()%>/user/toLogin">已有账号?前去登录</a>
+    <a href="<%=request.getContextPath()%>/user/toLogin">已有账号?前去登录</a><br/>
     <input type="submit" value="注册">
 </form>
 </body>

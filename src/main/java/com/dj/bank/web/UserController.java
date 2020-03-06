@@ -81,7 +81,7 @@ public class UserController {
     }
 
     /**
-     * 注册去充
+     * 注册去重
      * @param bankUser
      * @return
      */
