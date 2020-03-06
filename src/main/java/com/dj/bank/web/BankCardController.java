@@ -1,13 +1,12 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
-import com.dj.bank.pojo.BankCard;
-import com.dj.bank.pojo.BankResource;
-import com.dj.bank.pojo.BankUser;
-import com.dj.bank.pojo.BaseData;
+import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
+import com.dj.bank.service.LoansService;
 import com.dj.bank.service.ResourceService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -37,6 +37,8 @@ public class BankCardController {
     @Autowired
     private BankCardService bankCardService;
 
+    @Autowired
+    private LoansService loansService;
 
     /**
      * 银行卡展示
@@ -91,6 +93,47 @@ public class BankCardController {
     }
 
 
+    /**
+     * 借款
+     * @param bankCard
+     * @param bankLoans
+     * @return
+     */
+    @RequestMapping("updateLoansById")
+    public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans){
+        try {
+            //第一次借款进行新增
+            QueryWrapper<BankLoans> queryWrapper = new QueryWrapper();
+            queryWrapper.eq("bank_card_id", bankCard.getId());
+            BankLoans bankLoans1 = loansService.getOne(queryWrapper);
+            if (bankLoans1 == null) {
+                bankLoans.setBankCardId(bankCard.getId());
+                bankLoans.setPayMonthNumber(bankLoans.getPayMonthNumber());
+                bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll()
+                        .divide(BigDecimal.valueOf(bankLoans.getPayMonthNumber())));
+                loansService.save(bankLoans);
+            }
+            //第二次借款及以上进行修改
+            UpdateWrapper<BankLoans> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("pay_money_all", bankLoans1.getPayMoneyAll().add(bankLoans.getPayMoneyAll()));
+            updateWrapper.set("pay_month_number", bankLoans.getPayMonthNumber() + bankLoans1.getPayMonthNumber());
+            updateWrapper.set("pay_money_month", bankLoans.getPayMoneyAll()
+                    .divide(BigDecimal.valueOf(bankLoans.getPayMonthNumber() + bankLoans1.getPayMonthNumber())));
+            loansService.update(updateWrapper);
+            //减少剩余可借款额度增加信誉积分和积分
+            BankCard bankCard1 = bankCardService.getById(bankCard.getId());
+            UpdateWrapper<BankCard> updateWrapper1 = new UpdateWrapper<>();
+            updateWrapper1.set("reputation_value", bankCard1.getReputationValue() + SystemConstant.CREDIT_INTEGRAL);
+            updateWrapper1.set("integral", bankCard1.getIntegral() + SystemConstant.INTEGRAL);
+            updateWrapper1.set("borrow_balance", bankCard1.getBorrowBalance().subtract(bankLoans1.getPayMoneyAll()));
+            bankCardService.update(updateWrapper1);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
+
+    }
 
 
 

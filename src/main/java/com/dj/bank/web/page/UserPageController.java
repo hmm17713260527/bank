@@ -3,9 +3,11 @@ package com.dj.bank.web.page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
+import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
+import com.dj.bank.service.LoansService;
 import com.dj.bank.util.PasswordSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,9 @@ public class UserPageController {
 
     @Autowired
     BaseDataService baseDataService;
+
+    @Autowired
+    LoansService loansService;
 
     /**
      * 去登录页面
@@ -76,8 +81,16 @@ public class UserPageController {
         queryWrapper.eq("p_id", SystemConstant.REFUND_DATE);
         List<BaseData> baseDataList = baseDataService.list(queryWrapper);
         BankCard bankCard = bankCardService.getById(id);
+        QueryWrapper<BankLoans> queryWrapper1 = new QueryWrapper();
+        queryWrapper1.eq("bank_card_id", bankCard.getId());
+        BankLoans bankLoans = loansService.getOne(queryWrapper1);
+        Integer start = SystemConstant.MANY;
+        if (bankLoans == null) {
+            start = SystemConstant.FIRST;
+        }
         model.addAttribute("baseDataList", baseDataList);
         model.addAttribute("bankCard", bankCard);
+        model.addAttribute("start", start);
         return "user/user_borrow";
     }
 
