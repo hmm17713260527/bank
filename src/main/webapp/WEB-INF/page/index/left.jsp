@@ -10,9 +10,43 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>\static\layer-v3.1.1\layer\layer.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>\static\zTree\zTree_v3\js\jquery.ztree.core.js"></script>
 </head>
+<script type="text/javascript">
+	var setting = {
+		async: {
+			enable: true,//接收json格式数据
+			url:"<%=request.getContextPath()%>/resource/toList",//路径
+			autoParam:["id"],//返回的参数
+		},
+		data: {
+			simpleData: {
+				enable: true,
+				pIdKey: "parentId"
+
+			},
+			key: {
+				name: "resourceName",
+				url: "noexist",
+				isParent: "checked"
+			}
+		},
+		callback: {
+			onClick: function (event, treeId, treeNode) {
+				if (!treeNode.isParent) {
+					parent.right.location.href = "<%=request.getContextPath()%>" + treeNode.url;
+				}
+			}
+		}
+	};
+
+	$(document).ready(function(){
+		$.fn.zTree.init($("#treeDemo"), setting);
+	});
+</script>
 <body align="center">
 
+<div id="treeDemo" class="ztree">
 
+</div>
 
 </body>
 </html>
