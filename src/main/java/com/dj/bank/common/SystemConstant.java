@@ -7,6 +7,16 @@ public class SystemConstant {
      */
     public static final String ERROR = "系统正在维护...请稍后再试";
 
+    /**
+     * 登陆输入为null
+     */
+    public static final String LOGIN_NULL = "登陆输入为null";
+
+    /**
+     * 用户被拉黑
+     */
+    public static final String IS_DEL_NOT = "用户被拉黑";
+
 
     /**
      * 1：正常显示

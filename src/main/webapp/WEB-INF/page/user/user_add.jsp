@@ -28,7 +28,7 @@
                         required:true,
                         minlength:2,
                         remote: {
-                            type: 'POST',
+                            type: 'GET',
                             url: "<%=request.getContextPath()%>/user/distinct",
                             data:{
                                 userName:function() {
@@ -66,7 +66,7 @@
                         phone:true,
                         digits:true,
                         remote: {
-                            type: 'POST',
+                            type: 'GET',
                             url: "<%=request.getContextPath()%>/user/distinct",
                             data:{
                                 phone:function() {
@@ -87,7 +87,7 @@
                         required:true,
                         email:5,
                         remote: {
-                            type: 'POST',
+                            type: 'GET',
                             url: "<%=request.getContextPath()%>/user/distinct",
                             data:{
                                 email:function() {
