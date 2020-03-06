@@ -57,21 +57,6 @@ public class BankCard {
     private Integer reputationValue;
 
     /**
-     * 银行卡总待还金额
-     */
-    private BigDecimal payMoneyAll;
-
-    /**
-     * 银行卡本月待还金额
-     */
-    private BigDecimal payMoneyMonth;
-
-    /**
-     * 银行卡待还款月数
-     */
-    private Integer payMonthNumber;
-
-    /**
      * 银行卡状态:1为正常，2为冻结
      */
     private Integer status;
