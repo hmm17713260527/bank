@@ -38,7 +38,7 @@ public class UserController {
     @GetMapping("findSalt")
     public ResultModel<Object> findSalt(String userName) {
         QueryWrapper<BankUser> wrapper = new QueryWrapper<BankUser>();
-        wrapper.eq("user_name", userName);
+        wrapper.or().eq("user_name", userName).or().eq("phone", userName).or().eq("email", userName);
         BankUser user = userService.getOne(wrapper);
         return new ResultModel<>().success(user.getSalt());
     }
