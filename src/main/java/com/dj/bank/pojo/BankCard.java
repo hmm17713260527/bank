@@ -66,4 +66,9 @@ public class BankCard {
      */
     private Date createTime;
 
+    /**
+     *11:工商银行 12:建设银行 13:农业银行 14中国银行
+     */
+    private Integer type;
+
 }
