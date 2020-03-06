@@ -26,11 +26,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = Exception.class)
 public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> implements BankCardService {
 
-    @Autowired
-    private BankCardService bankCardService;
-
     @Override
     public BankCard getLoans(Integer id) throws Exception {
-        return bankCardService.getLoans(id);
+        return this.getLoans(id);
     }
 }

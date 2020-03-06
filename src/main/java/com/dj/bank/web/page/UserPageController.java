@@ -1,9 +1,19 @@
 package com.dj.bank.web.page;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dj.bank.common.SystemConstant;
+import com.dj.bank.pojo.BankCard;
+import com.dj.bank.pojo.BaseData;
+import com.dj.bank.service.BankCardService;
+import com.dj.bank.service.BaseDataService;
 import com.dj.bank.util.PasswordSecurityUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @ProjectName: bank
@@ -17,6 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/user/")
 public class UserPageController {
+
+    @Autowired
+    BankCardService bankCardService;
+
+    @Autowired
+    BaseDataService baseDataService;
 
     /**
      * 去登录页面
