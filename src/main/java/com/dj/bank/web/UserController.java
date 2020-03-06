@@ -86,9 +86,15 @@ public class UserController {
     public Boolean findByUsername (BankUser bankUser) {
         try {
             QueryWrapper queryWrapper = new QueryWrapper();
-            queryWrapper.eq("user_name", bankUser.getUserName());
-            queryWrapper.eq("phone", bankUser.getPhone());
-            queryWrapper.eq("email", bankUser.getEmail());
+            if (!StringUtils.isEmpty(bankUser.getUserName())) {
+                queryWrapper.eq("user_name", bankUser.getUserName());
+            }
+            if (!StringUtils.isEmpty(bankUser.getPhone())) {
+                queryWrapper.eq("phone", bankUser.getPhone());
+            }
+            if (!StringUtils.isEmpty(bankUser.getEmail())) {
+                queryWrapper.eq("email", bankUser.getEmail());
+            }
             queryWrapper.eq("is_del", SystemConstant.IS_DEL);
             BankUser bankUser1 = userService.getOne(queryWrapper);
             if (bankUser1 == null) {
