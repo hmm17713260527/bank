@@ -57,7 +57,4 @@ public class BankUser {
      */
     private Integer type;
 
-    @TableField(exist = false)
-    private BigDecimal payMoneyAll;
-
 }
