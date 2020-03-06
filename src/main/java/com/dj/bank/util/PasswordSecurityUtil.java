@@ -1,4 +1,4 @@
-package com.dj.bank.common;
+package com.dj.bank.util;
 
 import java.security.MessageDigest;
 import java.util.Random;

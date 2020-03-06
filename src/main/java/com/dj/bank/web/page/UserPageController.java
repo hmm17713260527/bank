@@ -1,6 +1,6 @@
 package com.dj.bank.web.page;
 
-import com.dj.bank.common.PasswordSecurityUtil;
+import com.dj.bank.util.PasswordSecurityUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
