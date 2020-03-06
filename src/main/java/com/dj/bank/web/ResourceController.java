@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,9 +36,10 @@ public class ResourceController {
         if (user.getType() == 1) {
             wrapper.or().eq("type", 1)
                     .or().eq("type", 2);
+        } else {
+            wrapper.or().eq("type", 1)
+                    .or().eq("type", 3);
         }
-        wrapper.or().eq("type", 1)
-                .or().eq("type", 3);
         List<BankResource> ResourceList = resourceService.list(wrapper);
 
         return ResourceList;
