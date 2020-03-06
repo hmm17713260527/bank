@@ -28,4 +28,159 @@ public class SystemConstant {
      */
     public static final Integer REFUND_DATE = 5;
 
+
+    /**
+     * 1：未删除
+     */
+    Integer NOT_DELETE_IS_DEL = 1;
+
+    /**
+     * 2：删除
+     */
+    Integer DELETE_IS_DEL = 2;
+
+    /**
+     * 分页2
+     */
+    Integer PAGE_SIZE = 2;
+
+    /**
+     * 输入不能为空
+     */
+    String NOT_NULL = "输入不能为空";
+
+    /**
+     * 服务器异常
+     */
+    String EXCEPTION = "服务器异常";
+
+    /**
+     * 账号或密码错误
+     */
+    String NUMBER_PWD_ERROR = "账号或密码错误";
+
+    /**
+     * 该邮箱已注册
+     */
+    String EMAIL_ERROR = "该邮箱已注册";
+
+    /**
+     * 该电话号已注册
+     */
+    String PHONE_ERROR = "该电话号已注册";
+
+    /**
+     * 该用户名已注册
+     */
+    String NAME_ERROR = "该用户名已注册";
+
+    /**
+     * 输入有误
+     */
+    String INPUT_ERROR = "输入有误";
+    /**
+     * @Description:父级pid -1
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer PARENT_ID = 0;
+    /**
+     * @Description:parentId=0
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String PARENT_NAME  = "-";
+    /**
+     * @Description:用户session USER_SESSION
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String USER_SESSION = "USER_SESSION";
+    /**
+     * @Description:用户资源USER_RESOURCE
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String  USER_RESOURCE = "USER_RESOURCE";
+    /**
+     * @Description:用户名不存在
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String NULL_USERNAME  = "用户名不存在";
+    /**
+     * @Description:手机号不存在，请注册
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String PHONE_REGISTER  = "手机号不存在，请注册";
+    /**
+     * @Description:操作成功
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String SUCCESS = "操作成功";
+    /**
+     * @Description: null
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String NULL  = null;
+    /**
+     * @Description: 资源类型 = 1
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer ONE = 1;
+    /**
+     * @Description:parentid= 7
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer HOUSE_TYPE_PARENT_ID = 7;
+    /**
+     * @Description:parentid= 12
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer HOUSE_NUMBER_PARENT_ID= 12;
+    /**
+     * @Description:房间类型id
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer HOUSE_TYPE_ID = 7;
+    /**
+     * @Description:房间号id
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer HOUSE_NUMBER_ID = 12;
+
 }
