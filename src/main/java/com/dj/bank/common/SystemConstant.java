@@ -1,6 +1,6 @@
 package com.dj.bank.common;
 
-public class SystemConstant {
+public interface SystemConstant {
 
     /**
      * 系统正在维护...请稍后再试
@@ -52,7 +52,7 @@ public class SystemConstant {
     /**
      * 服务器异常
      */
-    String EXCEPTION = "服务器异常";
+    String EXCEPTION = "";
 
     /**
      * 账号或密码错误
