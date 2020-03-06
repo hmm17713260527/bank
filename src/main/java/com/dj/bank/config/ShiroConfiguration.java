@@ -65,6 +65,8 @@ public class ShiroConfiguration {
         filters.put("/user/toResetPwd", "anon");
         filters.put("/user/addUser", "anon");
         filters.put("/user/distinct", "anon");
+        filters.put("/user/getCode", "anon");
+        filters.put("/user/updatePwd", "anon");
 
 //      authc 表示必须认证才可访问
         filters.put("/**", "authc");

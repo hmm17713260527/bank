@@ -1,22 +1,20 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankUser;
 import com.dj.bank.service.UserService;
+import com.dj.bank.util.MessageVerifyUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import javax.servlet.http.HttpSession;
+import org.springframework.web.bind.annotation.*;
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -109,5 +107,68 @@ public class UserController {
             return false;
         }
     }
+
+    @PutMapping("updatePwd")
+    public ResultModel<Object> updatePwd(String phone, String password, String message, String salt) {
+        try {
+            if (StringUtils.isEmpty(phone) || StringUtils.isEmpty(message)) {
+                return new ResultModel<Object>().error("手机号或验证码不得为空!");
+            }
+            QueryWrapper<BankUser> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("phone", phone);
+            queryWrapper.eq("message", message);
+            BankUser user1 = userService.getOne(queryWrapper);
+            if (user1 == null) {
+                return new ResultModel<Object>().error("手机号与验证码不匹配!!");
+            }
+            if (user1.getIsDel() == 2) {
+                return new ResultModel<Object>().error("用户已被删除!");
+            }
+            if (user1.getEndTime().compareTo(new Date()) != 1) {
+                return new ResultModel<>().error("验证码已失效");
+            }
+            UpdateWrapper<BankUser> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("password", password);
+            updateWrapper.set("salt", salt);
+            updateWrapper.eq("phone", phone);
+            userService.update(updateWrapper);
+            return new ResultModel<>().success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
+
+    /**
+     *
+     * @param
+     * @return
+     */
+    @GetMapping("getCode")
+    public ResultModel<Object> getCode(String phone) {
+        try {
+            QueryWrapper<BankUser> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("phone", phone);
+            BankUser user1 = userService.getOne(queryWrapper);
+            if (user1.getIsDel() == 1 && user1 != null ) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(new Date());
+                cal.add(Calendar.MINUTE, 2);
+                String newCode = String.valueOf(MessageVerifyUtils.getNewcode());
+                UpdateWrapper<BankUser> updateWrapper = new UpdateWrapper<>();
+                updateWrapper.set("message", newCode).set("end_time", cal.getTime());
+                updateWrapper.eq("phone", phone);
+                userService.update(updateWrapper);
+                MessageVerifyUtils.sendSms(phone, newCode);
+                return new ResultModel<Object>().success();
+            }
+            return new ResultModel<Object>().error("用户不存在");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
+
 
 }

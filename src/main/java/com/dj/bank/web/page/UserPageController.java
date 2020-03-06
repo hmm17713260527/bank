@@ -48,4 +48,13 @@ public class UserPageController {
     private String toBorrowMoney() {
         return "user/user_borrow_money";
     }
+
+    @RequestMapping("toResetPwd")
+    private String toResetPwd(Model model) throws Exception {
+        String salt = PasswordSecurityUtil.generateSalt();
+        model.addAttribute("salt", salt);
+        return "user/rest_pwd";
+    }
+
+
 }

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @ProjectName: bank
@@ -57,4 +58,5 @@ public class BankUser {
      */
     private Integer type;
 
+    private Date endTime;
 }
