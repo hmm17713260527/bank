@@ -7,10 +7,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Insert title here</title>
     <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer/layer.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+    <style type="text/css">
+        .error{
+            color:red;
+        }
+    </style>
 </head>
 <body>
-
 <form id = "frm">
    银行卡类型：
     <select name = "type" onblur="getNumber(this)">

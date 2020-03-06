@@ -45,7 +45,7 @@ public class BankCard {
     /**
      * 银行卡余额
      */
-    private BigDecimal balance;
+    private Double balance;
 
     /**
      * 卡上剩余积分
@@ -78,6 +78,6 @@ public class BankCard {
     /**
      * 剩余可借金额
      */
-    private BigDecimal borrowBalance;
+    private Double borrowBalance;
 
 }

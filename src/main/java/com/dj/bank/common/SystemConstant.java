@@ -137,14 +137,6 @@ public interface SystemConstant {
      **/
     String SUCCESS = "操作成功";
     /**
-     * @Description: null
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
-    BigDecimal NULL  = null;
-    /**
      * @Description: 银行类型p_id = 10
      * @Author: Liuwf
      * @Date:
@@ -152,6 +144,22 @@ public interface SystemConstant {
      * @return: null
      **/
     Integer BANK_TYPE_PID= 10;
+    /**
+     * @Description:正常
+     * @Author: Liuwf
+     * @Date:  
+     * @param null: 
+     * @return: null
+     **/
+    Integer BANK_STATUS_NORMAL = 1;
+    /**
+     * @Description: 冻结
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer BANK_STATUS_LOCK = 2;
 
 
 }
