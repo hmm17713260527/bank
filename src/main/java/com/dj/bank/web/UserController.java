@@ -110,21 +110,4 @@ public class UserController {
         }
     }
 
-    /**
-     * 可借款金额
-     * @param session
-     * @return
-     */
-    @GetMapping("getPayMoneyAllByUserId")
-    public ResultModel<Object> getBorrowMoneyByUserId (HttpSession session, Model model){
-        try {
-            BankUser bankUser = (BankUser) session.getAttribute("user");
-            BankUser bankUser1 = userService.getPayMoneyAllByUserId(bankUser.getId());
-            model.addAttribute("payMoneyAll", bankUser1.getPayMoneyAll());
-            return new ResultModel<Object>().success();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResultModel<Object>().error(SystemConstant.ERROR + e.getMessage());
-        }
-    }
 }

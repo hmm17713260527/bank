@@ -6,11 +6,4 @@
 <mapper namespace="com.dj.bank.mapper.UserMapper">
 
 
-    <select id="getPayMoneyAllByUserId" resultType="com.dj.bank.pojo.BankUser">
-        SELECT
-            l.pay_money_all
-        FROM
-            bank_user u
-        LEFT JOIN bank_loans l ON u.id = l.user_jd
-    </select>
 </mapper>

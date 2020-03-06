@@ -25,8 +25,5 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, BankUser> implement
     @Autowired
     private UserMapper userMapper;
 
-    @Override
-    public BankUser getPayMoneyAllByUserId(Integer userId) {
-        return userMapper.getPayMoneyAllByUserId(userId);
-    }
+
 }

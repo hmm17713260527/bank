@@ -56,14 +56,6 @@
             }
         });
 
-        $(function(){
-            $.get("<%=request.getContextPath()%>/user/getPayMoneyAllByUserId",
-                $("#fm").serialize(),
-                function(data){
-
-                })
-        })
-
     </script>
     <!-- 错误时提示颜色 -->
     <style>
@@ -75,7 +67,7 @@
 </head>
 <body>
 <form id="fm">
-    可借金额:${payMoneyAll}
+    可借金额:
     借款金额<input type="text" name="borrowMoney" id="borrowMoney" placeholder="请输入借款金额"  oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" maxlength="8"><br />
     还款年限<input type="text" name="refund " onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})" class="Wdate" style="width:200px"><br />
     <input type="submit" value="借款">
