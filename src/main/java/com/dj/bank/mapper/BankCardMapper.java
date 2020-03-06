@@ -16,5 +16,5 @@ import org.springframework.dao.DataAccessException;
  */
 public interface BankCardMapper extends BaseMapper<BankCard> {
 
-    BankCard getLoans(Integer id) throws DataAccessException;
+
 }

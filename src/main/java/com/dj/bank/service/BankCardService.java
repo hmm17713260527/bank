@@ -14,5 +14,4 @@ import com.dj.bank.pojo.BankLoans;
  * @Version: 1.0
  */
 public interface BankCardService extends IService<BankCard> {
-    BankCard getLoans(Integer id) throws Exception;
 }

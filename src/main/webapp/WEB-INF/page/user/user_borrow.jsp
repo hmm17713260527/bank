@@ -61,8 +61,8 @@
 <body>
 <form id="fm">
     剩余可借金额:${bankCard.borrowBalance}<br>
-    借款金额:<input type="text" name="payMoneyAll" id="money" oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" placeholder="请输入借款金额"><br>
-    还款年限
+    借款金额:<input type="text" name="payMoneyAll" id="money" oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" maxlength="8" placeholder="请输入借款金额"><br>
+    还款月限
     <select name="payMonthNumber">
         <c:forEach items="${baseDataList}" var="b">
             <option value="${b.name}">${b.name}</option>

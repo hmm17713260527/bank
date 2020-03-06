@@ -75,13 +75,9 @@ public class UserPageController {
         QueryWrapper<BaseData> queryWrapper = new QueryWrapper();
         queryWrapper.eq("p_id", SystemConstant.REFUND_DATE);
         List<BaseData> baseDataList = baseDataService.list(queryWrapper);
-        BankCard bankCard = bankCardService.getLoans(id);
-        if (bankCard.getPayMoneyAll() != null) {
-            bankCard.setBorrowBalance(bankCard.getBorrowBalance().subtract(bankCard.getPayMoneyAll()));
-        }
+        BankCard bankCard = bankCardService.getById(id);
         model.addAttribute("baseDataList", baseDataList);
         model.addAttribute("bankCard", bankCard);
-
         return "user/user_borrow";
     }
 

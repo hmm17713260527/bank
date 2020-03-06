@@ -29,8 +29,4 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
     @Autowired
     BankCardMapper bankCardMapper;
 
-    @Override
-    public BankCard getLoans(Integer id) throws Exception {
-        return bankCardMapper.getLoans(id);
-    }
 }
