@@ -15,12 +15,6 @@ import org.springframework.dao.DataAccessException;
  */
 public interface UserMapper extends BaseMapper<BankUser> {
 
-    /**
-     * 还款金额
-     * @param userId
-     * @return
-     * @throws Exception
-     */
-    BankUser getPayMoneyAllByUserId(Integer userId) throws DataAccessException;
+
 
 }
