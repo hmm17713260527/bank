@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	namespace:用于隔离SQL全局唯一（采用接口和XML开发时为接口的全路径）
+ -->
+<mapper namespace="com.dj.bank.mapper.BankCardMapper">
+
+    <sql id="LOANSCOLUMN">
+        id,
+        bank_card_jd,
+        pay_money_all,
+        pay_money_month,
+        pay_month_number,
+        is_del
+    </sql>
+
+    <select id="getLoans" resultType="com.dj.bank.pojo.BankCard">
+        SELECT
+            <include refid="LOANSCOLUMN" />
+        FROM
+            bank_loans l
+        LEFT JOIN bank_card c ON c.id = l.bank_card_jd
+        WHERE
+            c.user_id = #{id}
+    </select>
+</mapper>

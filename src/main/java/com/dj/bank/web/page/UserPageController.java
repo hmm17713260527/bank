@@ -41,12 +41,27 @@ public class UserPageController {
     }
 
     /**
-     * 去借款
+     * 去借款页面
      * @return
      */
     @RequestMapping("toBorrowMoney")
     private String toBorrowMoney() {
         return "user/user_borrow_money";
+    }
+
+    /**
+     * 去借款
+     * @return
+     */
+    @RequestMapping("toBorrow/{id}")
+    private String toBorrow(@PathVariable Integer id, Model model) throws Exception {
+        QueryWrapper<BaseData> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("p_id", SystemConstant.REFUND_DATE);
+        List<BaseData> baseDataList = baseDataService.list(queryWrapper);
+        BankCard bankCard = bankCardService.getLoans(id);
+        model.addAttribute("baseDataList", baseDataList);
+        model.addAttribute("bankCard", bankCard);
+        return "user/user_borrow";
     }
 
     @RequestMapping("toResetPwd")

@@ -22,4 +22,9 @@ public class SystemConstant {
      * 1：正常显示
      */
     public static final Integer IS_DEL = 1;
+
+    /**
+     * 还款分期
+     */
+    public static final Integer REFUND_DATE = 5;
 }

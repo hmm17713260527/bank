@@ -14,63 +14,62 @@
     <script type="text/javascript">
 
         $(function(){
-            $("#fm").validate({
-                //效验规则
-                rules: {
-                    borrowMoney:{
-                        required:true,
-                        digits:true
-                    },
-                },
-                messages:{
-                    borrowMoney:{
-                        required:"请填写你的借款金额",
-                        digits:"只能是整数",
-                    },
-                },
-            })
+            search();
         })
 
-        $.validator.setDefaults({
-            submitHandler: function() {
-                if ($("#borrowMoney").val() > ${borrowMoney}) {
-                    layer.msg("可借款金额不足", {icon: 5});
-                }
-
-                $.post("<%=request.getContextPath()%>/user/borrowMoney",
-                    $("#fm").serialize(),
-                    function(data){
-                        if(data.code == -1){
-                            layer.close(index);
-                            layer.msg(data.msg, {icon: 5});
-                            return
+        function search() {
+            $.get(
+                "<%=request.getContextPath()%>/bankcard/bankCardList",
+                function(data){
+                    var html = "";
+                    for (var i = 0; i < data.data.length; i++) {
+                        var u = data.data[i];
+                        html += "<tr>"
+                        html += "<td>"+u.bankCardNumber+"</td>"
+                        if (u.type == 11) {
+                            html += "<td>工商银行</td>"
+                        } else if (u.type == 12) {
+                            html += "<td>建设银行</td>"
+                        } else if (u.type == 13) {
+                            html += "<td>农行银行</td>"
+                        } else {
+                            html += "<td>中国银行</td>"
                         }
-                        layer.msg(data.msg, {
-                            icon: 6,
-                            time: 2000
-                        }, function(){
-                            parent.window.location.href = "<%=request.getContextPath()%>/user/toLogin";
-                        });
+                        html += "<td><input type='button' value='修改' onclick='toBorrow("+u.id+")'></td>"
+                        html += "</tr>"
                     }
-                )
-            }
-        });
+                    $("#tbd").html(html);
+                }
+            )
+        }
+
+        //去借款
+        function toBorrow(id){
+                layer.open({
+                    type: 2,
+                    title: '借款页面',
+                    shadeClose: true,
+                    shade: 0.8,
+                    area: ['380px', '90%'],
+                    content: '<%=request.getContextPath()%>/user/toBorrow/'+id
+                });
+        }
 
     </script>
-    <!-- 错误时提示颜色 -->
-    <style>
-        .error{
-            color:red;
-        }
-    </style>
 
 </head>
 <body>
 <form id="fm">
-    可借金额:${money}
-    借款金额<input type="text" name="borrowMoney" id="borrowMoney" placeholder="请输入借款金额"  oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" maxlength="8"><br />
-    还款年限<input type="text" name="refund " onclick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d'})" class="Wdate" style="width:200px"><br />
-    <input type="submit" value="借款">
+    <table border="1px">
+        <tr>
+            <th>卡号</th>
+            <th>类型</th>
+            <th></th>
+        </tr>
+        <tbody id="tbd">
+
+        </tbody>
+    </table>
 </form>
 </body>
 </html>

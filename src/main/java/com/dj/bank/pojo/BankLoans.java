@@ -30,9 +30,9 @@ public class BankLoans {
     private Integer id;
 
     /**
-     * 用户id
+     * 银行卡id
      */
-    private String userId;
+    private Integer bankCardId;
 
     /**
      * 总待还金额(捐款金额)
