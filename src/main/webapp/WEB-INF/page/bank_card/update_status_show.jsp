@@ -21,12 +21,13 @@
     function search() {
         $.get(
             "<%=request.getContextPath()%>/bankCard/bankCardList",
-            {"status" : 3, "_method" : "GET"},
+            {"status" : 16, "_method" : "GET"},
             function(data){
                 var html = "";
                 for (var i = 0; i < data.data.length; i++) {
                     var u = data.data[i];
                     html += "<tr>"
+                    html += "<td><input type='checkbox' name = 'ids' value = '"+u.id+"'/></td>";
                     html += "<td>"+u.bankCardNumber+"</td>"
                     html += "<td>"+u.balance+"</td>"
                     html += "<td>"+u.integral+"</td>"
@@ -57,12 +58,38 @@
             }
         )
     }
+
+
+
+    function toUpdateStatus() {
+        var chkValue = $('input[name="ids"]:checked');
+        if (chkValue.length == 0) {
+            layer.msg('未选中');
+        } else if (chkValue.length > 1) {
+            layer.msg('多选');
+        } else {
+            var id = chkValue.val();
+            layer.open({
+                type: 2,
+                title: '审核页面',
+                shadeClose: true,
+                shade: 0.8,
+                area: ['380px', '80%'],
+                content: '<%=request.getContextPath()%>/bankCard/toUpdateStatus/'+id
+            });
+        }
+    }
+
+
+
 </script>
 <body>
 
 <form id = "frm">
+    <input type="button" value="审核" onclick="toUpdateStatus()"/>
     <table border="1px" cellpadding="10px" cellspacing="0px" align="center">
         <tr>
+            <td>id</td>
             <th>银行卡号</th>
             <th>剩余余额</th>
             <th>卡上积分</th>
