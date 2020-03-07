@@ -64,6 +64,7 @@
     // 注册
     $.validator.setDefaults({
         submitHandler: function (){
+            var index = layer.load(1,{shade:0.5});
             $.post(
                 "<%=request.getContextPath()%>/bankCard/insertCard",
                 $("#frm").serialize(),
