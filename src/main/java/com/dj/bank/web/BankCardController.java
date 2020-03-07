@@ -46,12 +46,17 @@ public class BankCardController {
      */
     @GetMapping("bankCardList")
     public ResultModel<Object> bankCardList(HttpSession session, Integer status) {
-        BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
-        QueryWrapper<BankCard> wrapper = new QueryWrapper<BankCard>();
-        wrapper.eq("user_id", bankUser.getId());
-        wrapper.eq("status", status);
-        List<BankCard> bankCardList = bankCardService.list(wrapper);
-        return new ResultModel<>().success(bankCardList);
+        try {
+            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            QueryWrapper<BankCard> wrapper = new QueryWrapper<BankCard>();
+            wrapper.eq("user_id", bankUser.getId());
+            wrapper.eq("status", status);
+            List<BankCard> bankCardList = bankCardService.list(wrapper);
+            return new ResultModel<>().success(bankCardList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
     }
     /**
      * @Description:获取银行卡号
@@ -103,34 +108,14 @@ public class BankCardController {
     @RequestMapping("updateLoansById")
     public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans){
         try {
-            BankCard b = bankCardService.getById(bankCard.getId());
+            //修改银行卡剩余可借金额
             UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.set("borrow_balance", bankCard);
-            //第一次借款进行新增
-//            QueryWrapper<BankLoans> queryWrapper = new QueryWrapper();
-//            queryWrapper.eq("bank_card_id", bankCard.getId());
-//            BankLoans bankLoans1 = loansService.getOne(queryWrapper);
-//            if (bankLoans1 == null) {
-//                bankLoans.setBankCardId(bankCard.getId());
-//                bankLoans.setPayMonthNumber(bankLoans.getPayMonthNumber());
-//                bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll()
-//                        .divide(BigDecimal.valueOf(bankLoans.getPayMonthNumber())));
-//                loansService.save(bankLoans);
-//            }
-//            //第二次借款及以上进行修改
-//            UpdateWrapper<BankLoans> updateWrapper = new UpdateWrapper<>();
-//            updateWrapper.set("pay_money_all", bankLoans1.getPayMoneyAll().add(bankLoans.getPayMoneyAll()));
-//            updateWrapper.set("pay_month_number", bankLoans.getPayMonthNumber() + bankLoans1.getPayMonthNumber());
-//            updateWrapper.set("pay_money_month", bankLoans.getPayMoneyAll()
-//                    .divide(BigDecimal.valueOf(bankLoans.getPayMonthNumber() + bankLoans1.getPayMonthNumber())));
-//            loansService.update(updateWrapper);
-//            //减少剩余可借款额度增加信誉积分和积分
-//            BankCard bankCard1 = bankCardService.getById(bankCard.getId());
-//            UpdateWrapper<BankCard> updateWrapper1 = new UpdateWrapper<>();
-//            updateWrapper1.set("reputation_value", bankCard1.getReputationValue() + SystemConstant.CREDIT_INTEGRAL);
-//            updateWrapper1.set("integral", bankCard1.getIntegral() + SystemConstant.INTEGRAL);
-//            updateWrapper1.set("borrow_balance", bankCard1.getBorrowBalance() - Double.valueOf(bankLoans1.getPayMoneyAll()));
-//            bankCardService.update(updateWrapper1);
+            updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() - bankLoans.getPayMoneyAll());
+            updateWrapper.eq("id", bankLoans.getBankCardId());
+            bankCardService.update(updateWrapper);
+            //借款进行新增
+            bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
+            loansService.save(bankLoans);
             return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();

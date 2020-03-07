@@ -35,6 +35,7 @@
                     layer.msg("剩余可借金额不足", {icon: 5});
                     return
                 }
+                var index = layer.load(0, {shade:0.5});
                 $.post("<%=request.getContextPath()%>/bankCard/updateLoansById",
                     $("#fm").serialize(),
                     function(data){
@@ -71,7 +72,9 @@
     </select>
     <br>
     <input type="submit" value="借款">
-    <input type="hidden" name="id" value="${bankCard.id}">
+    <input type="hidden" name="bankCardId" value="${bankCard.id}">
+    <input type="hidden" name="borrowBalance" value="${bankCard.borrowBalance}">
+    <input type="hidden" name="status" value="1">
     <input type="hidden" name="isDel" value="1">
 </form>
 </body>
