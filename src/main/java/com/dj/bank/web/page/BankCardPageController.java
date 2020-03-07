@@ -7,6 +7,7 @@ import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,10 +53,10 @@ public class BankCardPageController {
      * @Description:去修改银行卡密码
      * @Author: Liuwf
      * @Date:
-     * @param model:
+     * @param:
      * @return: java.lang.String
      **/
- @RequestMapping("toUpdatePassword")
+    @RequestMapping("toUpdatePassword")
     private String toUpdatePassword() {
         return "bank_card/update_password";
     }
@@ -69,7 +70,12 @@ public class BankCardPageController {
     private String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
-        List<BankCard> bankCardList = bankCardService.list();
+        List<BankCard> bankCardList = bankCardService.list(queryWrapper);
+        for (BankCard list : bankCardList
+             ) {
+            BaseData baseData = baseDataService.getById(list.getType());
+            list.setBaseName(baseData.getName());
+        }
         model.addAttribute("bankCardList", bankCardList);
         return "bank_card/show_reputation";
     }

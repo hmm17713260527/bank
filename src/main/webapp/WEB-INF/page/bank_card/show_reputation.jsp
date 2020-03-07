@@ -11,9 +11,21 @@
 <head>
     <title>Title</title>
 </head>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.all.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css"  media="all">
 <body>
-    <c:forEach items="${bankCardList}" var="list">
-        ${list.reputationValue}
-    </c:forEach>
+    <table class="layui-table">
+        <tr>
+            <td>银行名称</td>
+            <td>信誉值</td>
+        </tr>
+        <c:forEach items="${bankCardList}" var="list">
+            <tr>
+                <td>${list.baseName}</td>
+                <td style="color: red">${list.reputationValue}</td>
+            </tr>
+        </c:forEach>
+    </table>
 </body>
 </html>
