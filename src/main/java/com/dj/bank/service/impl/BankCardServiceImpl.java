@@ -36,13 +36,10 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
     private BankCardMapper bankCardMapper;
 
     @Autowired
-    BankCardService bankCardService;
+    private LoansService loansService;
 
     @Autowired
-    LoansService loansService;
-
-    @Autowired
-    TradingRecordService tradingRecordService;
+    private TradingRecordService tradingRecordService;
 
     @Override
     public List<BankCard> findListByUserId(Integer status, Integer id) {
@@ -55,7 +52,7 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
         UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
         updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() - bankLoans.getPayMoneyAll());
         updateWrapper.eq("id", bankLoans.getBankCardId());
-        bankCardService.update(updateWrapper);
+        this.update(updateWrapper);
         //借款进行新增
         bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
         loansService.save(bankLoans);
@@ -66,7 +63,7 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
         UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
         updateWrapper.set("balance", balance + tradingRecord.getDealMoney());
         updateWrapper.eq("id", bankCardId);
-        bankCardService.update(updateWrapper);
+        this.update(updateWrapper);
         tradingRecord.setDealTime(new Date());
         tradingRecord.setBalanceMoney(balance + tradingRecord.getDealMoney());
         tradingRecordService.save(tradingRecord);
