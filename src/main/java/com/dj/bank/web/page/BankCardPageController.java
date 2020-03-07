@@ -3,6 +3,7 @@ package com.dj.bank.web.page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
+import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,6 +31,7 @@ import java.util.List;
 public class BankCardPageController {
     @Autowired
     private BaseDataService baseDataService;
+
     @Autowired
     private BankCardService bankCardService;
 
@@ -56,6 +59,7 @@ public class BankCardPageController {
         modelAndView.setViewName("bank_card/update_status");
         return modelAndView;
     }
+
     /**
      * @Description:去申请银行卡页面
      * @Author: Liuwf
@@ -75,6 +79,7 @@ public class BankCardPageController {
      * @Description:去修改银行卡密码
      * @Author: Liuwf
      * @Date:
+     * @param:
      * @param
      * @return: java.lang.String
      **/
@@ -109,5 +114,18 @@ public class BankCardPageController {
         return "bank_card/update_status_show";
     }
 
+    @RequestMapping("toShowReputationValue")
+    private String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+        QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user.getId());
+        List<BankCard> bankCardList = bankCardService.list(queryWrapper);
+        for (BankCard list : bankCardList
+             ) {
+            BaseData baseData = baseDataService.getById(list.getType());
+            list.setBaseName(baseData.getName());
+        }
+        model.addAttribute("bankCardList", bankCardList);
+        return "bank_card/show_reputation";
+    }
 
 }
