@@ -47,7 +47,7 @@ public class BankCardPageController {
      * @param model:
      * @return: java.lang.String
      **/
- @RequestMapping("toUpdatePassword")
+    @RequestMapping("toUpdatePassword")
     private String toUpdatePassword() {
         return "bank_card/update_password";
     }
@@ -55,6 +55,11 @@ public class BankCardPageController {
     @RequestMapping("toList")
     private String toList() {
         return "bank_card/bank_card_list";
+    }
+
+    @RequestMapping("toUpdateStatusShow")
+    private String toUpdateStatusShow() {
+        return "bank_card/update_status_show";
     }
 
 
