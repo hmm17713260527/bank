@@ -62,7 +62,6 @@
 
 <form id = "fm">
     <input type="hidden" name = "salt" id = "salt">
-    <input type="hidden">
     <input type="hidden" name = "_method" value="get" >
     <input type="text" name="userName" placeholder="请输入用户名/手机号/邮箱" onblur="inquire(this)" /><br />
     <input type="password" name="password" placeholder="请输入密码" id="password"/><br />
