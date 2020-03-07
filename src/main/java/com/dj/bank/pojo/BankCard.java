@@ -73,7 +73,7 @@ public class BankCard {
     private Integer type;
 
     @TableField(exist = false)
-    private BigDecimal payMoneyAll;
+    private Double payMoneyAll;
 
     /**
      * 剩余可借金额
