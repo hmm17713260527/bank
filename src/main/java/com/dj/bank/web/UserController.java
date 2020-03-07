@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
+import com.dj.bank.pojo.BankProduct;
 import com.dj.bank.pojo.BankUser;
 import com.dj.bank.service.UserService;
 import com.dj.bank.util.MessageVerifyUtils;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -173,8 +175,38 @@ public class UserController {
         }
     }
 
+    @GetMapping("list")
+    @ResponseBody
+    public ResultModel<Object> list(BankUser bankUser) {
+        try {
+            List<BankUser> userList = userService.findByIsDelAndType(bankUser.getIsDel(), bankUser.getType());
+            return new ResultModel<Object>().success(userList);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
 
-
+    /**
+     * 用户拉黑
+     * @param id
+     * @param isDel
+     * @return
+     */
+    @PutMapping("updateIsDelById")
+    public ResultModel<Object> updateIsDelById(Integer id, Integer isDel) {
+        try {
+            UpdateWrapper<BankUser> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("is_del", isDel);
+            updateWrapper.eq("id", id);
+            userService.update(updateWrapper);
+            return new ResultModel<>().success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
 
 
 }

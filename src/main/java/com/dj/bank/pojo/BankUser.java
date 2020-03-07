@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ProjectName: bank
@@ -59,4 +60,18 @@ public class BankUser {
     private Integer type;
 
     private Date endTime;
+
+    @TableField(exist = false)
+    private Integer reputationValue;
+    @TableField(exist = false)
+    private Integer cType;
+    @TableField(exist = false)
+    private String bankCardNumber;
+
+    /**
+     * 银行卡信息
+     */
+//    @TableField(exist = false)
+//    private List<BankCard> bankCardList;
+
 }

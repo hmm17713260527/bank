@@ -116,4 +116,12 @@ public class UserPageController {
         return "user/user_add_balance";
     }
 
+    /**
+     * 用户信息展示
+     * @return
+     */
+    @RequestMapping("toShow")
+    private String toShow() {
+        return "user/user_show";
+    }
 }
