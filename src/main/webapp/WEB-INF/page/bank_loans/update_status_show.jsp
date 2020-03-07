@@ -63,7 +63,7 @@
                 shadeClose: true,
                 shade: 0.8,
                 area: ['380px', '80%'],
-                content: '<%=request.getContextPath()%>/bankCard/toUpdateStatus/'+id
+                content: '<%=request.getContextPath()%>/bankLoans/toUpdateStatus/'+id
             });
         }
     }
