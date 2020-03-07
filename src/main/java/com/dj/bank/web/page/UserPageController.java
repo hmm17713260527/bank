@@ -3,9 +3,11 @@ package com.dj.bank.web.page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
+import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
+import com.dj.bank.service.LoansService;
 import com.dj.bank.util.PasswordSecurityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,9 @@ public class UserPageController {
 
     @Autowired
     BaseDataService baseDataService;
+
+    @Autowired
+    LoansService loansService;
 
     /**
      * 去登录页面
@@ -73,7 +78,7 @@ public class UserPageController {
     @RequestMapping("toBorrow/{id}")
     private String toBorrow(@PathVariable Integer id, Model model) throws Exception {
         QueryWrapper<BaseData> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("p_id", SystemConstant.REFUND_DATE);
+        queryWrapper.eq("parent_id", SystemConstant.REFUND_DATE);
         List<BaseData> baseDataList = baseDataService.list(queryWrapper);
         BankCard bankCard = bankCardService.getById(id);
         model.addAttribute("baseDataList", baseDataList);
@@ -88,5 +93,27 @@ public class UserPageController {
         return "user/rest_pwd";
     }
 
+    /**
+     * 去充值
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("toUpdateBalance")
+    private String toUpdateBalance() {
+        return "user/user_update_card_balance";
+    }
+
+    /**
+     * 充值
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("toUserAddBalance/{id}")
+    private String toUserAddBalance(@PathVariable Integer id, Model model) {
+        BankCard bankCard = bankCardService.getById(id);
+        model.addAttribute("id", id);
+        model.addAttribute("bankCard", bankCard);
+        return "user/user_add_balance";
+    }
 
 }

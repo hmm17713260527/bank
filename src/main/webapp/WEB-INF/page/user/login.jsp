@@ -40,8 +40,9 @@
             $.get("<%=request.getContextPath()%>/user/login",
                 $("#fm").serialize(),
                 function(data){
-                    layer.close(index);
+
                     if(data.code != 200){
+                        layer.close(index);
                         layer.msg(data.msg, {icon: 5});
                         return;
                     }

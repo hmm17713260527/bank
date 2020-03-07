@@ -1,6 +1,7 @@
 package com.dj.bank.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -39,7 +40,7 @@ public class TradingRecord {
     /**
      * 交易金额
      */
-    private BigDecimal dealMoney;
+    private Double dealMoney;
 
     /**
      * 交易时间
@@ -49,6 +50,21 @@ public class TradingRecord {
     /**
      * 卡上剩余余额
      */
-    private BigDecimal balanceMoney;
+    private Double balanceMoney;
+
+    /**
+     * 支付方式
+     */
+    private String payWay;
+
+    @TableField(exist = false)
+    private String userName;
+
+
+    @TableField(exist = false)
+    private Integer status;
+
+    @TableField(exist = false)
+    private String phone;
 
 }

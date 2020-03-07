@@ -6,8 +6,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.math.BigDecimal;
-import java.util.Date;
 
 @Data
 @Accessors(chain = true)
@@ -23,7 +21,7 @@ public class BaseData {
     /**
      * 父级id
      */
-    private Integer pId;
+    private Integer parentId;
 
     /**
      * 名称

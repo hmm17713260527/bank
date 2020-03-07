@@ -32,7 +32,7 @@ public class ResourceController {
     @RequestMapping("toList")
     public List<BankResource> toList(Integer id, HttpSession session) throws Exception {
 
-        BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_RESOURCE);
+        BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
         QueryWrapper<BankResource> wrapper = new QueryWrapper<BankResource>();
         if (user.getType() == 1) {
             wrapper.or().eq("type", 1)

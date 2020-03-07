@@ -19,12 +19,14 @@
 
         function search() {
             $.get(
-                "<%=request.getContextPath()%>/bankcard/bankCardList",
+                "<%=request.getContextPath()%>/bankCard/bankCardList",
+                {"status" : 17, "_method" : "GET"},
                 function(data){
                     var html = "";
                     for (var i = 0; i < data.data.length; i++) {
                         var u = data.data[i];
                         html += "<tr>"
+                        html += "<td>${USER_SESSION.userName}</td>"
                         html += "<td>"+u.bankCardNumber+"</td>"
                         if (u.type == 11) {
                             html += "<td>工商银行</td>"
@@ -35,6 +37,10 @@
                         } else {
                             html += "<td>中国银行</td>"
                         }
+                        html += "<td>"+u.balance+"</td>"
+                        html += "<td>"+u.integral+"</td>"
+                        html += "<td>"+u.reputationValue+"</td>"
+                        html += "<td>"+u.createTime+"</td>"
                         html += "<td><input type='button' value='借款' onclick='toBorrow("+u.id+")'></td>"
                         html += "</tr>"
                     }
@@ -62,9 +68,14 @@
 <form id="fm">
     <table border="1px">
         <tr>
+            <th>所属人</th>
             <th>卡号</th>
             <th>类型</th>
-            <th></th>
+            <th>银行卡余额</th>
+            <th>卡上积分</th>
+            <th>卡信誉值</th>
+            <th>银行卡申请时间</th>
+            <th>操作</th>
         </tr>
         <tbody id="tbd">
 

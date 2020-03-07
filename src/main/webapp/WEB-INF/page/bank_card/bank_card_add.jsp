@@ -64,6 +64,7 @@
     // 注册
     $.validator.setDefaults({
         submitHandler: function (){
+            var index = layer.load(1,{shade:0.5});
             $.post(
                 "<%=request.getContextPath()%>/bankCard/insertCard",
                 $("#frm").serialize(),
@@ -85,7 +86,6 @@
 
     })
 
-    // 获取房间号
      function getNumber(obj) {
         $.post("<%=request.getContextPath()%>/bankCard/getNumber",
             {type: obj.value},

@@ -37,21 +37,34 @@ public class BankLoans {
     /**
      * 总待还金额(捐款金额)
      */
-    private BigDecimal payMoneyAll;
+    private Double payMoneyAll;
 
     /**
      * 本月代还金额
      */
-    private BigDecimal payMoneyMonth;
+    private Double payMoneyMonth;
 
     /**
      * 剩余还款月
      */
-    private BigDecimal payMonthNumber;
+    private Integer payMonthNumber;
 
     /**
      * 1在，2无
      */
     private Integer isDel;
+
+    /**
+     * 16待审核，17审核通过 18审核失败
+     */
+    private Integer status;
+
+
+    @TableField(exist = false)
+    private String bankCardNumber;
+
+
+    @TableField(exist = false)
+    private String userName;
 
 }

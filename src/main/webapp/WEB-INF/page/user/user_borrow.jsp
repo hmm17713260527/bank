@@ -35,22 +35,23 @@
                     layer.msg("剩余可借金额不足", {icon: 5});
                     return
                 }
-                <%--$.get("<%=request.getContextPath()%>/user/updateLoansById",--%>
-                <%--    $("#fm").serialize(),--%>
-                <%--    function(data){--%>
-                <%--        if(data.code == -1){--%>
-                <%--            layer.close(index);--%>
-                <%--            layer.msg(data.msg, {icon: 5});--%>
-                <%--            return--%>
-                <%--        }--%>
-                <%--        layer.msg(data.msg, {--%>
-                <%--            icon: 6,--%>
-                <%--            time: 2000--%>
-                <%--        }, function(){--%>
-                <%--            parent.window.location.href = "<%=request.getContextPath()%>/user/toBorrowMoney";--%>
-                <%--        });--%>
-                <%--    }--%>
-                <%--)--%>
+                var index = layer.load(0, {shade:0.5});
+                $.post("<%=request.getContextPath()%>/bankCard/updateLoansById",
+                    $("#fm").serialize(),
+                    function(data){
+                        if(data.code == -1){
+                            layer.close(index);
+                            layer.msg(data.msg, {icon: 5});
+                            return
+                        }
+                        layer.msg(data.msg, {
+                            icon: 6,
+                            time: 2000
+                        }, function(){
+                            parent.window.location.href = "<%=request.getContextPath()%>/user/toBorrowMoney";
+                        });
+                    }
+                )
             }
         });
 
@@ -60,9 +61,10 @@
 </head>
 <body>
 <form id="fm">
+    当前卡号:${bankCard.bankCardNumber}<br>
     剩余可借金额:${bankCard.borrowBalance}<br>
     借款金额:<input type="text" name="payMoneyAll" id="money" oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" maxlength="8" placeholder="请输入借款金额"><br>
-    还款月限
+    還款月綫
     <select name="payMonthNumber">
         <c:forEach items="${baseDataList}" var="b">
             <option value="${b.name}">${b.name}</option>
@@ -70,6 +72,12 @@
     </select>
     <br>
     <input type="submit" value="借款">
+    <input type="hidden" name="bankCardId" value="${bankCard.id}">
+    <input type="hidden" name="borrowBalance" value="${bankCard.borrowBalance}">
+    <input type="hidden" name="userCard" value="${bankCard.bankCardNumber}">
+    <input type="hidden" name="balanceMoney" value="${bankCard.balance}">
+    <input type="hidden" name="status" value="16">
+    <input type="hidden" name="isDel" value="1">
 </form>
 </body>
 </html>

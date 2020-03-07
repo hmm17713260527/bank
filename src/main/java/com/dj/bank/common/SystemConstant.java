@@ -161,5 +161,28 @@ public interface SystemConstant {
      **/
     Integer BANK_STATUS_LOCK = 2;
 
+    /**
+     *
+     */
+    public static final Integer CARD_STATUS_AWAIT = 16;
 
+    /**
+     * 信誉积分：1
+     */
+    Integer CREDIT_INTEGRAL = 1;
+
+    /**
+     * 积分
+     */
+    Integer INTEGRAL = 100;
+
+    /**
+     * 第一次借款 1
+     */
+    Integer FIRST = 1;
+
+    /**
+     * 第二次及以上借款 2
+     */
+    Integer MANY = 2;
 }
