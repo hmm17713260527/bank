@@ -42,7 +42,7 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
     LoansService loansService;
 
     @Autowired
-    TradingRecordService tradingRecordService
+    TradingRecordService tradingRecordService;
 
     @Override
     public List<BankCard> findListByUserId(Integer status, Integer id) {
