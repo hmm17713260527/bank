@@ -35,5 +35,10 @@ public class BankCardPageController {
         return "bank_card/bank_card_add";
     }
 
+    @RequestMapping("toList")
+    private String toList() {
+        return "bank_card/bank_card_list";
+    }
+
 
 }
