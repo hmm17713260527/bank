@@ -7,7 +7,6 @@ import com.dj.bank.pojo.BankProduct;
 import com.dj.bank.service.BankProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 /**
@@ -37,6 +36,11 @@ public class BankProductController {
         }
     }
 
+    /**
+     * wei删除
+     * @param id
+     * @return
+     */
     @PutMapping("updateIsDelById")
     public ResultModel<Object> updateIsDelById(Integer id) {
         try {

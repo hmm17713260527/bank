@@ -13,14 +13,32 @@
 </head>
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/layui.all.js"></script>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/static/layui-v2.5.5/layui/css/layui.css"  media="all">
 <body>
     <form action="<%=request.getContextPath()%>/product/add" method="post" enctype="multipart/form-data">
-        商品名:<input type="text" name="proName" /><br>
-        库存:<input type="text" name="count" /><br>
-        积分:<input type="text" name="proIntegral"><br>
-        图片：<input type="file" name="file" accept="image/*" id="file"><br>
         <input type="hidden" name="isDel" value="1">
-        <input type="submit" value="添加">
+        <table class="layui-table">
+            <tr align="center">
+                <td>商品名:</td>
+                <td><input type="text" name="proName" /></td>
+            </tr>
+            <tr align="center">
+                <td>库存:</td>
+                <td><input type="text" name="count" /></td>
+            </tr>
+            <tr align="center">
+                <td>积分:</td>
+                <td><input type="text" name="proIntegral"></td>
+            </tr>
+            <tr align="center">
+                <td>图片</td>
+                <td><input type="file" name="file" accept="image/*" id="file"></td>
+            </tr>
+            <tr align="center">
+                <td colspan="2"><input type="submit" style="color: red" value="添加"></td>
+            </tr>
+        </table>
     </form>
 </body>
 <script type="text/javascript">

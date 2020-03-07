@@ -53,7 +53,7 @@
                     if (${USER_SESSION.type == 1}) {
                         html += "<td style='color: #FF00FF'>点击此处兑换商品</td>"
                     } else {
-                        html += '<td><input type="button" value="删除" style="color: red" onclick="updateIsDelById('+u.id+')"></td>'
+                        html += '<td><input type="button" value="修改" style="color: #FF00FF" onclick="updateById('+u.id+')"><input type="button" value="删除" style="color: red" onclick="updateIsDelById('+u.id+')"></td>'
                     }
                     html += "</tr>"
                 }
@@ -61,7 +61,11 @@
             }
         )
     }
-    
+
+    function updateById(id) {
+        window.location.href = "<%=request.getContextPath()%>/product/toUpdateById/"+id;
+    }
+
     function updateIsDelById(id) {
         var index = layer.load(0, {shade:0.5});
         $.post(
