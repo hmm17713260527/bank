@@ -79,8 +79,8 @@ public class BankCardController {
         try {
             BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_RESOURCE);
             bankCard.setUserId(user.getId()).setReputationValue(60).setIntegral(1000)
-                    .setCreateTime(new Date()).setStatus(SystemConstant.BANK_STATUS_NORMAL)
-                    .setBalance(0.00).setBorrowBalance(0.00);
+                    .setCreateTime(new Date()).setStatus(SystemConstant.CARD_STATUS_AWAIT)
+                    .setBalance(0.00).setBorrowBalance(30000.00);
             bankCardService.save(bankCard);
             return new ResultModel<>().success(SystemConstant.SUCCESS);
         }catch (Exception e){

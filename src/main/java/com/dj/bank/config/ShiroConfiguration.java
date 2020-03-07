@@ -63,7 +63,6 @@ public class ShiroConfiguration {
         filters.put("/user/toAdd", "anon");
         filters.put("/user/add", "anon");
         filters.put("/user/toResetPwd", "anon");
-        filters.put("/user/addUser", "anon");
         filters.put("/user/distinct", "anon");
         filters.put("/user/getCode", "anon");
         filters.put("/user/updatePwd", "anon");

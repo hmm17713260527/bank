@@ -29,7 +29,7 @@ public class BankCardPageController {
     @RequestMapping("toAdd")
     private String toAdd(Model model) {
         QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
-        baseDataQueryWrapper.eq("p_id", SystemConstant.BANK_TYPE_PID);
+        baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_TYPE_PID);
         List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
         model.addAttribute("baseDataList",baseDataList);
         return "bank_card/bank_card_add";

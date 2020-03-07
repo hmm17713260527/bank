@@ -85,7 +85,6 @@
 
     })
 
-    // 获取房间号
      function getNumber(obj) {
         $.post("<%=request.getContextPath()%>/bankCard/getNumber",
             {type: obj.value},
