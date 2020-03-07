@@ -8,6 +8,7 @@ import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.LoansService;
 import com.dj.bank.service.ResourceService;
+import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,9 @@ public class BankCardController {
 
     @Autowired
     private LoansService loansService;
+
+    @Autowired
+    private TradingRecordService tradingRecordService;
 
     /**
      * 银行卡展示
@@ -106,7 +110,8 @@ public class BankCardController {
      * @return
      */
     @RequestMapping("updateLoansById")
-    public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans){
+    public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans, HttpSession session
+        , TradingRecord tradingRecord){
         try {
             //修改银行卡剩余可借金额
             UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
@@ -116,6 +121,12 @@ public class BankCardController {
             //借款进行新增
             bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
             loansService.save(bankLoans);
+            //借款记录
+            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            tradingRecord.setUserId(bankUser.getId());
+            tradingRecord.setDealMoney(bankLoans.getPayMoneyAll());
+            tradingRecord.setDealTime(new Date());
+            tradingRecordService.save(tradingRecord);
             return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();

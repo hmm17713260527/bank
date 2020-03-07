@@ -74,6 +74,8 @@
     <input type="submit" value="借款">
     <input type="hidden" name="bankCardId" value="${bankCard.id}">
     <input type="hidden" name="borrowBalance" value="${bankCard.borrowBalance}">
+    <input type="hidden" name="userCard" value="${bankCard.bankCardNumber}">
+    <input type="hidden" name="balanceMoney" value="${bankCard.balance}">
     <input type="hidden" name="status" value="1">
     <input type="hidden" name="isDel" value="1">
 </form>
