@@ -114,10 +114,17 @@ public class BankCardPageController {
         return "bank_card/update_status_show";
     }
 
+    /**
+     * 展示我的积分
+     * @param user
+     * @param model
+     * @return
+     */
     @RequestMapping("toShowReputationValue")
     private String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
+        queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
         for (BankCard list : bankCardList
              ) {
@@ -127,5 +134,27 @@ public class BankCardPageController {
         model.addAttribute("bankCardList", bankCardList);
         return "bank_card/show_reputation";
     }
+
+    /**
+     * 展示积分
+     * @param user
+     * @param model
+     * @return
+     */
+    @RequestMapping("toShowIntegral")
+    private String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+        QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user.getId());
+        queryWrapper.eq("status", 17);
+        List<BankCard> bankCardList = bankCardService.list(queryWrapper);
+        Integer sumIntegral = 0;
+        for (BankCard list : bankCardList
+        ) {
+            sumIntegral += list.getIntegral();
+        }
+        model.addAttribute("sumIntegral", sumIntegral);
+        return "bank_card/show_integral";
+    }
+
 
 }
