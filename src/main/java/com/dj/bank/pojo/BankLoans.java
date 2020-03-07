@@ -47,7 +47,7 @@ public class BankLoans {
     /**
      * 剩余还款月
      */
-    private BigDecimal payMonthNumber;
+    private Integer payMonthNumber;
 
     /**
      * 1在，2无
