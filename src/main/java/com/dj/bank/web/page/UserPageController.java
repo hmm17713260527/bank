@@ -104,12 +104,15 @@ public class UserPageController {
     }
 
     /**
-     * 去充值
+     * 充值
      * @return
      * @throws Exception
      */
-    @RequestMapping("toUserAddBalance")
-    private String toUserAddBalance() {
+    @RequestMapping("toUserAddBalance/{id}")
+    private String toUserAddBalance(@PathVariable Integer id, Model model) {
+        BankCard bankCard = bankCardService.getById(id);
+        model.addAttribute("id", id);
+        model.addAttribute("bankCard", bankCard);
         return "user/user_add_balance";
     }
 

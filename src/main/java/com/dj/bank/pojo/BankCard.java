@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -60,7 +61,7 @@ public class BankCard {
     private Integer reputationValue;
 
     /**
-     * 银行卡状态：1为正常，2为冻结，3待审核；4，审核未通过
+     * 银行卡状态：17为正常，0为冻结，16待审核；18，审核未通过
      */
     private Integer status;
 
@@ -70,6 +71,15 @@ public class BankCard {
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
+
+    @TableField(exist = false)
+    private String createTimeShow;
+
+    public String getCreateTimeShow() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        return createTime == null ? null : dateFormat.format(createTime);
+    }
+
 
     /**
      *11:工商银行 12:建设银行 13:农业银行 14中国银行

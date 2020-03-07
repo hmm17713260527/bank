@@ -164,7 +164,7 @@ public interface SystemConstant {
     /**
      *
      */
-    public static final Integer CARD_STATUS_AWAIT = 3;
+    public static final Integer CARD_STATUS_AWAIT = 16;
 
     /**
      * 信誉积分：1

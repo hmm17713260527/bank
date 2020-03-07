@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -33,6 +34,31 @@ public class BankCardPageController {
 
     @Autowired
     private BankCardService bankCardService;
+
+    /**
+     * 去审核
+     */
+    @RequestMapping("toUpdateStatus/{id}")
+    public ModelAndView toUpdateStatus(@PathVariable("id") Integer id) {
+        ModelAndView modelAndView = new ModelAndView();
+        QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", id);
+        BankCard bankCard = bankCardService.getOne(wrapper);
+        modelAndView.addObject("bankCard", bankCard);
+
+        QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
+        baseDataQueryWrapper.eq("parent_id", 15);
+        List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
+        modelAndView.addObject("baseDataList",baseDataList);
+
+        QueryWrapper<BaseData> baseDataQueryWrapper1 = new QueryWrapper<>();
+        baseDataQueryWrapper1.eq("parent_id", 10);
+        List<BaseData> baseDataList1 = baseDataService.list(baseDataQueryWrapper1);
+        modelAndView.addObject("baseDataList1",baseDataList1);
+
+        modelAndView.setViewName("bank_card/update_status");
+        return modelAndView;
+    }
 
     /**
      * @Description:去申请银行卡页面

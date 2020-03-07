@@ -112,17 +112,28 @@ public class BankCardController {
      * @return
      */
     @RequestMapping("updateLoansById")
-    public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans, HttpSession session
-        , TradingRecord tradingRecord){
+    public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans){
         try {
-            //修改银行卡剩余可借金额
-            UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() - bankLoans.getPayMoneyAll());
-            updateWrapper.eq("id", bankLoans.getBankCardId());
-            bankCardService.update(updateWrapper);
-            //借款进行新增
-            bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
-            loansService.save(bankLoans);
+            bankCardService.updateBankCardAndSaveLoans(bankCard, bankLoans);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
+
+    }
+
+    /**
+     * 充值
+     * @param balance
+     * @param bankCardId
+     * @param tradingRecord
+     * @return
+     */
+    @RequestMapping("updateCardBalance")
+    public ResultModel<Object> updateCardBalance(Double balance, Integer bankCardId, TradingRecord tradingRecord){
+        try {
+            bankCardService.updateBankCardAndUpdateTradingRecord(balance, bankCardId, tradingRecord);
             return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();
