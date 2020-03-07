@@ -83,5 +83,22 @@ public class BankCard {
      * 剩余可借金额
      */
     private Double borrowBalance;
-
+    /**
+     * @Description:用于展示的用户名
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    @TableField(exist = false)
+    private String userName;
+    /**
+     * @Description:用于展示的银行类型名
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    @TableField(exist = false)
+    private String baseName;
 }

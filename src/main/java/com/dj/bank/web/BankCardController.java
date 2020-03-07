@@ -89,7 +89,7 @@ public class BankCardController {
     @RequestMapping("insertCard")
     public ResultModel<Object> insertCard(BankCard bankCard, HttpSession session){
         try {
-            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_RESOURCE);
+            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
             bankCard.setUserId(user.getId()).setReputationValue(60).setIntegral(1000)
                     .setCreateTime(new Date()).setStatus(SystemConstant.CARD_STATUS_AWAIT)
                     .setBalance(0.00).setBorrowBalance(30000.00);
@@ -121,12 +121,6 @@ public class BankCardController {
             //借款进行新增
             bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
             loansService.save(bankLoans);
-            //借款记录
-            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
-            tradingRecord.setUserId(bankUser.getId());
-            tradingRecord.setDealMoney(bankLoans.getPayMoneyAll());
-            tradingRecord.setDealTime(new Date());
-            tradingRecordService.save(tradingRecord);
             return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();
@@ -135,7 +129,18 @@ public class BankCardController {
 
     }
 
+    @GetMapping("userCardList")
+    public ResultModel<Object> userCardList(HttpSession session, Integer status) {
+        try {
+            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            List<BankCard> bankCardList = bankCardService.findListByUserId(status, bankUser.getId());
+            return new ResultModel<>().success(bankCardList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
 
+    }
 
 
 }

@@ -33,6 +33,13 @@ public class BankCardPageController {
     @Autowired
     private BankCardService bankCardService;
 
+    /**
+     * @Description:去申请银行卡页面
+     * @Author: Liuwf
+     * @Date:
+     * @param model:
+     * @return: java.lang.String
+     **/
     @RequestMapping("toAdd")
     private String toAdd(Model model) {
         QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
@@ -40,6 +47,17 @@ public class BankCardPageController {
         List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
         model.addAttribute("baseDataList",baseDataList);
         return "bank_card/bank_card_add";
+    }
+    /**
+     * @Description:去修改银行卡密码
+     * @Author: Liuwf
+     * @Date:
+     * @param model:
+     * @return: java.lang.String
+     **/
+ @RequestMapping("toUpdatePassword")
+    private String toUpdatePassword() {
+        return "bank_card/update_password";
     }
 
     @RequestMapping("toList")
