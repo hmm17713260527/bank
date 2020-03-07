@@ -121,12 +121,6 @@ public class BankCardController {
             //借款进行新增
             bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
             loansService.save(bankLoans);
-            //借款记录
-            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
-            tradingRecord.setUserId(bankUser.getId());
-            tradingRecord.setDealMoney(bankLoans.getPayMoneyAll());
-            tradingRecord.setDealTime(new Date());
-            tradingRecordService.save(tradingRecord);
             return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();
