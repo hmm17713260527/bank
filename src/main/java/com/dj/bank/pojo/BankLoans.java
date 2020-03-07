@@ -54,4 +54,9 @@ public class BankLoans {
      */
     private Integer isDel;
 
+    /**
+     * 1待审核，2审核通过 3审核失败
+     */
+    private Integer status;
+
 }
