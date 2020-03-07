@@ -53,7 +53,9 @@ public class BankCardController {
         try {
             BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
             QueryWrapper<BankCard> wrapper = new QueryWrapper<BankCard>();
-            wrapper.eq("user_id", bankUser.getId());
+            if (bankUser.getType() == 1) {
+                wrapper.eq("user_id", bankUser.getId());
+            }
             wrapper.eq("status", status);
             List<BankCard> bankCardList = bankCardService.list(wrapper);
             return new ResultModel<>().success(bankCardList);
