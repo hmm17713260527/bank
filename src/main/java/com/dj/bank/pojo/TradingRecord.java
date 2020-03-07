@@ -39,7 +39,7 @@ public class TradingRecord {
     /**
      * 交易金额
      */
-    private BigDecimal dealMoney;
+    private Double dealMoney;
 
     /**
      * 交易时间
@@ -49,6 +49,11 @@ public class TradingRecord {
     /**
      * 卡上剩余余额
      */
-    private BigDecimal balanceMoney;
+    private Double balanceMoney;
+
+    /**
+     * 支付方式
+     */
+    private String payWay;
 
 }
