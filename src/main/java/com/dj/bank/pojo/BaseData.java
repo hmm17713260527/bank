@@ -23,7 +23,7 @@ public class BaseData {
     /**
      * 父级id
      */
-    private Integer pId;
+    private Integer parentId;
 
     /**
      * 名称
