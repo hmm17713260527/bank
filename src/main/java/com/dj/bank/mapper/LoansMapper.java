@@ -2,6 +2,10 @@ package com.dj.bank.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dj.bank.pojo.BankLoans;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.dao.DataAccessException;
+
+import java.util.List;
 
 /**
  * @ProjectName: pms
@@ -14,4 +18,5 @@ import com.dj.bank.pojo.BankLoans;
  */
 public interface LoansMapper extends BaseMapper<BankLoans> {
 
+    List<BankLoans> findLoans(@Param("status") Integer status) throws DataAccessException;
 }

@@ -5,4 +5,26 @@
  -->
 <mapper namespace="com.dj.bank.mapper.LoansMapper">
 
+
+    <select id="findLoans" resultType="com.dj.bank.pojo.BankLoans">
+
+        SELECT
+            bs.id,
+            bs.bank_card_id,
+            bs.pay_money_all,
+            bs.pay_money_month,
+            bs.pay_month_number,
+            bs.status,
+            bs.is_del,
+            bc.bank_card_number,
+            bu.user_name
+        FROM
+            bank_loans bs
+        LEFT JOIN bank_card bc ON bs.bank_card_id = bc.id
+        LEFT JOIN bank_user bu ON bc.user_id = bu.id
+        WHERE
+            bs.`status` = #{status}
+
+    </select>
+
 </mapper>

@@ -59,4 +59,12 @@ public class BankLoans {
      */
     private Integer status;
 
+
+    @TableField(exist = false)
+    private String bankCardNumber;
+
+
+    @TableField(exist = false)
+    private String userName;
+
 }
