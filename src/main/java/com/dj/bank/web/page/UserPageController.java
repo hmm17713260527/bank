@@ -93,5 +93,24 @@ public class UserPageController {
         return "user/rest_pwd";
     }
 
+    /**
+     * 去充值
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("toUpdateBalance")
+    private String toUpdateBalance() {
+        return "user/user_update_card_balance";
+    }
+
+    /**
+     * 去充值
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("toUserAddBalance")
+    private String toUserAddBalance() {
+        return "user/user_add_balance";
+    }
 
 }

@@ -41,7 +41,7 @@
                         html += "<td>"+u.integral+"</td>"
                         html += "<td>"+u.reputationValue+"</td>"
                         html += "<td>"+u.createTime+"</td>"
-                        html += "<td><input type='button' value='借款' onclick='toBorrow("+u.id+")'></td>"
+                        html += "<td><input type='button' value='充值' onclick='updateBalanceById("+u.id+")'></td>"
                         html += "</tr>"
                     }
                     $("#tbd").html(html);
@@ -50,14 +50,14 @@
         }
 
         //去借款
-        function toBorrow(id){
+        function updateBalanceById(id){
                 layer.open({
                     type: 2,
-                    title: '借款页面',
+                    title: '充值页面',
                     shadeClose: true,
                     shade: 0.8,
                     area: ['380px', '90%'],
-                    content: '<%=request.getContextPath()%>/user/toBorrow/'+id
+                    content: '<%=request.getContextPath()%>/user/toUserAddBalance/'+id
                 });
         }
 
