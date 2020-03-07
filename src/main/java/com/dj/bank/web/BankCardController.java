@@ -45,10 +45,11 @@ public class BankCardController {
      * @return
      */
     @GetMapping("bankCardList")
-    public ResultModel<Object> bankCardList(HttpSession session) {
-        BankUser bankUser = (BankUser) session.getAttribute("user");
+    public ResultModel<Object> bankCardList(HttpSession session, Integer status) {
+        BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
         QueryWrapper<BankCard> wrapper = new QueryWrapper<BankCard>();
         wrapper.eq("user_id", bankUser.getId());
+        wrapper.eq("status", status);
         List<BankCard> bankCardList = bankCardService.list(wrapper);
         return new ResultModel<>().success(bankCardList);
     }

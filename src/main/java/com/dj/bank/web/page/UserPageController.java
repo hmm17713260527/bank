@@ -78,19 +78,11 @@ public class UserPageController {
     @RequestMapping("toBorrow/{id}")
     private String toBorrow(@PathVariable Integer id, Model model) throws Exception {
         QueryWrapper<BaseData> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("p_id", SystemConstant.REFUND_DATE);
+        queryWrapper.eq("parent_id", SystemConstant.REFUND_DATE);
         List<BaseData> baseDataList = baseDataService.list(queryWrapper);
         BankCard bankCard = bankCardService.getById(id);
-        QueryWrapper<BankLoans> queryWrapper1 = new QueryWrapper();
-        queryWrapper1.eq("bank_card_id", bankCard.getId());
-        BankLoans bankLoans = loansService.getOne(queryWrapper1);
-        Integer start = SystemConstant.MANY;
-        if (bankLoans == null) {
-            start = SystemConstant.FIRST;
-        }
         model.addAttribute("baseDataList", baseDataList);
         model.addAttribute("bankCard", bankCard);
-        model.addAttribute("start", start);
         return "user/user_borrow";
     }
 

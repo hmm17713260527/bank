@@ -63,13 +63,7 @@
     当前卡号:${bankCard.bankCardNumber}<br>
     剩余可借金额:${bankCard.borrowBalance}<br>
     借款金额:<input type="text" name="payMoneyAll" id="money" oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" maxlength="8" placeholder="请输入借款金额"><br>
-
-    <c:if test="${start == 1}">
-        还款月限
-    </c:if>
-    <c:if test="${start == 2}">
-        追加月数
-    </c:if>
+    還款月綫
     <select name="payMonthNumber">
         <c:forEach items="${baseDataList}" var="b">
             <option value="${b.name}">${b.name}</option>

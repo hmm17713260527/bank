@@ -40,7 +40,7 @@ public class BankCard {
     /**
      * 银行卡密码
      */
-    private String password;
+    private Integer password;
 
     /**
      * 银行卡余额
