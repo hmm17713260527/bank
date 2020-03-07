@@ -161,5 +161,10 @@ public interface SystemConstant {
      **/
     Integer BANK_STATUS_LOCK = 2;
 
+    /**
+     *
+     */
+    public static final Integer CARD_STATUS_AWAIT = 3;
+
 
 }

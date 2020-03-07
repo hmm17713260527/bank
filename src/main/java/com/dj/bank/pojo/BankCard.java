@@ -58,7 +58,7 @@ public class BankCard {
     private Integer reputationValue;
 
     /**
-     * 银行卡状态:1为正常，2为冻结
+     * 银行卡状态：1为正常，2为冻结，3待审核；4，审核未通过
      */
     private Integer status;
 
