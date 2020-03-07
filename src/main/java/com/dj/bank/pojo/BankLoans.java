@@ -37,12 +37,12 @@ public class BankLoans {
     /**
      * 总待还金额(捐款金额)
      */
-    private BigDecimal payMoneyAll;
+    private Double payMoneyAll;
 
     /**
      * 本月代还金额
      */
-    private BigDecimal payMoneyMonth;
+    private Double payMoneyMonth;
 
     /**
      * 剩余还款月
