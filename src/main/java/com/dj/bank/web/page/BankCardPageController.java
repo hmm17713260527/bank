@@ -7,10 +7,10 @@ import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
@@ -54,6 +54,7 @@ public class BankCardPageController {
      * @Author: Liuwf
      * @Date:
      * @param:
+     * @param
      * @return: java.lang.String
      **/
     @RequestMapping("toUpdatePassword")
@@ -64,6 +65,27 @@ public class BankCardPageController {
     @RequestMapping("toList")
     private String toList() {
         return "bank_card/bank_card_list";
+    }
+    /**
+     * @Description:密码修改确认页面
+     * @Author: Liuwf
+     * @Date:
+
+     * @return: null
+     **/
+    @RequestMapping("surePassword/{id}")
+    private String oldPassword(@PathVariable Integer id, Model model) {
+        QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        BankCard bankCard = bankCardService.getOne(wrapper);
+        model.addAttribute("bankCard",bankCard);
+        return "bank_card/old_password";
+    }
+
+
+    @RequestMapping("toUpdateStatusShow")
+    private String toUpdateStatusShow() {
+        return "bank_card/update_status_show";
     }
 
     @RequestMapping("toShowReputationValue")

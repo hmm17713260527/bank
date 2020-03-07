@@ -20,7 +20,7 @@
                 <th>持卡人</th>
                 <th>卡号</th>
                 <th>所属银行</th>
-                <th></th>
+                <th>操作</th>
             </tr>
             <tbody id="tbd">
 
@@ -62,7 +62,7 @@
             shadeClose: true,
             shade: 0.8,
             area: ['380px', '90%'],
-            content: '<%=request.getContextPath()%>/user/toBorrow/'+id
+            content: '<%=request.getContextPath()%>/bankCard/oldPassword/'+id
         });
     }
 
