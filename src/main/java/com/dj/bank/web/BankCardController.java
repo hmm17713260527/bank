@@ -103,6 +103,9 @@ public class BankCardController {
     @RequestMapping("updateLoansById")
     public ResultModel<Object> updateLoansById(BankCard bankCard, BankLoans bankLoans){
         try {
+            BankCard b = bankCardService.getById(bankCard.getId());
+            UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("borrow_balance", bankCard);
             //第一次借款进行新增
 //            QueryWrapper<BankLoans> queryWrapper = new QueryWrapper();
 //            queryWrapper.eq("bank_card_id", bankCard.getId());
