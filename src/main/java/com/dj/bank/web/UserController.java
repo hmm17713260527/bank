@@ -176,7 +176,6 @@ public class UserController {
     }
 
     @GetMapping("list")
-    @ResponseBody
     public ResultModel<Object> list(BankUser bankUser) {
         try {
             List<BankUser> userList = userService.findByIsDelAndType(bankUser.getIsDel(), bankUser.getType());

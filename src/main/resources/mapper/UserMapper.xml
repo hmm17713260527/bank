@@ -5,57 +5,23 @@
  -->
 <mapper namespace="com.dj.bank.mapper.UserMapper">
 
-<!--    <resultMap id="userList" type="BankUser">-->
-<!--        <id property="id" column="id"/>-->
-<!--        <result property="userName" column="user_name"/>-->
-<!--        <result property="password" column="password"/>-->
-<!--        <result property="age" column="age"/>-->
-<!--        <result property="email" column="email"/>-->
-<!--        <result property="phone" column="phone"/>-->
-<!--        <result property="sex" column="sex"/>-->
-<!--        <result property="type" column="type"/>-->
-<!--        <collection property="bankCardList" ofType="BankCard">-->
-<!--            <result property="bankCardNumber" column="bank_card_number"/>-->
-<!--            <result property="type" column="type"/>-->
-<!--            <result property="reputationValue" column="reputation_value"/>-->
-<!--        </collection>-->
-<!--    </resultMap>-->
-<!--    <select id="findByIsDelAndType" resultMap="userList">-->
-<!--        SELECT-->
-<!--            u.id,-->
-<!--            u.user_name,-->
-<!--            u.`password`,-->
-<!--            u.age,-->
-<!--            u.email,-->
-<!--            u.phone,-->
-<!--            u.sex,-->
-<!--            u.type,-->
-<!--            c.bank_card_number,-->
-<!--            c.type,-->
-<!--            c.reputation_value-->
-<!--        FROM-->
-<!--            bank_user u-->
-<!--        JOIN bank_card c ON u.id = c.user_id-->
-<!--        WHERE u.is_del = 1 AND u.type = 1 AND c.`status` = 17-->
-<!--    </select>-->
-
-    <select id="findByIsDelAndType">
-    SELECT
-    u.id,
-    u.user_name,
-    u.`password`,
-    u.age,
-    u.email,
-    u.is_del,
-    u.phone,
-    u.sex,
-    u.type,
-    c.bank_card_number as bankCardNumber,
-    c.type as cType,
-    c.reputation_value as reputationValue
-    FROM
-    bank_user u
-    JOIN bank_card c ON u.id = c.user_id
-    WHERE u.is_del = 1 AND u.type = 1 AND c.`status` = 17
+    <select id="findByIsDelAndType" resultType="com.dj.bank.pojo.BankUser">
+        SELECT
+            u.id,
+            u.user_name,
+            u.`password`,
+            u.age,
+            u.email,
+            u.is_del,
+            u.phone,
+            u.sex,
+            u.type,
+            c.bank_card_number as bankCardNumber,
+            c.type as typeShow,
+            c.reputation_value as reputationValue
+        FROM
+            bank_user u
+        JOIN bank_card c ON u.id = c.user_id
+        WHERE u.is_del = 1 AND u.type = 1 AND c.`status` = 17
     </select>
 </mapper>

@@ -63,15 +63,11 @@ public class BankUser {
 
     @TableField(exist = false)
     private Integer reputationValue;
+
     @TableField(exist = false)
-    private Integer cType;
+    private Integer typeShow;
+
     @TableField(exist = false)
     private String bankCardNumber;
-
-    /**
-     * 银行卡信息
-     */
-//    @TableField(exist = false)
-//    private List<BankCard> bankCardList;
 
 }

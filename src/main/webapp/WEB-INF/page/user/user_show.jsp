@@ -33,10 +33,18 @@
                         html += u.sex == 1 ? "<td>男</td>" : "<td>女</td>";
                         html += "<td>"+u.age+"</td>"
                         html += "<td>"+u.bankCardNumber+"</td>"
-                        html += "<td>"+u.cType+"</td>"
+                        if (u.typeShow == 11) {
+                            html += "<td>工商银行</td>"
+                        } else if (u.typeShow == 12) {
+                            html += "<td>建设银行</td>"
+                        } else if (u.typeShow == 13) {
+                            html += "<td>农行银行</td>"
+                        } else {
+                            html += "<td>中国银行</td>"
+                        }
                         html += "<td>"+u.reputationValue+"</td>"
                         if (u.reputationValue <= 30) {
-                            html += '<td style="color: #FF00FF"><input type="button" value="可拉黑该用户" style="color: red" onclick="updateIsDelById('+u.id+')"></td>'
+                            html += '<td style="color: #FF00FF"><input type="button" value="点击此处拉黑该用户" style="color: red" onclick="updateIsDelById('+u.id+')"></td>'
                         } else {
                             html += "<td style='color: #FF00FF'>该用户信誉值正常</td>"
                         }
@@ -71,7 +79,6 @@
     </script>
 </head>
 <body>
-
     <table class="layui-table">
         <tr align="center">
             <td>用户名</td>
@@ -86,7 +93,6 @@
             <td>操作</td>
         </tr>
         <tbody id="tbd">
-
         </tbody>
     </table>
 </body>
