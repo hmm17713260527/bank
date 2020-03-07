@@ -14,73 +14,58 @@
     <script type="text/javascript">
 
         $(function(){
-            search();
+            $("#fm").validate({
+                //效验规则
+                rules: {
+                    dealMoney:{
+                        required:true,
+                    },
+                },
+                messages:{
+                    dealMoney:{
+                        required:"请填写充值金额",
+                    },
+                },
+            })
         })
 
-        function search() {
-            $.get(
-                "<%=request.getContextPath()%>/bankCard/bankCardList",
-                {"status" : 1, "_method" : "GET"},
-                function(data){
-                    var html = "";
-                    for (var i = 0; i < data.data.length; i++) {
-                        var u = data.data[i];
-                        html += "<tr>"
-                        html += "<td>${USER_SESSION.userName}</td>"
-                        html += "<td>"+u.bankCardNumber+"</td>"
-                        if (u.type == 11) {
-                            html += "<td>工商银行</td>"
-                        } else if (u.type == 12) {
-                            html += "<td>建设银行</td>"
-                        } else if (u.type == 13) {
-                            html += "<td>农行银行</td>"
-                        } else {
-                            html += "<td>中国银行</td>"
-                        }
-                        html += "<td>"+u.balance+"</td>"
-                        html += "<td>"+u.integral+"</td>"
-                        html += "<td>"+u.reputationValue+"</td>"
-                        html += "<td>"+u.createTime+"</td>"
-                        html += "<td><input type='button' value='借款' onclick='toBorrow("+u.id+")'></td>"
-                        html += "</tr>"
-                    }
-                    $("#tbd").html(html);
-                }
-            )
-        }
+        $.validator.setDefaults({
+            submitHandler: function() {
 
-        //去借款
-        function toBorrow(id){
-                layer.open({
-                    type: 2,
-                    title: '借款页面',
-                    shadeClose: true,
-                    shade: 0.8,
-                    area: ['380px', '90%'],
-                    content: '<%=request.getContextPath()%>/user/toBorrow/'+id
-                });
-        }
+                var index = layer.load(0, {shade:0.5});
+                $.post("<%=request.getContextPath()%>/bankCard/updateCardBalance",
+                    $("#fm").serialize(),
+                    function(data){
+                        if(data.code == -1){
+                            layer.close(index);
+                            layer.msg(data.msg, {icon: 5});
+                            return
+                        }
+                        layer.msg(data.msg, {
+                            icon: 6,
+                            time: 2000
+                        }, function(){
+                            parent.window.location.href = "<%=request.getContextPath()%>/user/toUpdateBalance";
+                        });
+                    }
+                )
+            }
+        });
+
 
     </script>
 
 </head>
 <body>
 <form id="fm">
-    <table border="1px">
-        <tr>
-            <th>所属人</th>
-            <th>卡号</th>
-            <th>类型</th>
-            <th>银行卡余额</th>
-            <th>卡上积分</th>
-            <th>卡信誉值</th>
-            <th>银行卡申请时间</th>
-            <th>操作</th>
-        </tr>
-        <tbody id="tbd">
-
-        </tbody>
-    </table>
+    当前卡号:${bankCard.bankCardNumber}<br>
+    剩余金额:${bankCard.balance}<br>
+    充值金额:<input type="text" name="dealMoney" id="dealMoney" oninput="value=value.replace(/^\D*(\d*(?:\.\d{0,2})?).*$/g, '$1').replace(/^0{1,}/g,'')" maxlength="8" placeholder="请输入借款金额"><br>
+    <input type="submit" value="充值">
+    <input type="hidden" name="userId" value="${bankCard.userId}">
+    <input type="hidden" name="userCard" value="${bankCard.bankCardNumber}">
+    <input type="hidden" name="balance" id="balance" value="${bankCard.balance}">
+    <input type="hidden" name="bankCardId" value="${bankCard.id}">
 </form>
 </body>
 </html>
