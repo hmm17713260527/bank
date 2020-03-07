@@ -52,5 +52,10 @@ public class BankCardPageController {
         return "bank_card/update_password";
     }
 
+    @RequestMapping("toList")
+    private String toList() {
+        return "bank_card/bank_card_list";
+    }
+
 
 }
