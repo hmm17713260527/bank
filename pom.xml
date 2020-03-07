@@ -21,7 +21,12 @@
     </properties>
 
     <dependencies>
-
+        <!-- 七牛云上传图片 -->
+        <dependency>
+            <groupId>com.qiniu</groupId>
+            <artifactId>qiniu-java-sdk</artifactId>
+            <version>[7.2.0, 7.2.99]</version>
+        </dependency>
         <!-- 阿里云短信验证码 -->
         <dependency>
             <groupId>com.aliyun</groupId>
