@@ -55,8 +55,16 @@ public class BankLoans {
     private Integer isDel;
 
     /**
-     * 1待审核，2审核通过 3审核失败
+     * 16待审核，17审核通过 18审核失败
      */
     private Integer status;
+
+
+    @TableField(exist = false)
+    private String bankCardNumber;
+
+
+    @TableField(exist = false)
+    private String userName;
 
 }

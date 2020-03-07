@@ -19,7 +19,7 @@
     function updateStatusById() {
         var index = layer.load(1,{shade:0.5});
         $.post(
-            "<%=request.getContextPath()%>/bankCard/updateStatusById",
+            "<%=request.getContextPath()%>/bankLoans/updateStatusById",
             $("#fm").serialize(),
             function(data){
                 layer.close(index);
@@ -31,7 +31,7 @@
                     icon: 6,
                     time: 2000 //2秒关闭（如果不配置，默认是3秒）
                 }, function(){
-                    parent.window.location.href = "<%=request.getContextPath()%>/bankCard/toUpdateStatusShow";
+                    parent.window.location.href = "<%=request.getContextPath()%>/bankLoans/toUpdateStatusShow";
                 });
 
             }
@@ -44,21 +44,22 @@
 
 <form id = "fm">
     <input type="hidden" name = "_method" value="PUT" >
-    <input type="hidden" name = "id" value="${bankCard.id}"/>
-    银行卡号:${bankCard.bankCardNumber}<br/>
+    <input type="hidden" name = "id" value="${bankLoans.id}"/>
+    <input type="hidden" name = "userId" value="${bankLoans.userId}"/>
+    <input type="hidden" name = "userCard" value="${bankLoans.userCard}"/>
+    <input type="hidden" name = "dealMoney" value="${bankLoans.dealMoney}"/>
+    <input type="hidden" name = "balanceMoney" value="${bankLoans.balanceMoney}"/>
+    <input type="hidden" name = "phone" value="${bankLoans.phone}"/>
+    用户名：${bankLoans.userName}<br/>
+    银行卡号:${bankLoans.userCard}<br/>
     银行卡状态：
     <c:forEach items="${baseDataList}" var="base">
-        <c:if test="${bankCard.status == base.id}">
+        <c:if test="${bankLoans.status == base.id}">
             ${base.name}
         </c:if>
     </c:forEach><br>
-    银行卡申请时间:${bankCard.createTimeShow}<br>
-    银行卡所属行:
-    <c:forEach items="${baseDataList1}" var="base">
-        <c:if test="${bankCard.type == base.id}">
-            ${base.name}
-        </c:if>
-    </c:forEach><br>
+    借款金额：${bankLoans.dealMoney}<br/>
+    卡上剩余余额：${bankLoans.balanceMoney}<br/>
 
     <select name="status">
         <c:forEach items="${baseDataList}" var="base">

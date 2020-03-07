@@ -24,4 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(rollbackFor = Exception.class)
 public class TradingRecordServiceImpl extends ServiceImpl<TradingRecordMapper, TradingRecord> implements TradingRecordService {
 
+    @Override
+    public TradingRecord findLoans(Integer id) throws Exception {
+        return this.baseMapper.findLoans(id);
+    }
 }

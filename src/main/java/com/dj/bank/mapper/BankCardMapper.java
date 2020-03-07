@@ -19,7 +19,7 @@ import java.util.List;
  */
 public interface BankCardMapper extends BaseMapper<BankCard> {
 //    根据登录人查询银行卡
-    List<BankCard> findListByUserId(@Param("status") Integer status, @Param("id") Integer id);
+    List<BankCard> findListByUserId(@Param("status") Integer status, @Param("id") Integer id) throws DataAccessException;
 
 
 }

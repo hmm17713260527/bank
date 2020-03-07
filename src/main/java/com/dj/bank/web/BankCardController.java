@@ -12,6 +12,7 @@ import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -148,6 +149,18 @@ public class BankCardController {
             BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
             List<BankCard> bankCardList = bankCardService.findListByUserId(status, bankUser.getId());
             return new ResultModel<>().success(bankCardList);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
+
+    }
+
+    @PutMapping("updateStatusById")
+    public ResultModel<Object> updateStatusById(BankCard bankCard) {
+        try {
+            bankCardService.updateById(bankCard);
+            return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();
             return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
