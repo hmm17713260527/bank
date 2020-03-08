@@ -17,4 +17,6 @@ import java.util.List;
  */
 public interface LoansService extends IService<BankLoans> {
     List<BankLoans> findLoans(Integer status) throws Exception;
+
+    List<BankLoans> findRepaymentList(Integer isDel, Integer id) throws Exception;
 }

@@ -5,16 +5,14 @@ import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankLoans;
+import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.TradingRecord;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.LoansService;
 import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.MessageVerifyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -50,6 +48,23 @@ public class BankLoansController {
     public ResultModel<Object> bankCardList(Integer status) {
         try {
             List<BankLoans> BankLoansList = loansService.findLoans(status);
+            return new ResultModel<>().success(BankLoansList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
+    }
+
+    /**
+     * 还款展示
+     * @param user
+     * @param isDel
+     * @return
+     */
+    @GetMapping("repaymentList")
+    public ResultModel<Object> repaymentList(@SessionAttribute("USER_SESSION") BankUser user, Integer isDel) {
+        try {
+            List<BankLoans> BankLoansList = loansService.findRepaymentList(isDel, user.getId());
             return new ResultModel<>().success(BankLoansList);
         } catch (Exception e) {
             e.printStackTrace();

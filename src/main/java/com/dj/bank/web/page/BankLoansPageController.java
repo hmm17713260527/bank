@@ -34,9 +34,19 @@ public class BankLoansPageController {
     @Autowired
     private BaseDataService baseDataService;
 
+    @RequestMapping("toUpdata")
+    private String toUpdata() {
+        return "bank_loans/updata";
+    }
+
     @RequestMapping("toUpdateStatusShow")
     private String toUpdateStatusShow() {
         return "bank_loans/update_status_show";
+    }
+
+    @RequestMapping("/toRepaymentShow")
+    private String toRepaymentShow() {
+        return "bank_loans/repayment_show";
     }
 
     /**

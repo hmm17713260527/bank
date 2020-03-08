@@ -19,4 +19,6 @@ import java.util.List;
 public interface LoansMapper extends BaseMapper<BankLoans> {
 
     List<BankLoans> findLoans(@Param("status") Integer status) throws DataAccessException;
+
+    List<BankLoans> findRepaymentList(@Param("isDel") Integer isDel, @Param("id") Integer id) throws DataAccessException;
 }
