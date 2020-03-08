@@ -65,7 +65,7 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
         updateWrapper.eq("id", bankCardId);
         this.update(updateWrapper);
         tradingRecord.setDealTime(new Date());
-        tradingRecord.setBalanceMoney(balance + tradingRecord.getBalanceMoney());
+        tradingRecord.setBalanceMoney(balance + Double.valueOf(tradingRecord.getDealMoney()));
         tradingRecordService.save(tradingRecord);
     }
 }
