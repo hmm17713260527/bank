@@ -3,7 +3,6 @@ package com.dj.bank.web.page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
-import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
@@ -45,7 +44,7 @@ public class UserPageController {
      * @return
      */
     @RequestMapping("toLogin")
-    private String toLogin() {
+    public String toLogin() {
         return "user/login";
     }
 
@@ -56,7 +55,7 @@ public class UserPageController {
      * @throws Exception
      */
     @RequestMapping("toAdd")
-    private String toAdd(Model model) throws Exception {
+    public String toAdd(Model model) throws Exception {
         String salt = PasswordSecurityUtil.generateSalt();
         model.addAttribute("salt", salt);
         return "user/user_add";
@@ -67,7 +66,7 @@ public class UserPageController {
      * @return
      */
     @RequestMapping("toBorrowMoney")
-    private String toBorrowMoney() {
+    public String toBorrowMoney() {
         return "user/user_borrow_money";
     }
 
@@ -76,7 +75,7 @@ public class UserPageController {
      * @return
      */
     @RequestMapping("toBorrow/{id}")
-    private String toBorrow(@PathVariable Integer id, Model model) throws Exception {
+    public String toBorrow(@PathVariable Integer id, Model model) throws Exception {
         QueryWrapper<BaseData> queryWrapper = new QueryWrapper();
         queryWrapper.eq("parent_id", SystemConstant.REFUND_DATE);
         List<BaseData> baseDataList = baseDataService.list(queryWrapper);
@@ -87,7 +86,7 @@ public class UserPageController {
     }
 
     @RequestMapping("toResetPwd")
-    private String toResetPwd(Model model) throws Exception {
+    public String toResetPwd(Model model) throws Exception {
         String salt = PasswordSecurityUtil.generateSalt();
         model.addAttribute("salt", salt);
         return "user/rest_pwd";
@@ -99,7 +98,7 @@ public class UserPageController {
      * @throws Exception
      */
     @RequestMapping("toUpdateBalance")
-    private String toUpdateBalance() {
+    public String toUpdateBalance() {
         return "user/user_update_card_balance";
     }
 
@@ -109,7 +108,7 @@ public class UserPageController {
      * @throws Exception
      */
     @RequestMapping("toUserAddBalance/{id}")
-    private String toUserAddBalance(@PathVariable Integer id, Model model) {
+    public String toUserAddBalance(@PathVariable Integer id, Model model) {
         BankCard bankCard = bankCardService.getById(id);
         model.addAttribute("id", id);
         model.addAttribute("bankCard", bankCard);
@@ -121,7 +120,7 @@ public class UserPageController {
      * @return
      */
     @RequestMapping("toShow")
-    private String toShow() {
+    public String toShow() {
         return "user/user_show";
     }
 }

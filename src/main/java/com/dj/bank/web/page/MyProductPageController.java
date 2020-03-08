@@ -36,12 +36,12 @@ public class MyProductPageController {
      * @return
      */
     @RequestMapping("toShow")
-    private String toShow() {
+    public String toShow() {
         return "my_product/show";
     }
 
     @RequestMapping("toAddMyProduct/{id}")
-    private String toAddMyProduct(@PathVariable Integer id, Model model, @SessionAttribute("USER_SESSION") BankUser user) {
+    public String toAddMyProduct(@PathVariable Integer id, Model model, @SessionAttribute("USER_SESSION") BankUser user) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);

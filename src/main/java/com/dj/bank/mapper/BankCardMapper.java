@@ -2,7 +2,6 @@ package com.dj.bank.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dj.bank.pojo.BankCard;
-import com.dj.bank.pojo.BankLoans;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
@@ -22,4 +21,5 @@ public interface BankCardMapper extends BaseMapper<BankCard> {
     List<BankCard> findListByUserId(@Param("status") Integer status, @Param("id") Integer id) throws DataAccessException;
 
 
+    List<BankCard> findUserCard(@Param("id") Integer id) throws DataAccessException;
 }

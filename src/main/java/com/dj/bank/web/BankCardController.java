@@ -1,14 +1,10 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
-import com.dj.bank.service.LoansService;
-import com.dj.bank.service.ResourceService;
-import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -39,11 +33,6 @@ public class BankCardController {
     @Autowired
     private BankCardService bankCardService;
 
-    @Autowired
-    private LoansService loansService;
-
-    @Autowired
-    private TradingRecordService tradingRecordService;
 
     @GetMapping("show")
     public ResultModel<Object> show(Integer status) {

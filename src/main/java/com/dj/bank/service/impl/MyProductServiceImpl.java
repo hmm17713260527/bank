@@ -10,7 +10,6 @@ import com.dj.bank.pojo.MyProduct;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BankProductService;
 import com.dj.bank.service.MyProductService;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

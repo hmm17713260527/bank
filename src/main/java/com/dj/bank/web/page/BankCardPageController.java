@@ -69,7 +69,7 @@ public class BankCardPageController {
      * @return: java.lang.String
      **/
     @RequestMapping("toAdd")
-    private String toAdd(Model model) {
+    public String toAdd(Model model) {
         QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
         baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_TYPE_PID);
         List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
@@ -85,12 +85,12 @@ public class BankCardPageController {
      * @return: java.lang.String
      **/
     @RequestMapping("toUpdatePassword")
-    private String toUpdatePassword() {
+    public String toUpdatePassword() {
         return "bank_card/update_password";
     }
 
     @RequestMapping("toList")
-    private String toList() {
+    public String toList() {
         return "bank_card/bank_card_list";
     }
     /**
@@ -101,7 +101,7 @@ public class BankCardPageController {
      * @return: null
      **/
     @RequestMapping("surePassword/{id}")
-    private String oldPassword(@PathVariable Integer id, Model model) {
+    public String oldPassword(@PathVariable Integer id, Model model) {
         QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
         wrapper.eq("id",id);
         BankCard bankCard = bankCardService.getOne(wrapper);
@@ -111,7 +111,7 @@ public class BankCardPageController {
 
 
     @RequestMapping("toUpdateStatusShow")
-    private String toUpdateStatusShow() {
+    public String toUpdateStatusShow() {
         return "bank_card/update_status_show";
     }
 
@@ -122,7 +122,7 @@ public class BankCardPageController {
      * @return
      */
     @RequestMapping("toShowReputationValue")
-    private String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+    public String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
@@ -142,7 +142,7 @@ public class BankCardPageController {
      * @return
      */
     @RequestMapping("toShowIntegral")
-    private String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, HttpSession session) {
+    public String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, HttpSession session) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
@@ -157,7 +157,7 @@ public class BankCardPageController {
     }
 
     @RequestMapping("toNewPassword/{id}")
-    private String toNewPassword(@PathVariable Integer id, Model model) {
+    public String toNewPassword(@PathVariable Integer id, Model model) {
         QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
         wrapper.eq("id",id);
         BankCard bankCard = bankCardService.getOne(wrapper);

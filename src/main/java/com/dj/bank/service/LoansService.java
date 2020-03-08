@@ -2,7 +2,6 @@ package com.dj.bank.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dj.bank.pojo.BankLoans;
-import com.dj.bank.pojo.BankUser;
 
 import java.util.List;
 

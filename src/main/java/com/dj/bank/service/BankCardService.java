@@ -33,4 +33,6 @@ public interface BankCardService extends IService<BankCard> {
      * @param tradingRecord
      */
     void updateBankCardAndUpdateTradingRecord(Double balance, Integer bankCardId, TradingRecord tradingRecord) throws Exception;
+
+    List<BankCard> findUserCard(Integer id) throws Exception;
 }

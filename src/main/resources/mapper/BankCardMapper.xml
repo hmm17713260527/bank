@@ -34,4 +34,18 @@
             </if>
         </where>
     </select>
+
+
+    <select id="findUserCard" resultType="com.dj.bank.pojo.BankCard">
+        SELECT
+            bc.id,
+            ba.`name` AS type_show
+        FROM
+            bank_card bc
+        LEFT JOIN base_data ba ON bc.type = ba.id
+        WHERE
+            bc.user_id = #{id}
+        AND bc.`status` = 17
+
+    </select>
 </mapper>

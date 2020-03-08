@@ -199,4 +199,10 @@ public interface SystemConstant {
      * 充值
      */
     String ADD = "充值";
+
+
+    /**
+     * 余额不足
+     */
+    public static final String NOT_SUFFICIENT_FUNDS  = "余额不足";
 }

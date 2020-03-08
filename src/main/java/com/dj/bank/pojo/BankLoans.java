@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @ProjectName: bank
@@ -58,6 +60,13 @@ public class BankLoans {
      * 16待审核，17审核通过 18审核失败
      */
     private Integer status;
+
+    /**
+     * 还款时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date repaymentTime;
 
 
     @TableField(exist = false)

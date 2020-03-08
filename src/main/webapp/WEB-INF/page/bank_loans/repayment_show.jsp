@@ -6,12 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
 <title>Title</title>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery.validate.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
 </head>
 <script type="text/javascript">
     $(function(){
@@ -42,7 +43,7 @@
 
 
 
-    function toUpdateStatus() {
+    function toUpdate() {
         var chkValue = $('input[name="ids"]:checked');
         if (chkValue.length == 0) {
             layer.msg('未选中');
@@ -56,7 +57,7 @@
                 shadeClose: true,
                 shade: 0.8,
                 area: ['380px', '80%'],
-                content: '<%=request.getContextPath()%>/bankLoans/toUpdate/'+id
+                content: '<%=request.getContextPath()%>/bankLoans/toUpdata/'+id
             });
         }
     }
@@ -64,12 +65,10 @@
 
 
 </script>
-
-</head>
 <body>
 
 <form id = "frm">
-    <input type="button" value="还款" onclick="toUpdateStatus()"/>
+    <input type="button" value="还款" onclick="toUpdate()"/>
     <table border="1px" cellpadding="10px" cellspacing="0px" align="center">
         <tr>
             <td>id</td>

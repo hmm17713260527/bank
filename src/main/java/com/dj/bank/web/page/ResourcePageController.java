@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/resource/")
 public class ResourcePageController {
-    @Autowired
-    private ResourceService resourceService;
 
 
 

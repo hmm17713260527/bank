@@ -41,6 +41,42 @@ public class BankLoansController {
     private BankCardService bankCardService;
 
     /**
+     * 还款
+     */
+    @GetMapping("update")
+    public ResultModel<Object> update(Integer loansId, Integer carId, @SessionAttribute("USER_SESSION") BankUser user) {
+        try {
+            BankLoans bankLoans = loansService.getById(loansId);
+            BankCard bankCard = bankCardService.getById(carId);
+            if (bankCard.getBalance() < bankLoans.getPayMoneyMonth()) {
+                return new ResultModel<>().error(SystemConstant.NOT_SUFFICIENT_FUNDS);
+            }
+
+            UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
+            double v = bankCard.getBalance() - bankLoans.getPayMoneyMonth();
+            updateWrapper.set("balance", v);
+            updateWrapper.eq("id",bankCard.getId());
+            bankCardService.update(updateWrapper);
+
+
+            UpdateWrapper<BankLoans> updateWrapper1 = new UpdateWrapper<>();
+            updateWrapper1.set("is_del", 2).set("pay_month_number", bankLoans.getPayMonthNumber() -1).set("repayment_time", new Date());
+            updateWrapper1.eq("id", bankLoans.getId());
+            loansService.update(updateWrapper1);
+
+            double c = bankLoans.getPayMoneyMonth();
+            String str = "-" + c;
+            tradingRecordService.save(new TradingRecord().setUserId(user.getId()).setUserCard(bankCard.getBankCardNumber())
+                    .setDealMoney(str).setDealTime(new Date())
+                    .setBalanceMoney(v).setPayWay("还款"));
+            return new ResultModel<>().success();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
+    }
+
+    /**
      * 银行卡展示
      * @return
      */
