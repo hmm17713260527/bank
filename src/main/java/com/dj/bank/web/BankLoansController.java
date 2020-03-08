@@ -43,7 +43,7 @@ public class BankLoansController {
     /**
      * 还款
      */
-    @GetMapping("update")
+    @PutMapping("update")
     public ResultModel<Object> update(Integer loansId, Integer carId, @SessionAttribute("USER_SESSION") BankUser user) {
         try {
             BankLoans bankLoans = loansService.getById(loansId);
