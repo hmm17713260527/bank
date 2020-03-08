@@ -87,6 +87,9 @@ public class BankCard {
     private Integer type;
 
     @TableField(exist = false)
+    private String typeShow;
+
+    @TableField(exist = false)
     private Double payMoneyAll;
 
     /**
@@ -111,4 +114,14 @@ public class BankCard {
      **/
     @TableField(exist = false)
     private String baseName;
+     /**
+     * @Description:用于展示的银行卡状态名
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    @TableField(exist = false)
+    private String statusName;
+
 }

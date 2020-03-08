@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -115,7 +116,7 @@ public class BankCardPageController {
     }
 
     /**
-     * 展示我的积分
+     * 展示信誉值
      * @param user
      * @param model
      * @return
@@ -126,8 +127,7 @@ public class BankCardPageController {
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
-        for (BankCard list : bankCardList
-             ) {
+        for (BankCard list : bankCardList) {
             BaseData baseData = baseDataService.getById(list.getType());
             list.setBaseName(baseData.getName());
         }
@@ -138,11 +138,11 @@ public class BankCardPageController {
     /**
      * 展示积分
      * @param user
-     * @param model
+     * @param
      * @return
      */
     @RequestMapping("toShowIntegral")
-    private String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+    private String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, HttpSession session) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
@@ -152,7 +152,7 @@ public class BankCardPageController {
         ) {
             sumIntegral += list.getIntegral();
         }
-        model.addAttribute("sumIntegral", sumIntegral);
+        session.setAttribute("sumIntegral", sumIntegral);
         return "bank_card/show_integral";
     }
 

@@ -23,6 +23,7 @@
         <tr align="center">
             <td colspan="2">
                 <a href="<%=request.getContextPath()%>/product/toShow" style="color : rebeccapurple">点击此处去兑换商品</a>
+                <a href="<%=request.getContextPath()%>/myProduct/toShow" style="color: #FF00FF">点击此处查看兑换历史</a>
             </td>
         </tr>
     </table>
