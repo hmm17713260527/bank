@@ -204,5 +204,13 @@ public interface SystemConstant {
     /**
      * 余额不足
      */
-    public static final String NOT_SUFFICIENT_FUNDS  = "余额不足";
+     String NOT_SUFFICIENT_FUNDS  = "余额不足";
+     /**
+      * @Description:每人只能申请同一银行类型的银行卡一张
+      * @Author: Liuwf
+      * @Date:
+      * @param null:
+      * @return: null
+      **/
+    String BANK_CARD_TYPE_IS_ONE = "每人只能申请同一银行类型的银行卡一张";
 }

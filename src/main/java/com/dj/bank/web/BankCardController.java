@@ -98,6 +98,13 @@ public class BankCardController {
     public ResultModel<Object> insertCard(BankCard bankCard, HttpSession session){
         try {
             BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("type",bankCard.getType());
+            bankCardQueryWrapper.eq("user_id",user.getId());
+            BankCard card = bankCardService.getOne(bankCardQueryWrapper);
+            if (null != card){
+                return new ResultModel<>().error(SystemConstant.BANK_CARD_TYPE_IS_ONE);
+            }
             bankCard.setUserId(user.getId()).setReputationValue(60).setIntegral(1000)
                     .setCreateTime(new Date()).setStatus(SystemConstant.CARD_STATUS_AWAIT)
                     .setBalance(0.00).setBorrowBalance(30000.00);
