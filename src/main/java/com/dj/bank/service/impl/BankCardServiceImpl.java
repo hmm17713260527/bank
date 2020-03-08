@@ -59,11 +59,12 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
     @Override
     public void updateBankCardAndUpdateTradingRecord(Double balance, Integer bankCardId, TradingRecord tradingRecord) throws Exception {
         UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("balance", balance + tradingRecord.getDealMoney());
+        updateWrapper.set("balance", balance + Double.valueOf(tradingRecord.getDealMoney()));
         updateWrapper.eq("id", bankCardId);
         this.update(updateWrapper);
         tradingRecord.setDealTime(new Date());
-        tradingRecord.setBalanceMoney(balance + tradingRecord.getBalanceMoney());
+        tradingRecord.setDealMoney("+"+tradingRecord.getDealMoney());
+        tradingRecord.setBalanceMoney(balance + Double.valueOf(tradingRecord.getDealMoney()));
         tradingRecordService.save(tradingRecord);
     }
 }
