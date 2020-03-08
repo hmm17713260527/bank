@@ -3,6 +3,8 @@ package com.dj.bank.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dj.bank.pojo.BankUser;
 
+import java.util.List;
+
 /**
  * @ProjectName: pms
  * @Package: com.dj.pms.service
@@ -14,4 +16,5 @@ import com.dj.bank.pojo.BankUser;
  */
 public interface UserService extends IService<BankUser> {
 
+    List<BankUser> findByIsDelAndType(Integer isDel, Integer type) throws Exception;
 }

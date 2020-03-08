@@ -35,5 +35,10 @@ public class BankProduct {
      */
     private Integer isDel;
 
+    /**
+     * 商品库存
+     */
+    private Integer count;
+
 
 }

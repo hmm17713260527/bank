@@ -5,5 +5,23 @@
  -->
 <mapper namespace="com.dj.bank.mapper.UserMapper">
 
-
+    <select id="findByIsDelAndType" resultType="com.dj.bank.pojo.BankUser">
+        SELECT
+            u.id,
+            u.user_name,
+            u.`password`,
+            u.age,
+            u.email,
+            u.is_del,
+            u.phone,
+            u.sex,
+            u.type,
+            c.bank_card_number as bankCardNumber,
+            c.type as typeShow,
+            c.reputation_value as reputationValue
+        FROM
+            bank_user u
+        JOIN bank_card c ON u.id = c.user_id
+        WHERE u.is_del = 1 AND u.type = 1 AND c.`status` = 17
+    </select>
 </mapper>
