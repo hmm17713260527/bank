@@ -169,6 +169,11 @@ public class UserController {
         }
     }
 
+    /**
+     * 用户银行信息
+     * @param bankUser
+     * @return
+     */
     @GetMapping("list")
     public ResultModel<Object> list(BankUser bankUser) {
         try {

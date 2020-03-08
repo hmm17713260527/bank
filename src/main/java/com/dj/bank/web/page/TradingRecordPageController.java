@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @Version: 1.0
  */
 @Controller
-@RequestMapping("/TradingRecord/")
+@RequestMapping("/trading/")
 public class TradingRecordPageController {
+
+    @RequestMapping("toShow")
+    public String toShow() {
+        return "user/user_trading_show";
+    }
 }

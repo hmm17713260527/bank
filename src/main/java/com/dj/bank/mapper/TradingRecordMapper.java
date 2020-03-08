@@ -5,6 +5,8 @@ import com.dj.bank.pojo.TradingRecord;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
 
+import java.util.List;
+
 /**
  * @ProjectName: pms
  * @Package: com.dj.pms.mapper
@@ -17,4 +19,6 @@ import org.springframework.dao.DataAccessException;
 public interface TradingRecordMapper extends BaseMapper<TradingRecord> {
 
     TradingRecord findLoans(@Param("id") Integer id) throws DataAccessException;
+
+    List<TradingRecord> findTradingByUserTypeAndUserId(@Param("userType") Integer type, @Param("userId")Integer id) throws DataAccessException;
 }

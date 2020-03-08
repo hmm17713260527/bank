@@ -26,5 +26,23 @@
 
     </select>
 
+    <select id="findTradingByUserTypeAndUserId" resultType="com.dj.bank.pojo.TradingRecord">
+        SELECT
+            u.user_name AS userName,
+            t.id,
+            t.user_card,
+            t.balance_money,
+            t.deal_money,
+            t.deal_time,
+            t.pay_way
+        FROM
+            trading_record t
+        LEFT JOIN bank_user u ON u.id = t.user_id
+            <where>
+                <if test="userType == 1">
+                    u.id = #{userId}
+                </if>
+            </where>
+    </select>
 
 </mapper>
