@@ -126,8 +126,7 @@ public class BankCardPageController {
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
-        for (BankCard list : bankCardList
-             ) {
+        for (BankCard list : bankCardList) {
             BaseData baseData = baseDataService.getById(list.getType());
             list.setBaseName(baseData.getName());
         }

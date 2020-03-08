@@ -150,7 +150,14 @@ public class BankCardController {
         }
 
     }
-
+    /**
+     * @Description:x修改密码银行卡展示
+     * @Author: Liuwf
+     * @Date:  
+     * @param session: 
+     * @param status: 
+     * @return: com.dj.bank.common.ResultModel<java.lang.Object>
+     **/
     @GetMapping("userCardList")
     public ResultModel<Object> userCardList(HttpSession session, Integer status) {
         try {
