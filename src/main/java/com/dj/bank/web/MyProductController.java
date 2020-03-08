@@ -8,12 +8,9 @@ import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.MyProduct;
 import com.dj.bank.service.BankProductService;
 import com.dj.bank.service.MyProductService;
-import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 import java.util.List;
 
 /**
