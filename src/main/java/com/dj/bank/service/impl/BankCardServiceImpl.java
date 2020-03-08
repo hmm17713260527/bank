@@ -32,8 +32,6 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> implements BankCardService {
 
-    @Autowired
-    private BankCardMapper bankCardMapper;
 
     @Autowired
     private LoansService loansService;
@@ -43,7 +41,7 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
 
     @Override
     public List<BankCard> findListByUserId(Integer status, Integer id) {
-        return bankCardMapper.findListByUserId(status,id);
+        return this.baseMapper.findListByUserId(status,id);
     }
 
     @Override
