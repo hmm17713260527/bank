@@ -52,14 +52,9 @@ public class BankCardController {
     @GetMapping("bankCardList")
     public ResultModel<Object> bankCardList(HttpSession session, Integer status) {
         try {
-            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
-            QueryWrapper<BankCard> wrapper = new QueryWrapper<BankCard>();
-            if (bankUser.getType() == 1) {
-                wrapper.eq("user_id", bankUser.getId());
-            }
-            wrapper.eq("status", status);
-            List<BankCard> bankCardList = bankCardService.list(wrapper);
-            return new ResultModel<>().success(bankCardList);
+            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            List<BankCard> listByUserId = bankCardService.findListByUserId(status,user.getId());
+            return new ResultModel<>().success(listByUserId);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error(SystemConstant.EXCEPTION);
