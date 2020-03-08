@@ -52,13 +52,10 @@ public class UserController {
             if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
                 return new ResultModel<>().error(SystemConstant.LOGIN_NULL);
             }
-
-
             //shiro登陆
             Subject subject = SecurityUtils.getSubject(); //获取subject
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             subject.login(token);
-
             return new ResultModel<>().success();
         } catch (Exception e) {
             e.printStackTrace();

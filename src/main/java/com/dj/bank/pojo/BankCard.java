@@ -87,6 +87,9 @@ public class BankCard {
     private Integer type;
 
     @TableField(exist = false)
+    private String typeShow;
+
+    @TableField(exist = false)
     private Double payMoneyAll;
 
     /**

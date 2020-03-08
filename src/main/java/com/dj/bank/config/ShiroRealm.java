@@ -53,7 +53,6 @@ public class ShiroRealm extends AuthorizingRealm {
         String password = new String((char[]) authenticationToken.getCredentials());
 
         try {
-
             QueryWrapper<BankUser> wrapper = new QueryWrapper<BankUser>();
             wrapper.or(i -> i.eq("user_name", userName)
                     .or().eq("email", userName)

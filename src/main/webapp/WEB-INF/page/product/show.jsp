@@ -50,9 +50,13 @@
                     html += '<td><img src="http://q6gw2qec5.bkt.clouddn.com/'+u.proImg+'" width="100px" height="100px"></td>';
                     html += "<td>"+u.proIntegral+"</td>"
                     html += "<td>"+u.count+"</td>"
-                    if (${USER_SESSION.type == 1}) {
-                        html += "<td style='color: #FF00FF'>点击此处兑换商品</td>"
-                    } else {
+                    if (${USER_SESSION.type == 1} && u.proIntegral <= ${sumIntegral}){
+                        html += "<td><a href='<%=request.getContextPath()%>/myProduct/toAddMyProduct/"+u.id+"' style='color:blue'>点击此处去兑换商品</a></td>"
+                    }
+                    if (${USER_SESSION.type == 1} && u.proIntegral >= ${sumIntegral}){
+                            html += "<td style='color: red'>积分不足</td>"
+                    }
+                    if (${USER_SESSION.type == 2}){
                         html += '<td><input type="button" value="修改" style="color: #FF00FF" onclick="updateById('+u.id+')"><input type="button" value="删除" style="color: red" onclick="updateIsDelById('+u.id+')"></td>'
                     }
                     html += "</tr>"
