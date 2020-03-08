@@ -50,6 +50,7 @@
     <input type="hidden" name = "dealMoney" value="${bankLoans.dealMoney}"/>
     <input type="hidden" name = "balanceMoney" value="${bankLoans.balanceMoney}"/>
     <input type="hidden" name = "phone" value="${bankLoans.phone}"/>
+    <input type="hidden" name = "carId" value="${bankLoans.carId}"/>
     用户名：${bankLoans.userName}<br/>
     银行卡号:${bankLoans.userCard}<br/>
     银行卡状态：

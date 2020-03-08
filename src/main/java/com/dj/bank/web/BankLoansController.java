@@ -3,8 +3,10 @@ package com.dj.bank.web;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
+import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.TradingRecord;
+import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.LoansService;
 import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.MessageVerifyUtils;
@@ -36,6 +38,10 @@ public class BankLoansController {
 
     @Autowired
     private TradingRecordService tradingRecordService;
+
+    @Autowired
+    private BankCardService bankCardService;
+
     /**
      * 银行卡展示
      * @return
@@ -71,6 +77,13 @@ public class BankLoansController {
                 String s = "+" + dealMoney;
                 tradingRecord.setId(null).setDealMoney(s).setDealTime(new Date()).setPayWay("借款");
                 tradingRecordService.save(tradingRecord);
+
+                UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<BankCard>();
+                Double money = tradingRecord.getBalanceMoney() +  Double.parseDouble(tradingRecord.getDealMoney());
+                updateWrapper.set("balance", money);
+                updateWrapper.eq("id", tradingRecord.getCarId());
+                bankCardService.update(updateWrapper);
+
             }
             return new ResultModel<>().success();
         }catch (Exception e){

@@ -67,4 +67,7 @@ public class TradingRecord {
     @TableField(exist = false)
     private String phone;
 
+    @TableField(exist = false)
+    private Integer carId;
+
 }
