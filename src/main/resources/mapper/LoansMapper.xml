@@ -27,4 +27,25 @@
 
     </select>
 
+
+    <select id="findRepaymentList" resultType="com.dj.bank.pojo.BankLoans">
+
+         SELECT
+                bs.id,
+                bs.bank_card_id,
+                bc.bank_card_number,
+                ba.`name` as user_name,
+                bs.pay_money_all,
+                bs.pay_money_month,
+                bs.pay_month_number
+            FROM
+                bank_loans bs
+            LEFT JOIN bank_card bc ON bs.bank_card_id = bc.id
+            LEFT JOIN base_data ba ON bc.type = ba.id
+            WHERE
+                bc.user_id = #{id}
+            AND bs.is_del = #{isDel}
+
+    </select>
+
 </mapper>

@@ -31,4 +31,9 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, BankLoans> implem
     public List<BankLoans> findLoans(Integer status) throws Exception {
         return this.baseMapper.findLoans(status);
     }
+
+    @Override
+    public List<BankLoans> findRepaymentList(Integer isDel, Integer id) throws Exception {
+        return this.baseMapper.findRepaymentList(isDel, id);
+    }
 }
