@@ -4,8 +4,29 @@
 <html>
 <head>
 <title>right</title>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
 </head>
+<script type="text/javascript">
+	$(function(){
+		search();
+	})
+
+	function search() {
+		$.get(
+				"<%=request.getContextPath()%>/bankCard/findCardStatus",
+				{"_method" : "GET"},
+				function(data){
+					layer.msg(data.msg);
+				}
+		)
+	}
+
+
+
+</script>
 <body>
-	123
+
 </body>
 </html>

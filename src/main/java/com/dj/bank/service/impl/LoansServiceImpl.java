@@ -8,6 +8,7 @@ import com.dj.bank.service.LoansService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,5 +32,10 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, BankLoans> implem
     @Override
     public List<BankLoans> findRepaymentList(Integer isDel, Integer id) throws Exception {
         return this.baseMapper.findRepaymentList(isDel, id);
+    }
+
+    @Override
+    public Integer findDate(Date repaymentTime) throws Exception {
+        return this.baseMapper.findDate(repaymentTime);
     }
 }
