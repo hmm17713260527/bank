@@ -6,14 +6,14 @@
 <mapper namespace="com.dj.bank.mapper.BankCardMapper">
     <select id="findListByUserId" resultType="com.dj.bank.pojo.BankCard">
         SELECT
-        bc.id,
-        bc.user_id,
-        bc.password,
-        bc.status,
-        bc.type,
-        bu.user_name as userName,
-        bc.bank_card_number,
-        bd.`name` as baseName
+            bc.id,
+            bc.user_id,
+            bc.password,
+            bc.status,
+            bc.type,
+            bu.user_name as userName,
+            bc.bank_card_number,
+            bd.`name` as baseName
         FROM
             bank_card bc
         LEFT JOIN bank_user bu ON bc.user_id = bu.id

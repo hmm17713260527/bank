@@ -88,8 +88,16 @@ public class BankCardPageController {
         return "bank_card/update_password";
     }
 
+    /**
+     * 去展示银行卡信息
+     * @return
+     */
     @RequestMapping("toList")
-    private String toList() {
+    private String toList(Model model) {
+        QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
+        baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_STATUS_PID);
+        List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
+        model.addAttribute("baseDataList" , baseDataList);
         return "bank_card/bank_card_list";
     }
     /**
@@ -148,12 +156,25 @@ public class BankCardPageController {
         queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
         Integer sumIntegral = 0;
-        for (BankCard list : bankCardList
-        ) {
+        for (BankCard list : bankCardList) {
             sumIntegral += list.getIntegral();
         }
         model.addAttribute("sumIntegral", sumIntegral);
         return "bank_card/show_integral";
+    }
+
+    /**
+     * 去转帐
+     * @return
+     */
+    @RequestMapping("toTransfer")
+    private String toTransfer(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+        QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user.getId());
+        queryWrapper.eq("status", 17);
+        List<BankCard> bankCardList = bankCardService.list(queryWrapper);
+        model.addAttribute("bankCardList", bankCardList);
+        return "bank_card/bank_card_transfer";
     }
 
 

@@ -52,15 +52,7 @@
                     html += "<td>"+u.balance+"</td>"
                     html += "<td>"+u.integral+"</td>"
                     html += "<td>"+u.reputationValue+"</td>"
-                    if (u.status == 1) {
-                        html += "<td>正常</td>"
-                    } else if (u.status == 2) {
-                        html += "<td>冻结</td>"
-                    } else if (u.status == 3) {
-                        html += "<td>待审核</td>"
-                    } else {
-                        html += "<td>审核未通过</td>"
-                    }
+                    html += u.status == 0 ? "<td>冻结</td>" : "<td>"+u.status+"</td>"
                     html += "<td>"+u.createTime+"</td>"
                     if (u.type == 11) {
                         html += "<td>工商银行</td>"

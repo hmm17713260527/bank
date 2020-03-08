@@ -145,6 +145,10 @@ public interface SystemConstant {
      **/
     Integer BANK_TYPE_PID= 10;
     /**
+     * 银行审核状态p_id = 15
+     */
+    Integer BANK_STATUS_PID = 15;
+    /**
      * @Description:正常
      * @Author: Liuwf
      * @Date:  
