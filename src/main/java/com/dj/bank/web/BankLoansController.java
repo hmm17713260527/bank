@@ -1,10 +1,8 @@
 package com.dj.bank.web;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
-import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.TradingRecord;
 import com.dj.bank.service.LoansService;
