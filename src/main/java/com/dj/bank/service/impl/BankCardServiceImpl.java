@@ -32,8 +32,6 @@ import java.util.List;
 @Transactional(rollbackFor = Exception.class)
 public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> implements BankCardService {
 
-    @Autowired
-    private BankCardMapper bankCardMapper;
 
     @Autowired
     private LoansService loansService;
@@ -43,7 +41,7 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
 
     @Override
     public List<BankCard> findListByUserId(Integer status, Integer id) {
-        return bankCardMapper.findListByUserId(status,id);
+        return this.baseMapper.findListByUserId(status,id);
     }
 
     @Override
@@ -61,11 +59,12 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
     @Override
     public void updateBankCardAndUpdateTradingRecord(Double balance, Integer bankCardId, TradingRecord tradingRecord) throws Exception {
         UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
-        updateWrapper.set("balance", balance + tradingRecord.getDealMoney());
+        updateWrapper.set("balance", balance + Double.valueOf(tradingRecord.getDealMoney()));
         updateWrapper.eq("id", bankCardId);
         this.update(updateWrapper);
         tradingRecord.setDealTime(new Date());
-        tradingRecord.setBalanceMoney(balance + tradingRecord.getDealMoney());
+        tradingRecord.setDealMoney("+"+tradingRecord.getDealMoney());
+        tradingRecord.setBalanceMoney(balance + Double.valueOf(tradingRecord.getDealMoney()));
         tradingRecordService.save(tradingRecord);
     }
 }

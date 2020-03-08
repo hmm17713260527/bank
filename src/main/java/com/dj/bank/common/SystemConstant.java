@@ -189,4 +189,14 @@ public interface SystemConstant {
      * 第二次及以上借款 2
      */
     Integer MANY = 2;
+    /**
+     * @Description:银行卡密码输入错误，请重新输入
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    String INPUT_PASSWORD_ERROR = "银行卡密码输入错误，请重新输入";
+
+
 }

@@ -1,10 +1,8 @@
 package com.dj.bank.web;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
-import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.TradingRecord;
 import com.dj.bank.service.LoansService;
@@ -68,7 +66,10 @@ public class BankLoansController {
                 wrapper.set("status",tradingRecord.getStatus());
                 wrapper.eq("id", tradingRecord.getId());
                 loansService.update(wrapper);
-                tradingRecord.setId(null).setDealTime(new Date()).setPayWay("借款");
+
+                String dealMoney = tradingRecord.getDealMoney();
+                String s = "+" + dealMoney;
+                tradingRecord.setId(null).setDealMoney(s).setDealTime(new Date()).setPayWay("借款");
                 tradingRecordService.save(tradingRecord);
             }
             return new ResultModel<>().success();

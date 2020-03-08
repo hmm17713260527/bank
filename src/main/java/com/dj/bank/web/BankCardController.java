@@ -89,6 +89,14 @@ public class BankCardController {
         }
 
     }
+    /**
+     * @Description:申请银行卡
+     * @Author: Liuwf
+     * @Date:
+     * @param bankCard:
+     * @param session:
+     * @return: com.dj.bank.common.ResultModel<java.lang.Object>
+     **/
     @RequestMapping("insertCard")
     public ResultModel<Object> insertCard(BankCard bankCard, HttpSession session){
         try {
@@ -142,7 +150,14 @@ public class BankCardController {
         }
 
     }
-
+    /**
+     * @Description:x修改密码银行卡展示
+     * @Author: Liuwf
+     * @Date:  
+     * @param session: 
+     * @param status: 
+     * @return: com.dj.bank.common.ResultModel<java.lang.Object>
+     **/
     @GetMapping("userCardList")
     public ResultModel<Object> userCardList(HttpSession session, Integer status) {
         try {
@@ -158,6 +173,48 @@ public class BankCardController {
 
     @PutMapping("updateStatusById")
     public ResultModel<Object> updateStatusById(BankCard bankCard) {
+        try {
+            bankCardService.updateById(bankCard);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
+
+    }
+    /**
+     * @Description:查询旧密码
+     * @Author: Liuwf
+     * @Date:
+     * @param bankCard:
+     * @return: com.dj.bank.common.ResultModel<java.lang.Object>
+     **/
+   @GetMapping("getPassword")
+    public ResultModel<Object> getPassword(BankCard bankCard) {
+       try {
+           QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+           bankCardQueryWrapper.eq("id",bankCard.getId());
+           bankCardQueryWrapper.eq("password",bankCard.getPassword());
+           BankCard bankCard1 = bankCardService.getOne(bankCardQueryWrapper);
+           if (null == bankCard1){
+               return  new ResultModel<>().error(SystemConstant.INPUT_PASSWORD_ERROR);
+           }
+           return new ResultModel<>().success();
+       }catch (Exception e){
+           e.printStackTrace();
+           return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+       }
+
+    }
+    /**
+     * @Description: 修改银行卡密码
+     * @Author: Liuwf
+     * @Date:
+     * @param bankCard:
+     * @return: com.dj.bank.common.ResultModel<java.lang.Object>
+     **/
+    @PutMapping("updatePassword")
+    public ResultModel<Object> updatePassword(BankCard bankCard) {
         try {
             bankCardService.updateById(bankCard);
             return new ResultModel<>().success();
