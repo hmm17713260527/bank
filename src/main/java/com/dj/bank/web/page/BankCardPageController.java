@@ -156,5 +156,13 @@ public class BankCardPageController {
         return "bank_card/show_integral";
     }
 
+    @RequestMapping("toNewPassword/{id}")
+    private String toNewPassword(@PathVariable Integer id, Model model) {
+        QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        BankCard bankCard = bankCardService.getOne(wrapper);
+        model.addAttribute("bankCard",bankCard);
+        return "bank_card/new_password";
+    }
 
 }
