@@ -11,18 +11,18 @@
 <head>
     <title>Title</title>
 </head>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/js/md5-min.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>\static\js\jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>\static\js\md5-min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>\static\layer-v3.1.1\layer\layer.js"></script>
 <script src="<%=request.getContextPath()%>\static\js\jquery.validate.js"></script>
 <script src="https://static.runoob.com/assets/jquery-validation-1.14.0/dist/localization/messages_zh.js"></script>
 <body>
     <form id="fm">
         <input type="hidden" name="salt" value="${salt}" id="salt">
         <input type="hidden" name="_method" value="PUT">
-        新密码:<input type="text" name="password" id="pwd"><br />
-        确认密码:<input type="text" name="password2"><br />
-        手机号:<input type = "text" name = "phone" id="phone"><br/>
+        新密码:<input type="password" name="password" id="pwd"><br />
+        确认密码:<input type="password" name="password2"><br />
+        手机号:<input type = "text" name = "phone" id="phone" onblur="inquire(this)"><span id="span" style="color: red"></span><br/>
         请输入验证码：<input type = "text" name = "message" id="code" >
         <input type="button" value="获取验证码"  onclick="getCode()" />
         <input type="button" value="修改密码" onclick="updatePwd()">
@@ -62,24 +62,7 @@
                 phone: {
                     required: true,
                     phone: true,
-                    digits: true,
-                    remote: {
-                        type: 'GET',
-                        url: "<%=request.getContextPath()%>/user/distinct",
-                        data: {
-                            phone: function () {
-                                return $("#phone").val();
-                            },
-                            dataType: "json",
-                            dataFilter: function (data, type) {
-                                if (data == 'true') {
-                                    return false;
-                                } else {
-                                    return true;
-                                }
-                            }
-                        }
-                    }
+                    digits: true
                 },
                 messages: {
                     password: {
@@ -130,6 +113,18 @@
                 });
             }
         )
+    }
+
+    function inquire(name) {
+        $.get(
+            "<%=request.getContextPath()%>/user/findPhone",
+            {"phone" : name.value},
+            function (data) {
+                if (data.code != 200) {
+                    $("#span").html("没有此手机号")
+                }
+            })
+
     }
 
 </script>
