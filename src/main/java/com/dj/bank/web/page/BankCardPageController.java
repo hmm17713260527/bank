@@ -1,5 +1,4 @@
 package com.dj.bank.web.page;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -142,7 +139,7 @@ public class BankCardPageController {
      * @return
      */
     @RequestMapping("toShowIntegral")
-    public String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, HttpSession session) {
+    private String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
@@ -152,7 +149,7 @@ public class BankCardPageController {
         ) {
             sumIntegral += list.getIntegral();
         }
-        session.setAttribute("sumIntegral", sumIntegral);
+        model.addAttribute("sumIntegral", sumIntegral);
         return "bank_card/show_integral";
     }
 

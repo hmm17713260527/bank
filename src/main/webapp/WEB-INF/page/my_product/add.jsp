@@ -30,22 +30,32 @@
                 <td><input type="text" name="mySite"><span style="color: red">市，区，街道，小区，门牌号</span></td>
             </tr>
             <tr align="center">
-                <td>选择银行卡兑换</td>
-                <td>
-                    <c:forEach var="list" items="${bankCardList}">
-                        <c:if test="${list.integral >= integral}">
-                            <input type="radio" value="${list.type}" name="type">${list.typeShow}
-                        </c:if>
-                    </c:forEach>
+                <td>选择银行卡兑换(当前可用银行卡)</td>
+                <td style="color: red">
+                    <div id="div">
+                        <c:forEach var="list" items="${bankCardList}">
+                            <c:if test="${list.integral >= integral}">
+                                <input type="radio" value="${list.type}" name="type" id="type">${list.typeShow}
+                            </c:if>
+                        </c:forEach>
+                    </div>
                 </td>
             </tr>
             <tr align="center">
-                <td colspan="2"><input type="hidden" value="3" name="status"><input type="button" value="提交" onclick="add()"></td>
+                <td colspan="2" style="color: red"><div id="dvi"><input type="hidden" value="3" name="status"><input type="button" value="提交" onclick="add()"></div></td>
             </tr>
         </table>
     </form>
 </body>
 <script>
+    $(function () {
+       var type = $("#type").val();
+       if (type == null) {
+           $("#div").html("您当前无可用银行卡");
+           $("#dvi").html("由于无可用银行卡故无法操作哦！！！！！！！！！！");
+       }
+    })
+
     function add() {
         var index = layer.load(1,{shade:0.5});
         $.post(
