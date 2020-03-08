@@ -19,6 +19,7 @@
     <form id="frm">
         <input type="hidden" value="${USER_SESSION.id}" name="userId">
         <input type="hidden" value="${proId}" name="proId">
+        <input type="hidden" name="_method" value="POST">
         <table class="layui-table">
             <tr align="center">
                 <td>我的手机号：</td>

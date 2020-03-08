@@ -1,6 +1,7 @@
 package com.dj.bank.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -19,6 +20,12 @@ public class MyProduct {
      * 商品id
      */
     private Integer proId;
+
+    @TableField(exist = false)
+    private String proName;
+
+    @TableField(exist = false)
+    private Integer proIntegral;
 
     /**
      * 用户id

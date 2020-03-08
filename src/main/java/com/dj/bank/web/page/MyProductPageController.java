@@ -31,6 +31,15 @@ public class MyProductPageController {
     @Autowired
     private BaseDataService baseDataService;
 
+    /**
+     * 信息展示
+     * @return
+     */
+    @RequestMapping("toShow")
+    private String toShow() {
+        return "my_product/show";
+    }
+
     @RequestMapping("toAddMyProduct/{id}")
     private String toAddMyProduct(@PathVariable Integer id, Model model, @SessionAttribute("USER_SESSION") BankUser user) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
@@ -48,5 +57,6 @@ public class MyProductPageController {
         model.addAttribute("proId", id);
         return "my_product/add";
     }
+
 
 }
