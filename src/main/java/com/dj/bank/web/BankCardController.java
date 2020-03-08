@@ -45,6 +45,19 @@ public class BankCardController {
     @Autowired
     private TradingRecordService tradingRecordService;
 
+    @GetMapping("show")
+    public ResultModel<Object> show(Integer status) {
+        try {
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("status",status);
+            List<BankCard> list = bankCardService.list(bankCardQueryWrapper);
+            return new ResultModel<>().success(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
+    }
+
     /**
      * 银行卡展示
      * @return
