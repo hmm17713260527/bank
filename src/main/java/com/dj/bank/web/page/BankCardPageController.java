@@ -127,8 +127,7 @@ public class BankCardPageController {
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
-        for (BankCard list : bankCardList
-             ) {
+        for (BankCard list : bankCardList) {
             BaseData baseData = baseDataService.getById(list.getType());
             list.setBaseName(baseData.getName());
         }
@@ -157,5 +156,13 @@ public class BankCardPageController {
         return "bank_card/show_integral";
     }
 
+    @RequestMapping("toNewPassword/{id}")
+    private String toNewPassword(@PathVariable Integer id, Model model) {
+        QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        BankCard bankCard = bankCardService.getOne(wrapper);
+        model.addAttribute("bankCard",bankCard);
+        return "bank_card/new_password";
+    }
 
 }

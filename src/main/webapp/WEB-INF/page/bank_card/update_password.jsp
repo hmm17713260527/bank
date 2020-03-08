@@ -62,7 +62,7 @@
             shadeClose: true,
             shade: 0.8,
             area: ['380px', '90%'],
-            content: '<%=request.getContextPath()%>/bankCard/oldPassword/'+id
+            content: '<%=request.getContextPath()%>/bankCard/surePassword/'+id
         });
     }
 
