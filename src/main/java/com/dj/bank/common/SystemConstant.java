@@ -195,4 +195,8 @@ public interface SystemConstant {
     String INPUT_PASSWORD_ERROR = "银行卡密码输入错误，请重新输入";
 
 
+    /**
+     * 充值
+     */
+    String ADD = "充值";
 }
