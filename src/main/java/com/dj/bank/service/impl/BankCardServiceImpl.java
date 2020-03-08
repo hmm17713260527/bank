@@ -3,9 +3,8 @@ package com.dj.bank.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.dj.bank.common.SystemConstant;
 import com.dj.bank.mapper.BankCardMapper;
-import com.dj.bank.mapper.LoansMapper;
-import com.dj.bank.mapper.UserMapper;
 import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.TradingRecord;
@@ -65,6 +64,12 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
         tradingRecord.setDealTime(new Date());
         tradingRecord.setDealMoney("+"+tradingRecord.getDealMoney());
         tradingRecord.setBalanceMoney(balance + Double.valueOf(tradingRecord.getDealMoney()));
+        tradingRecord.setPayWay(SystemConstant.ADD);
         tradingRecordService.save(tradingRecord);
+    }
+
+    @Override
+    public List<BankCard> findUserCard(Integer id) throws Exception {
+        return this.baseMapper.findUserCard(id);
     }
 }

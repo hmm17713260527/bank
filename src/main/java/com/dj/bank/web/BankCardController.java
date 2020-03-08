@@ -1,14 +1,10 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
-import com.dj.bank.service.LoansService;
-import com.dj.bank.service.ResourceService;
-import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 
 /**
@@ -39,11 +33,19 @@ public class BankCardController {
     @Autowired
     private BankCardService bankCardService;
 
-    @Autowired
-    private LoansService loansService;
 
-    @Autowired
-    private TradingRecordService tradingRecordService;
+    @GetMapping("show")
+    public ResultModel<Object> show(Integer status) {
+        try {
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("status",status);
+            List<BankCard> list = bankCardService.list(bankCardQueryWrapper);
+            return new ResultModel<>().success(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
+    }
 
     /**
      * 银行卡展示
@@ -52,14 +54,9 @@ public class BankCardController {
     @GetMapping("bankCardList")
     public ResultModel<Object> bankCardList(HttpSession session, Integer status) {
         try {
-            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
-            QueryWrapper<BankCard> wrapper = new QueryWrapper<BankCard>();
-            if (bankUser.getType() == 1) {
-                wrapper.eq("user_id", bankUser.getId());
-            }
-            wrapper.eq("status", status);
-            List<BankCard> bankCardList = bankCardService.list(wrapper);
-            return new ResultModel<>().success(bankCardList);
+            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            List<BankCard> listByUserId = bankCardService.findListByUserId(status,user.getId());
+            return new ResultModel<>().success(listByUserId);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error(SystemConstant.EXCEPTION);
@@ -101,6 +98,13 @@ public class BankCardController {
     public ResultModel<Object> insertCard(BankCard bankCard, HttpSession session){
         try {
             BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("type",bankCard.getType());
+            bankCardQueryWrapper.eq("user_id",user.getId());
+            BankCard card = bankCardService.getOne(bankCardQueryWrapper);
+            if (null != card){
+                return new ResultModel<>().error(SystemConstant.BANK_CARD_TYPE_IS_ONE);
+            }
             bankCard.setUserId(user.getId()).setReputationValue(60).setIntegral(1000)
                     .setCreateTime(new Date()).setStatus(SystemConstant.CARD_STATUS_AWAIT)
                     .setBalance(0.00).setBorrowBalance(30000.00);

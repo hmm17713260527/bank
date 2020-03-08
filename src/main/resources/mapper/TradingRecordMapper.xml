@@ -14,7 +14,8 @@
             bs.pay_money_all AS deal_money,
             bc.balance AS balance_money,
             bs.`status`,
-            bu.phone
+            bu.phone,
+            bc.id as car_id
         FROM
             bank_loans bs
         LEFT JOIN bank_card bc ON bs.bank_card_id = bc.id

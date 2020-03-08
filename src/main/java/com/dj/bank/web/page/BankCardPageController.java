@@ -1,5 +1,4 @@
 package com.dj.bank.web.page;
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.List;
 
 /**
@@ -68,7 +66,7 @@ public class BankCardPageController {
      * @return: java.lang.String
      **/
     @RequestMapping("toAdd")
-    private String toAdd(Model model) {
+    public String toAdd(Model model) {
         QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
         baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_TYPE_PID);
         List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
@@ -84,20 +82,12 @@ public class BankCardPageController {
      * @return: java.lang.String
      **/
     @RequestMapping("toUpdatePassword")
-    private String toUpdatePassword() {
+    public String toUpdatePassword() {
         return "bank_card/update_password";
     }
 
-    /**
-     * 去展示银行卡信息
-     * @return
-     */
     @RequestMapping("toList")
-    private String toList(Model model) {
-        QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
-        baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_STATUS_PID);
-        List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
-        model.addAttribute("baseDataList" , baseDataList);
+    public String toList() {
         return "bank_card/bank_card_list";
     }
     /**
@@ -108,7 +98,7 @@ public class BankCardPageController {
      * @return: null
      **/
     @RequestMapping("surePassword/{id}")
-    private String oldPassword(@PathVariable Integer id, Model model) {
+    public String oldPassword(@PathVariable Integer id, Model model) {
         QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
         wrapper.eq("id",id);
         BankCard bankCard = bankCardService.getOne(wrapper);
@@ -118,24 +108,23 @@ public class BankCardPageController {
 
 
     @RequestMapping("toUpdateStatusShow")
-    private String toUpdateStatusShow() {
+    public String toUpdateStatusShow() {
         return "bank_card/update_status_show";
     }
 
     /**
-     * 展示我的积分
+     * 展示信誉值
      * @param user
      * @param model
      * @return
      */
     @RequestMapping("toShowReputationValue")
-    private String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+    public String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
         queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
-        for (BankCard list : bankCardList
-             ) {
+        for (BankCard list : bankCardList) {
             BaseData baseData = baseDataService.getById(list.getType());
             list.setBaseName(baseData.getName());
         }
@@ -146,7 +135,7 @@ public class BankCardPageController {
     /**
      * 展示积分
      * @param user
-     * @param model
+     * @param
      * @return
      */
     @RequestMapping("toShowIntegral")
@@ -156,26 +145,21 @@ public class BankCardPageController {
         queryWrapper.eq("status", 17);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
         Integer sumIntegral = 0;
-        for (BankCard list : bankCardList) {
+        for (BankCard list : bankCardList
+        ) {
             sumIntegral += list.getIntegral();
         }
         model.addAttribute("sumIntegral", sumIntegral);
         return "bank_card/show_integral";
     }
 
-    /**
-     * 去转帐
-     * @return
-     */
-    @RequestMapping("toTransfer")
-    private String toTransfer(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
-        QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("user_id", user.getId());
-        queryWrapper.eq("status", 17);
-        List<BankCard> bankCardList = bankCardService.list(queryWrapper);
-        model.addAttribute("bankCardList", bankCardList);
-        return "bank_card/bank_card_transfer";
+    @RequestMapping("toNewPassword/{id}")
+    public String toNewPassword(@PathVariable Integer id, Model model) {
+        QueryWrapper<BankCard> wrapper = new QueryWrapper<>();
+        wrapper.eq("id",id);
+        BankCard bankCard = bankCardService.getOne(wrapper);
+        model.addAttribute("bankCard",bankCard);
+        return "bank_card/new_password";
     }
-
 
 }

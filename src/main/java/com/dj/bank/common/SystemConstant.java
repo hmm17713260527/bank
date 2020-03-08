@@ -199,4 +199,22 @@ public interface SystemConstant {
     String INPUT_PASSWORD_ERROR = "银行卡密码输入错误，请重新输入";
 
 
+    /**
+     * 充值
+     */
+    String ADD = "充值";
+
+
+    /**
+     * 余额不足
+     */
+     String NOT_SUFFICIENT_FUNDS  = "余额不足";
+     /**
+      * @Description:每人只能申请同一银行类型的银行卡一张
+      * @Author: Liuwf
+      * @Date:
+      * @param null:
+      * @return: null
+      **/
+    String BANK_CARD_TYPE_IS_ONE = "每人只能申请同一银行类型的银行卡一张";
 }

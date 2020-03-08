@@ -1,16 +1,15 @@
 package com.dj.bank.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.dj.bank.pojo.BankCard;
-import com.dj.bank.pojo.BankLoans;
-import com.dj.bank.pojo.BaseData;
-import com.dj.bank.pojo.TradingRecord;
+import com.dj.bank.pojo.*;
+import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
 import com.dj.bank.service.TradingRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -34,9 +33,30 @@ public class BankLoansPageController {
     @Autowired
     private BaseDataService baseDataService;
 
+    @Autowired
+    private BankCardService bankCardService;
+
+    @RequestMapping("toUpdata/{id}")
+    public ModelAndView toUpdata(@PathVariable("id") Integer id, @SessionAttribute("USER_SESSION") BankUser user) throws Exception {
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.addObject("id",id);
+
+        List<BankCard> cardList = bankCardService.findUserCard(user.getId());
+        modelAndView.addObject("cardList",cardList);
+        modelAndView.setViewName("bank_loans/update");
+
+        return modelAndView;
+    }
+
     @RequestMapping("toUpdateStatusShow")
-    private String toUpdateStatusShow() {
+    public String toUpdateStatusShow() {
         return "bank_loans/update_status_show";
+    }
+
+    @RequestMapping("/toRepaymentShow")
+    public String toRepaymentShow() {
+        return "bank_loans/repayment_show";
     }
 
     /**

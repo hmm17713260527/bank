@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
-import com.dj.bank.pojo.BankProduct;
 import com.dj.bank.pojo.BankUser;
 import com.dj.bank.service.UserService;
 import com.dj.bank.util.MessageVerifyUtils;
@@ -12,11 +11,9 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -52,13 +49,10 @@ public class UserController {
             if (StringUtils.isEmpty(userName) || StringUtils.isEmpty(password)) {
                 return new ResultModel<>().error(SystemConstant.LOGIN_NULL);
             }
-
-
             //shiro登陆
             Subject subject = SecurityUtils.getSubject(); //获取subject
             UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
             subject.login(token);
-
             return new ResultModel<>().success();
         } catch (Exception e) {
             e.printStackTrace();
@@ -91,7 +85,7 @@ public class UserController {
     @GetMapping("distinct")
     public Boolean findByUsername (BankUser bankUser) {
         try {
-            QueryWrapper queryWrapper = new QueryWrapper();
+            QueryWrapper<BankUser> queryWrapper = new QueryWrapper();
             if (!StringUtils.isEmpty(bankUser.getUserName())) {
                 queryWrapper.eq("user_name", bankUser.getUserName());
             }
@@ -207,5 +201,29 @@ public class UserController {
         }
     }
 
+
+    /**
+     * 判断手机号是否存在
+     * @param phone
+     * @return
+     */
+    @GetMapping("findPhone")
+    public ResultModel<Object> findPhone (String phone) {
+        try {
+            QueryWrapper<BankUser> queryWrapper = new QueryWrapper();
+            if (!StringUtils.isEmpty(phone)) {
+                queryWrapper.eq("phone", phone);
+            }
+            queryWrapper.eq("is_del", SystemConstant.IS_DEL);
+            BankUser bankUser1 = userService.getOne(queryWrapper);
+            if (bankUser1 != null) {
+                return new ResultModel<>().success();
+            }
+            return new ResultModel<>().error(SystemConstant.PHONE_REGISTER);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.ERROR + e.getMessage());
+        }
+    }
 
 }

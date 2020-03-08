@@ -3,12 +3,8 @@ package com.dj.bank.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dj.bank.mapper.LoansMapper;
-import com.dj.bank.mapper.UserMapper;
 import com.dj.bank.pojo.BankLoans;
-import com.dj.bank.pojo.BankUser;
 import com.dj.bank.service.LoansService;
-import com.dj.bank.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,5 +26,10 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, BankLoans> implem
     @Override
     public List<BankLoans> findLoans(Integer status) throws Exception {
         return this.baseMapper.findLoans(status);
+    }
+
+    @Override
+    public List<BankLoans> findRepaymentList(Integer isDel, Integer id) throws Exception {
+        return this.baseMapper.findRepaymentList(isDel, id);
     }
 }

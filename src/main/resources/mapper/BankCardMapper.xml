@@ -5,19 +5,26 @@
  -->
 <mapper namespace="com.dj.bank.mapper.BankCardMapper">
     <select id="findListByUserId" resultType="com.dj.bank.pojo.BankCard">
+
         SELECT
             bc.id,
             bc.user_id,
-            bc.password,
+            bc.bank_card_number,
+            bc.balance,
             bc.status,
             bc.type,
+            bc.integral,
+            bc.reputation_value,
+            bc.create_time,
+            bc.borrow_balance,
             bu.user_name as userName,
-            bc.bank_card_number,
-            bd.`name` as baseName
+            bd.`name` as baseName,
+            bd2.`name`as statusName
         FROM
             bank_card bc
         LEFT JOIN bank_user bu ON bc.user_id = bu.id
         LEFT JOIN base_data bd ON bc.type = bd.id
+        LEFT JOIN base_data bd2 ON bc.status = bd2.id
         <where>
             <if test="status != null">
                 bc.status = #{status}
@@ -26,5 +33,19 @@
                 and bc.user_id = #{id}
             </if>
         </where>
+    </select>
+
+
+    <select id="findUserCard" resultType="com.dj.bank.pojo.BankCard">
+        SELECT
+            bc.id,
+            ba.`name` AS type_show
+        FROM
+            bank_card bc
+        LEFT JOIN base_data ba ON bc.type = ba.id
+        WHERE
+            bc.user_id = #{id}
+        AND bc.`status` = 17
+
     </select>
 </mapper>

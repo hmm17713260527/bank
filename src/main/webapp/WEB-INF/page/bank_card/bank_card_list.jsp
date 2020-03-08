@@ -52,17 +52,9 @@
                     html += "<td>"+u.balance+"</td>"
                     html += "<td>"+u.integral+"</td>"
                     html += "<td>"+u.reputationValue+"</td>"
-                    html += u.status == 0 ? "<td>冻结</td>" : "<td>"+u.status+"</td>"
-                    html += "<td>"+u.createTime+"</td>"
-                    if (u.type == 11) {
-                        html += "<td>工商银行</td>"
-                    } else if (u.type == 12) {
-                        html += "<td>建设银行</td>"
-                    } else if (u.type == 13) {
-                        html += "<td>农行银行</td>"
-                    } else {
-                        html += "<td>中国银行</td>"
-                    }
+                    html += "<td>"+u.statusName+"</td>"
+                    html += "<td>"+u.createTimeShow+"</td>"
+                    html += "<td>"+u.baseName+"</td>"
                     html += "<td>"+u.borrowBalance+"</td>"
                     html += "</tr>"
                 }

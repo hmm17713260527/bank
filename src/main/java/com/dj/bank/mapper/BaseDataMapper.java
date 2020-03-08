@@ -1,7 +1,6 @@
 package com.dj.bank.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.BaseData;
 
 /**

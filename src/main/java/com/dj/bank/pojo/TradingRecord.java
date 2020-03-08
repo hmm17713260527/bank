@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -66,5 +65,8 @@ public class TradingRecord {
 
     @TableField(exist = false)
     private String phone;
+
+    @TableField(exist = false)
+    private Integer carId;
 
 }

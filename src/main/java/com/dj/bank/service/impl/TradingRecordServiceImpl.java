@@ -2,11 +2,8 @@ package com.dj.bank.service.impl;
 
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.dj.bank.mapper.LoansMapper;
 import com.dj.bank.mapper.TradingRecordMapper;
-import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.TradingRecord;
-import com.dj.bank.service.LoansService;
 import com.dj.bank.service.TradingRecordService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

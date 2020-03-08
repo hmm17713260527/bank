@@ -20,7 +20,7 @@
 
     function search() {
         $.get(
-            "<%=request.getContextPath()%>/bankCard/bankCardList",
+            "<%=request.getContextPath()%>/bankCard/show",
             {"status" : 16, "_method" : "GET"},
             function(data){
                 var html = "";
