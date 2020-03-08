@@ -17,15 +17,18 @@
 </head>
 <body>
 <form id = "frm">
+    <input type="hidden" name = "_method" value="put"><br>
    选择转出银行卡：
-    <select name = "bankCardNumber" onblur="getBankCard(this)">
+    <select name = "bankCardNumber">
         <option>请选择银行卡</option>
         <c:forEach items="${bankCardList}" var="bank">
-            <option value="${bank.id}">${bank.bankCardNumber}</option>
+            <option value="${bank.bankCardNumber}">${bank.bankCardNumber}</option>
         </c:forEach>
     </select><br>
     选择转入银行卡：
-    <input type="text" name="bankCardNumber" id="bankCardNumber"><br/>
+    <input type="text" name="bankCrdNumberTransfer" id="bankCrdNumberTransfer" onblur="getBankCardNumber(this)"><br/>
+    转账金额：
+    <input type="text" name="balance"><br/>
     密码：
     <input type="password" name="password" id="password"><br/>
     <input type="submit" value="提交"><br />
@@ -42,20 +45,39 @@
                 },
             },
             messages:{
+
                 password:{
                     required:"请输入密码",
-                    minlength:"输入正确的密码",
-                    digits:"输入正确的密码"
+                    minlength:"请输入正确密码",
+                    digits:"请输入正确密码"
                 },
             }
         })
     })
-    // 注册
+
+    function getBankCardNumber(obj) {
+        var index = layer.load(1,{shade:0.5});
+        $.get("<%=request.getContextPath()%>/bankCard/getBankCardNumber",
+            {bankCardNumber : obj.value, "_method" : "GET"},
+            function (data) {
+                if(data.code == -1){
+                    layer.close(index);
+                    layer.msg(data.msg, {icon: 5});
+                    return
+                }
+                layer.close(index);
+                layer.msg(data.msg, {
+                    icon: 6,
+                    time: 2000
+                });
+            })
+    }
+    // 提交转账
     $.validator.setDefaults({
         submitHandler: function (){
             var index = layer.load(1,{shade:0.5});
             $.post(
-                "<%=request.getContextPath()%>/bankCard/insertCard",
+                "<%=request.getContextPath()%>/bankCard/transfer",
                 $("#frm").serialize(),
                 function (data){
                     layer.close(index);
@@ -72,18 +94,7 @@
                     });
                 })
         }
-    })
-    function getBankCard(obj) {
-        $.post("<%=request.getContextPath()%>/bankCard/getBankCard",
-            {bankCardNumber : obj.value},
-            function (data) {
-                if (data.code == 200) {
-                    $("#bankCardNumber").val(data.data);
-                } else {
-                    layer.msg(data.msg, {icon: 5});
-                }
-            })
-    }
 
+    })
 </script>
 </html>

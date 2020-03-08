@@ -1,6 +1,7 @@
 package com.dj.bank.common;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 public interface SystemConstant {
 
@@ -217,4 +218,21 @@ public interface SystemConstant {
       * @return: null
       **/
     String BANK_CARD_TYPE_IS_ONE = "每人只能申请同一银行类型的银行卡一张";
+
+    /**
+     * 转账卡号检验
+     */
+    String BANK_CARD_NUMBER_TEST = "不可以给自己转账";
+    /**
+     * 可以转账
+     */
+    String TRANSFER_YES = "可以转账";
+    /**
+     * 当前时刻
+     */
+    Date NOW_TIME = new Date();
+    /**
+     * 转账
+     */
+    String TRANSFER = "转账";
 }

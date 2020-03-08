@@ -5,6 +5,7 @@ import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
+import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,8 @@ public class BankCardController {
     @Autowired
     private BankCardService bankCardService;
 
+    @Autowired
+    private TradingRecordService tradingRecordService;
 
     @GetMapping("show")
     public ResultModel<Object> show(Integer status) {
@@ -229,5 +232,75 @@ public class BankCardController {
 
     }
 
+    /**
+     * 转账账号检验
+     */
+    @GetMapping("getBankCardNumber")
+    public ResultModel<Object> getBankCardNumber(String bankCardNumber, HttpSession session) {
+        try {
+            BankUser bankUser = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("user_id",bankUser.getId());
+            List<BankCard> bankCardNumberList = bankCardService.list(bankCardQueryWrapper);
+            for (BankCard bankCard : bankCardNumberList) {
+                if (bankCard.getBankCardNumber().equals(bankCardNumber)) {
+                    return new ResultModel<>().error(SystemConstant.BANK_CARD_NUMBER_TEST);
+                }
+            }
+            return new ResultModel<>().success(SystemConstant.TRANSFER_YES);
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
+
+    }
+
+    /**
+     * 转账
+     * @param bankCard
+     * @return
+     */
+    @PutMapping("transfer")
+    public ResultModel<Object> transfer(BankCard bankCard) {
+        try {
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("bank_card_number", bankCard.getBankCardNumber());
+            BankCard bankCardOut = bankCardService.getOne(bankCardQueryWrapper);
+            QueryWrapper<BankCard> bankCardQueryWrapper1 = new QueryWrapper<>();
+            bankCardQueryWrapper1.eq("bank_card_number", bankCard.getBankCrdNumberTransfer());
+            BankCard bankCardIn = bankCardService.getOne(bankCardQueryWrapper1);
+            if (!bankCardOut.getPassword().equals(bankCard.getPassword())) {
+                return  new ResultModel<>().error(SystemConstant.INPUT_ERROR);
+            }
+            if (bankCardOut.getBalance() < bankCard.getBalance()) {
+                return  new ResultModel<>().error(SystemConstant.NOT_SUFFICIENT_FUNDS);
+            }
+            bankCardOut.setBalance(bankCardOut.getBalance() - bankCard.getBalance());
+            bankCardService.updateById(bankCardOut);
+            bankCardIn.setBalance(bankCardIn.getBalance() + bankCard.getBalance());
+            bankCardService.updateById(bankCardIn);
+            TradingRecord tradingRecordOut = new TradingRecord();
+            tradingRecordOut.setUserId(bankCardOut.getUserId())
+                        .setUserCard(bankCardOut.getBankCardNumber())
+                        .setDealMoney("-" + bankCard.getBalance().toString())
+                        .setDealTime(SystemConstant.NOW_TIME)
+                        .setBalanceMoney(bankCardOut.getBalance())
+                        .setPayWay(SystemConstant.TRANSFER);
+            TradingRecord tradingRecordIn = new TradingRecord();
+            tradingRecordIn.setUserId(bankCardIn.getUserId())
+                    .setUserCard(bankCardIn.getBankCardNumber())
+                    .setDealMoney("+" + bankCard.getBalance().toString())
+                    .setDealTime(SystemConstant.NOW_TIME)
+                    .setBalanceMoney(bankCardIn.getBalance())
+                    .setPayWay(SystemConstant.TRANSFER);
+            tradingRecordService.save(tradingRecordOut);
+            tradingRecordService.save(tradingRecordIn);
+            return new ResultModel<>().success();
+        }catch (Exception e){
+            e.printStackTrace();
+            return  new ResultModel<>().error(SystemConstant.EXCEPTION + e.getMessage());
+        }
+
+    }
 
 }

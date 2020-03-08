@@ -123,4 +123,9 @@ public class BankCard {
     @TableField(exist = false)
     private String statusName;
 
+    /**
+     * 用于转账记录银行卡号
+     */
+    @TableField(exist = false)
+    private String bankCrdNumberTransfer;
 }

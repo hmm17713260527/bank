@@ -162,4 +162,18 @@ public class BankCardPageController {
         return "bank_card/new_password";
     }
 
+    /**
+     * 转账
+     * @return
+     */
+    @RequestMapping("toTransfer")
+    public String toTransfer(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
+        QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", user.getId());
+        queryWrapper.eq("status", 17);
+        List<BankCard> bankCardList = bankCardService.list(queryWrapper);
+        model.addAttribute("bankCardList" , bankCardList);
+        return "bank_card/bank_card_transfer";
+    }
+
 }
