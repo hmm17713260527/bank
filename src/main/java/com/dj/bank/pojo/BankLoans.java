@@ -62,6 +62,11 @@ public class BankLoans {
     private Integer status;
 
     /**
+     * 用于判断减少信誉积分：1：已减少，0：没
+     */
+    private Integer type;
+
+    /**
      * 还款时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")

@@ -1,10 +1,12 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
+import com.dj.bank.service.LoansService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,9 @@ public class BankCardController {
     @Autowired
     private BankCardService bankCardService;
 
+    @Autowired
+    private LoansService loansService;
+
 
     @GetMapping("show")
     public ResultModel<Object> show(Integer status) {
@@ -41,6 +46,49 @@ public class BankCardController {
             bankCardQueryWrapper.eq("status",status);
             List<BankCard> list = bankCardService.list(bankCardQueryWrapper);
             return new ResultModel<>().success(list);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
+    }
+
+    @GetMapping("findCardStatus")
+    public ResultModel<Object> findCardStatus(HttpSession session) {
+        try {
+            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("user_id", user.getId());
+            List<BankCard> bankCardList = bankCardService.list(bankCardQueryWrapper);
+            for (BankCard bankCard : bankCardList) {
+                if (bankCard.getStatus() == 19) {
+                    return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
+                }
+            }
+
+            List<BankLoans> repaymentList = loansService.findRepaymentList(2, user.getId());
+            for (BankLoans bankLoans : repaymentList) {
+                Integer i = loansService.findDate(bankLoans.getRepaymentTime());
+                if (i+1 > 0) {
+                    UpdateWrapper<BankLoans> updateWrapper = new UpdateWrapper<>();
+                    updateWrapper.set("is_del", 1);
+                    updateWrapper.eq("id", bankLoans.getId());
+                    loansService.update(updateWrapper);
+                }
+            }
+
+            List<BankLoans> repaymentList2 = loansService.findRepaymentList(1, user.getId());
+            for (BankLoans bankLoans : repaymentList2) {
+                Integer i = loansService.findDate(bankLoans.getRepaymentTime());
+                BankCard card = bankCardService.getById(bankLoans.getBankCardId());
+                if (i+1 > 0 && bankLoans.getType() == 0) {
+                    int i1 = card.getReputationValue() - 10;
+                    card.setReputationValue(i1);
+                }
+                card.setStatus(19);
+                bankCardService.updateById(card);
+                return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
+            }
+            return new ResultModel<>().success("欢迎登陆掌上银行APP");
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error(SystemConstant.EXCEPTION);

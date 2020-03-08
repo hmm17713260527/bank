@@ -54,7 +54,8 @@ public class BankLoansController {
 
             UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
             double v = bankCard.getBalance() - bankLoans.getPayMoneyMonth();
-            updateWrapper.set("balance", v);
+            int i = bankCard.getReputationValue() + 1;
+            updateWrapper.set("balance", v).set("reputation_value", i);
             updateWrapper.eq("id",bankCard.getId());
             bankCardService.update(updateWrapper);
 

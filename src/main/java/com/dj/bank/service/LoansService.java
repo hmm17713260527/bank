@@ -3,6 +3,7 @@ package com.dj.bank.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dj.bank.pojo.BankLoans;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -18,4 +19,6 @@ public interface LoansService extends IService<BankLoans> {
     List<BankLoans> findLoans(Integer status) throws Exception;
 
     List<BankLoans> findRepaymentList(Integer isDel, Integer id) throws Exception;
+
+    Integer findDate(Date repaymentTime) throws Exception;
 }
