@@ -14,4 +14,5 @@ import com.dj.bank.pojo.TradingRecord;
  * @Version: 1.0
  */
 public interface TradingRecordService extends IService<TradingRecord> {
+    TradingRecord findLoans(Integer id) throws Exception;
 }
