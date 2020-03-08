@@ -40,7 +40,7 @@ public class TradingRecord {
     /**
      * 交易金额
      */
-    private Double dealMoney;
+    private String dealMoney;
 
     /**
      * 交易时间

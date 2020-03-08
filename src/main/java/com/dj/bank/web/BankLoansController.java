@@ -68,7 +68,10 @@ public class BankLoansController {
                 wrapper.set("status",tradingRecord.getStatus());
                 wrapper.eq("id", tradingRecord.getId());
                 loansService.update(wrapper);
-                tradingRecord.setId(null).setDealTime(new Date()).setPayWay("借款");
+
+                String dealMoney = tradingRecord.getDealMoney();
+                String s = "+" + dealMoney;
+                tradingRecord.setId(null).setDealMoney(s).setDealTime(new Date()).setPayWay("借款");
                 tradingRecordService.save(tradingRecord);
             }
             return new ResultModel<>().success();
