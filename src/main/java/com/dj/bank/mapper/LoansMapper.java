@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.dj.bank.pojo.BankLoans;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.dao.DataAccessException;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.Date;
 import java.util.List;

@@ -1,6 +1,5 @@
 package com.dj.bank.common;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public interface SystemConstant {
@@ -8,28 +7,28 @@ public interface SystemConstant {
     /**
      * 系统正在维护...请稍后再试
      */
-    public static final String ERROR = "系统正在维护...请稍后再试";
+    String ERROR = "系统正在维护...请稍后再试";
 
     /**
      * 登陆输入为null
      */
-    public static final String LOGIN_NULL = "登陆输入为null";
+    String LOGIN_NULL = "登陆输入为null";
 
     /**
      * 用户被拉黑
      */
-    public static final String IS_DEL_NOT = "用户被拉黑";
+    String IS_DEL_NOT = "用户被拉黑";
 
 
     /**
      * 1：正常显示
      */
-    public static final Integer IS_DEL = 1;
+    Integer IS_DEL = 1;
 
     /**
      * 还款分期
      */
-    public static final Integer REFUND_DATE = 5;
+    Integer REFUND_DATE = 5;
 
 
     /**
@@ -169,7 +168,7 @@ public interface SystemConstant {
     /**
      *
      */
-    public static final Integer CARD_STATUS_AWAIT = 16;
+   Integer CARD_STATUS_AWAIT = 16;
 
     /**
      * 信誉积分：1
