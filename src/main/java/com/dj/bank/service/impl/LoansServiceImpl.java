@@ -38,4 +38,14 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, BankLoans> implem
     public Integer findDate(Date repaymentTime) throws Exception {
         return this.baseMapper.findDate(repaymentTime);
     }
+
+    @Override
+    public BankLoans findLoansStatus(Integer id) throws Exception {
+        return this.baseMapper.findLoansStatus(id);
+    }
+
+    @Override
+    public Double findPayMoneyAllSum(Integer carId) throws Exception {
+        return this.baseMapper.findPayMoneyAllSum(carId);
+    }
 }

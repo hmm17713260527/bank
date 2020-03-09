@@ -55,6 +55,21 @@
         SELECT TIMESTAMPDIFF(month, #{repaymentTime}, (select DATE_ADD(curdate(),interval -day(curdate())+1 day)));
 
     </select>
+    <select id="findLoansStatus" resultType="com.dj.bank.pojo.BankLoans">
+
+        SELECT * FROM bank_loans bs WHERE bs.id = #{id} and bs.repayment_time &lt;(select DATE_ADD(curdate(),interval -day(curdate())+1 day));
+
+    </select>
+    <select id="findPayMoneyAllSum" resultType="java.lang.Double">
+        SELECT
+            SUM(bs.pay_money_all)
+        FROM
+            bank_loans bs
+        WHERE
+            bs.bank_card_id = #{carId}
+        GROUP BY
+            bs.bank_card_id
+    </select>
 
 
 </mapper>

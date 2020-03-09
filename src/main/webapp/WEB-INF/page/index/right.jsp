@@ -9,6 +9,7 @@
 	<script type="text/javascript" src="<%=request.getContextPath()%>/static/layer-v3.1.1/layer/layer.js"></script>
 </head>
 <script type="text/javascript">
+
 	$(function(){
 		search();
 	})

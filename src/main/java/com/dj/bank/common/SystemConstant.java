@@ -235,4 +235,15 @@ public interface SystemConstant {
      * 转账
      */
     String TRANSFER = "转账";
+
+
+    /**
+     *您有银行卡因未准时还款，以冻结
+     */
+    String ACCOUNT_IS_FROZEN = "您有银行卡因未准时还款，以冻结";
+
+    /**
+     * 欢迎登陆掌上银行APP
+     */
+    String WELCOME = "欢迎登陆掌上银行APP";
 }

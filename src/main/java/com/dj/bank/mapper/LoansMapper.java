@@ -25,4 +25,8 @@ public interface LoansMapper extends BaseMapper<BankLoans> {
     List<BankLoans> findRepaymentList(@Param("isDel") Integer isDel, @Param("id") Integer id) throws DataAccessException;
 
     Integer findDate(@Param("repaymentTime") Date repaymentTime) throws DataAccessException;
+
+    BankLoans findLoansStatus(@Param("id") Integer id) throws DataAccessException;
+
+    Double findPayMoneyAllSum(@Param("carId") Integer carId) throws DataAccessException;
 }

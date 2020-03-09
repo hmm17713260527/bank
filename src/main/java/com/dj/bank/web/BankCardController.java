@@ -1,10 +1,12 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
+import com.dj.bank.service.LoansService;
 import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,68 @@ public class BankCardController {
 
     @Autowired
     private TradingRecordService tradingRecordService;
+
+    @Autowired
+    private LoansService loansService;
+
+    @GetMapping("findCardStatus")
+    public ResultModel<Object> findCardStatus(HttpSession session) {
+        try {
+            BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
+            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
+            bankCardQueryWrapper.eq("user_id", user.getId());
+            List<BankCard> bankCardList = bankCardService.list(bankCardQueryWrapper);
+            for (BankCard bankCard : bankCardList) {
+                if (bankCard.getStatus() == 19) {
+                    return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
+                }
+            }
+
+            List<BankLoans> repaymentList = loansService.findRepaymentList(2, user.getId());
+            for (BankLoans bankLoans : repaymentList) {
+                Integer i = loansService.findDate(bankLoans.getRepaymentTime());
+                int time = 1 + i;
+                BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
+                if (time > 0 && bankLoan != null) {
+                    UpdateWrapper<BankLoans> updateWrapper = new UpdateWrapper<>();
+                    updateWrapper.set("is_del", 1);
+                    updateWrapper.set("repayment_time", new Date());
+                    updateWrapper.eq("id", bankLoans.getId());
+                    loansService.update(updateWrapper);
+                }
+            }
+
+            List<BankLoans> repaymentList2 = loansService.findRepaymentList(1, user.getId());
+
+            Integer count = 0;
+
+            for (BankLoans bankLoans : repaymentList2) {
+                Integer i = loansService.findDate(bankLoans.getRepaymentTime()) + 1;
+                int time = 1 + i;
+                BankCard card = bankCardService.getById(bankLoans.getBankCardId());
+                BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
+                if (time > 0 && bankLoan != null) {
+                    card.setStatus(19);
+                    count++;
+                    if (bankLoans.getType() == 0) {
+                        int i1 = card.getReputationValue() - 10;
+                        card.setReputationValue(i1);
+                        bankLoans.setType(1);
+                    }
+                }
+                loansService.updateById(bankLoans);
+                bankCardService.updateById(card);
+            }
+            if (count > 0) {
+                return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
+            }
+            return new ResultModel<>().error(SystemConstant.WELCOME);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResultModel<>().error(SystemConstant.EXCEPTION);
+        }
+    }
+
 
     @GetMapping("show")
     public ResultModel<Object> show(Integer status) {
