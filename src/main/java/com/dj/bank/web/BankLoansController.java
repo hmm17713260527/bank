@@ -154,16 +154,18 @@ public class BankLoansController {
                 wrapper.eq("id", tradingRecord.getId());
                 loansService.update(wrapper);
 
-                String dealMoney = tradingRecord.getDealMoney();
-                String s = "+" + dealMoney;
-                tradingRecord.setId(null).setDealMoney(s).setDealTime(new Date()).setPayWay("借款");
-                tradingRecordService.save(tradingRecord);
+
 
                 UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<BankCard>();
                 Double money = tradingRecord.getBalanceMoney() +  Double.parseDouble(tradingRecord.getDealMoney());
                 updateWrapper.set("balance", money);
                 updateWrapper.eq("id", tradingRecord.getCarId());
                 bankCardService.update(updateWrapper);
+
+                String dealMoney = tradingRecord.getDealMoney();
+                String s = "+" + dealMoney;
+                tradingRecord.setId(null).setDealMoney(s).setDealTime(new Date()).setPayWay("借款").setBalanceMoney(money);
+                tradingRecordService.save(tradingRecord);
 
             }
             return new ResultModel<>().success();
