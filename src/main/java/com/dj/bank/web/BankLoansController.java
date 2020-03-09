@@ -60,13 +60,14 @@ public class BankLoansController {
             updateWrapper.eq("id",bankCard.getId());
 
             UpdateWrapper<BankLoans> updateWrapper1 = new UpdateWrapper<>();
-            updateWrapper1.set("is_del", 2).set("pay_month_number", bankLoans.getPayMonthNumber() -1).set("repayment_time", new Date()).set("type", 1);
+            int i2 = bankLoans.getPayMonthNumber() - 1;
+            updateWrapper1.set("is_del", 2).set("pay_month_number", i2).set("repayment_time", new Date()).set("type", 1);
             updateWrapper1.eq("id", bankLoans.getId());
 
 
 
             if (i <= 60) {
-                if (bankLoans.getPayMonthNumber() == 0) {
+                if (i2 == 0) {
                     updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
                     updateWrapper1.set("is_del", 3);
                 }
@@ -76,7 +77,7 @@ public class BankLoansController {
 
             //信誉值改变，对应贷款改变
             if (60 < i && i < 81) {
-                if (bankLoans.getPayMonthNumber() == 0) {
+                if (i2 == 0) {
                     updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
                     updateWrapper1.set("is_del", 3);
                 }
@@ -89,7 +90,7 @@ public class BankLoansController {
             }
 
             if (80 < i && i < 101) {
-                if (bankLoans.getPayMonthNumber() == 0) {
+                if (i2 == 0) {
                     updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
                     updateWrapper1.set("is_del", 3);
                 }
@@ -103,7 +104,7 @@ public class BankLoansController {
             }
 
             if (100 < i) {
-                if (bankLoans.getPayMonthNumber() == 0) {
+                if (i2 == 0) {
                     updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
                     updateWrapper1.set("is_del", 3);
                 }
@@ -115,8 +116,6 @@ public class BankLoansController {
                 bankCardService.update(updateWrapper);
 
             }
-
-
 
             double c = bankLoans.getPayMoneyMonth();
             String str = "-" + c;
