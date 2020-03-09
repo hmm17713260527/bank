@@ -47,6 +47,7 @@
             WHERE
                 bc.user_id = #{id}
             AND bs.is_del = #{isDel}
+            and bs.pay_month_number > 0
 
     </select>
 

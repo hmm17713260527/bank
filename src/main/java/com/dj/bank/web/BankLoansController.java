@@ -59,40 +59,63 @@ public class BankLoansController {
             updateWrapper.set("balance", v).set("reputation_value", i).set("integral", i1);
             updateWrapper.eq("id",bankCard.getId());
 
+            UpdateWrapper<BankLoans> updateWrapper1 = new UpdateWrapper<>();
+            updateWrapper1.set("is_del", 2).set("pay_month_number", bankLoans.getPayMonthNumber() -1).set("repayment_time", new Date());
+            updateWrapper1.eq("id", bankLoans.getId());
+
+
             if (i <= 60) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                    updateWrapper1.set("is_del", 3);
+                }
+                loansService.update(updateWrapper1);
                 bankCardService.update(updateWrapper);
             }
 
             //信誉值改变，对应贷款改变
             if (60 < i && i < 81) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                    updateWrapper1.set("is_del", 3);
+                }
                 //可贷款50000
                 Double payMoney = loansService.findPayMoneyAllSum(bankCard.getId());
                 double v1 = 50000 - payMoney;
                 updateWrapper.set("borrow_balance", v1);
+                loansService.update(updateWrapper1);
                 bankCardService.update(updateWrapper);
             }
 
             if (80 < i && i < 101) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                    updateWrapper1.set("is_del", 3);
+                }
                 //可贷款100000
                 Double payMoney = loansService.findPayMoneyAllSum(bankCard.getId());
                 double v1 = 100000 - payMoney;
                 updateWrapper.set("borrow_balance", v1);
                 bankCardService.update(updateWrapper);
+                loansService.update(updateWrapper1);
 
             }
 
             if (100 < i) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                    updateWrapper1.set("is_del", 3);
+                }
                 //可贷款200000
                 Double payMoney = loansService.findPayMoneyAllSum(bankCard.getId());
                 double v1 = 200000 - payMoney;
                 updateWrapper.set("borrow_balance", v1);
+                loansService.update(updateWrapper1);
                 bankCardService.update(updateWrapper);
 
             }
-            UpdateWrapper<BankLoans> updateWrapper1 = new UpdateWrapper<>();
-            updateWrapper1.set("is_del", 2).set("pay_month_number", bankLoans.getPayMonthNumber() -1).set("repayment_time", new Date());
-            updateWrapper1.eq("id", bankLoans.getId());
-            loansService.update(updateWrapper1);
+
+
 
             double c = bankLoans.getPayMoneyMonth();
             String str = "-" + c;
