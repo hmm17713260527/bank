@@ -38,7 +38,7 @@ public class MessageVerifyUtils {
         // 必填:待发送手机号
         request.setPhoneNumbers(userPhone);
         // 必填:短信签名-可在短信控制台中找到
-        request.setSignName("报销单");
+        request.setSignName("四组银行业务");
         // 必填:短信模板-可在短信控制台中找到
         request.setTemplateCode("SMS_180058261");
         //验证码为：${code}，您正在登录，若非本人操作，请勿泄露。

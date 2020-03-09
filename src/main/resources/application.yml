@@ -21,7 +21,7 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     username: root
     password: 123456
-    url: jdbc:mysql://127.0.0.1:3306/lianxi?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/bank?characterEncoding=UTF-8&useOldAliasMetadataBehavior=true&useSSL=false
 
 # Mybatis-Plus \u914D\u7F6E
 mybatis-plus:
