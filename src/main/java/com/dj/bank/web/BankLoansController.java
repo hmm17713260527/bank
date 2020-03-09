@@ -60,8 +60,9 @@ public class BankLoansController {
             updateWrapper.eq("id",bankCard.getId());
 
             UpdateWrapper<BankLoans> updateWrapper1 = new UpdateWrapper<>();
-            updateWrapper1.set("is_del", 2).set("pay_month_number", bankLoans.getPayMonthNumber() -1).set("repayment_time", new Date());
+            updateWrapper1.set("is_del", 2).set("pay_month_number", bankLoans.getPayMonthNumber() -1).set("repayment_time", new Date()).set("type", 1);
             updateWrapper1.eq("id", bankLoans.getId());
+
 
 
             if (i <= 60) {
