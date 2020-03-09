@@ -26,21 +26,21 @@
                     for (var i = 0; i < data.data.length; i++) {
                         var u = data.data[i];
                         html += "<tr>"
-                        html += "<td>${USER_SESSION.userName}</td>"
-                        html += "<td>"+u.bankCardNumber+"</td>"
+                        html += "<td style=\"color : blue\">${USER_SESSION.userName}</td>"
+                        html += "<td style=\"color : deeppink\">"+u.bankCardNumber+"</td>"
                         if (u.type == 11) {
-                            html += "<td>工商银行</td>"
+                            html += "<td style=\"color : deeppink\">工商银行</td>"
                         } else if (u.type == 12) {
-                            html += "<td>建设银行</td>"
+                            html += "<td style=\"color : deeppink\">建设银行</td>"
                         } else if (u.type == 13) {
-                            html += "<td>农行银行</td>"
+                            html += "<td style=\"color : deeppink\">农行银行</td>"
                         } else {
-                            html += "<td>中国银行</td>"
+                            html += "<td style=\"color : deeppink\">中国银行</td>"
                         }
-                        html += "<td>"+u.balance+"</td>"
-                        html += "<td>"+u.integral+"</td>"
-                        html += "<td>"+u.reputationValue+"</td>"
-                        html += "<td>"+u.createTime+"</td>"
+                        html += "<td style=\"color : deeppink\">"+u.balance+"</td>"
+                        html += "<td style=\"color : deeppink\">"+u.integral+"</td>"
+                        html += "<td style=\"color : deeppink\">"+u.reputationValue+"</td>"
+                        html += "<td style=\"color : deeppink\">"+u.createTime+"</td>"
                         html += "<td><input type='button' value='充值' onclick='updateBalanceById("+u.id+")'></td>"
                         html += "</tr>"
                     }
@@ -68,14 +68,14 @@
 <form id="fm">
     <table border="1px">
         <tr>
-            <th>所属人</th>
-            <th>卡号</th>
-            <th>类型</th>
-            <th>银行卡余额</th>
-            <th>卡上积分</th>
-            <th>卡信誉值</th>
-            <th>银行卡申请时间</th>
-            <th>操作</th>
+            <th style="color : slateblue">所属人</th>
+            <th style="color : slateblue">卡号</th>
+            <th style="color : slateblue">类型</th>
+            <th style="color : slateblue">银行卡余额</th>
+            <th style="color : slateblue">卡上积分</th>
+            <th style="color : slateblue">卡信誉值</th>
+            <th style="color : slateblue">银行卡申请时间</th>
+            <th style="color : slateblue">操作</th>
         </tr>
         <tbody id="tbd">
 
