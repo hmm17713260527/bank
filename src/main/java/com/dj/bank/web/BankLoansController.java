@@ -60,11 +60,17 @@ public class BankLoansController {
             updateWrapper.eq("id",bankCard.getId());
 
             if (i <= 60) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                }
                 bankCardService.update(updateWrapper);
             }
 
             //信誉值改变，对应贷款改变
             if (60 < i && i < 81) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                }
                 //可贷款50000
                 Double payMoney = loansService.findPayMoneyAllSum(bankCard.getId());
                 double v1 = 50000 - payMoney;
@@ -73,6 +79,9 @@ public class BankLoansController {
             }
 
             if (80 < i && i < 101) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                }
                 //可贷款100000
                 Double payMoney = loansService.findPayMoneyAllSum(bankCard.getId());
                 double v1 = 100000 - payMoney;
@@ -82,6 +91,9 @@ public class BankLoansController {
             }
 
             if (100 < i) {
+                if (bankLoans.getPayMonthNumber() == 0) {
+                    updateWrapper.set("borrow_balance", bankCard.getBorrowBalance() + bankLoans.getPayMoneyAll());
+                }
                 //可贷款200000
                 Double payMoney = loansService.findPayMoneyAllSum(bankCard.getId());
                 double v1 = 200000 - payMoney;
