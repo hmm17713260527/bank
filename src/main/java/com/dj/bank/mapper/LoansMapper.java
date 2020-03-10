@@ -28,4 +28,6 @@ public interface LoansMapper extends BaseMapper<BankLoans> {
     BankLoans findLoansStatus(@Param("id") Integer id) throws DataAccessException;
 
     Double findPayMoneyAllSum(@Param("carId") Integer carId) throws DataAccessException;
+
+    List<BankLoans> findLoansList(@Param("isDel") Integer isDel, @Param("id") Integer id) throws DataAccessException;
 }

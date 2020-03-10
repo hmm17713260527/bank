@@ -48,4 +48,9 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, BankLoans> implem
     public Double findPayMoneyAllSum(Integer carId) throws Exception {
         return this.baseMapper.findPayMoneyAllSum(carId);
     }
+
+    @Override
+    public List<BankLoans> findLoansList(Integer isDel, Integer id) throws Exception {
+        return this.baseMapper.findLoansList(isDel, id);
+    }
 }

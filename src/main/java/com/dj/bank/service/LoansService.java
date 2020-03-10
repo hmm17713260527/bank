@@ -25,4 +25,6 @@ public interface LoansService extends IService<BankLoans> {
     BankLoans findLoansStatus(Integer id) throws Exception;
 
     Double findPayMoneyAllSum(Integer carId) throws Exception;
+
+    List<BankLoans> findLoansList(Integer isDel, Integer id) throws Exception;
 }

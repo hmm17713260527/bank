@@ -153,7 +153,7 @@ public class BankLoansController {
     @GetMapping("repaymentList")
     public ResultModel<Object> repaymentList(@SessionAttribute("USER_SESSION") BankUser user, Integer isDel) {
         try {
-            List<BankLoans> BankLoansList = loansService.findRepaymentList(isDel, user.getId());
+            List<BankLoans> BankLoansList = loansService.findLoansList(isDel, user.getId());
             return new ResultModel<>().success(BankLoansList);
         } catch (Exception e) {
             e.printStackTrace();
