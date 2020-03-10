@@ -19,7 +19,10 @@
 				"<%=request.getContextPath()%>/bankCard/findCardStatus",
 				{"_method" : "GET"},
 				function(data){
-					layer.msg(data.msg);
+					if(data.code != 200) {
+						layer.msg(data.msg);
+					}
+
 				}
 		)
 	}
