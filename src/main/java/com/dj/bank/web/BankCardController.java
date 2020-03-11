@@ -50,7 +50,7 @@ public class BankCardController {
             bankCardQueryWrapper.eq("user_id", user.getId());
             List<BankCard> bankCardList = bankCardService.list(bankCardQueryWrapper);
             for (BankCard bankCard : bankCardList) {
-                if (bankCard.getStatus() == 19) {
+                if (bankCard.getStatus() == SystemConstant.BANK_CARD_LOCK) {
                     return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
                 }
             }
@@ -79,12 +79,12 @@ public class BankCardController {
                 BankCard card = bankCardService.getById(bankLoans.getBankCardId());
                 BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
                 if (time > 0 && bankLoan != null) {
-                    card.setStatus(19);
+                    card.setStatus(SystemConstant.BANK_CARD_LOCK);
                     count++;
                     if (bankLoans.getType() == 0) {
                         int i1 = card.getReputationValue() - 10;
                         card.setReputationValue(i1);
-                        bankLoans.setType(1);
+                        bankLoans.setType(SystemConstant.CARD_integral_TYPE);
                     }
                 }
                 loansService.updateById(bankLoans);
@@ -172,9 +172,9 @@ public class BankCardController {
             if (null != card){
                 return new ResultModel<>().error(SystemConstant.BANK_CARD_TYPE_IS_ONE);
             }
-            bankCard.setUserId(user.getId()).setReputationValue(60).setIntegral(1000)
+            bankCard.setUserId(user.getId()).setReputationValue(SystemConstant.FRIST_REPUTATION_VALUE).setIntegral(SystemConstant.FRIST_INTEGRAL)
                     .setCreateTime(new Date()).setStatus(SystemConstant.CARD_STATUS_AWAIT)
-                    .setBalance(0.00).setBorrowBalance(30000.00);
+                    .setBalance(SystemConstant.FRIST_BALANCE).setBorrowBalance(SystemConstant.FRIST_BORROWBALANCE_MONEY);
             bankCardService.save(bankCard);
             return new ResultModel<>().success(SystemConstant.SUCCESS);
         }catch (Exception e){
