@@ -42,9 +42,15 @@ public class BankCardController {
     @Autowired
     private LoansService loansService;
 
+    /**
+     * 分期还款时间判断，改变状态
+     * @param session
+     * @return
+     */
     @GetMapping("findCardStatus")
     public ResultModel<Object> findCardStatus(HttpSession session) {
         try {
+            //查询用户是否有冻结银行卡
             BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
             QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
             bankCardQueryWrapper.eq("user_id", user.getId());
@@ -55,6 +61,7 @@ public class BankCardController {
                 }
             }
 
+            //判断上个月已经还款的
             List<BankLoans> repaymentList = loansService.findRepaymentList(SystemConstant.DELETE_IS_DEL, user.getId());
             for (BankLoans bankLoans : repaymentList) {
                 Integer i = loansService.findDate(bankLoans.getRepaymentTime());
@@ -69,6 +76,7 @@ public class BankCardController {
                 }
             }
 
+            //判断上个月没还款的
             List<BankLoans> repaymentList2 = loansService.findRepaymentList(SystemConstant.NOT_DELETE_IS_DEL, user.getId());
 
             Integer count = SystemConstant.TYPE;
