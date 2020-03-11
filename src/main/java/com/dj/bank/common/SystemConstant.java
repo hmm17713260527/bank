@@ -250,4 +250,52 @@ public interface SystemConstant {
      * 借款类型 0
      */
     Integer TYPE = 0;
+    /**
+     * @Description:baseData id 银行卡冻结
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer BANK_CARD_LOCK = 19;
+    /**
+     * @Description: 用于判断减少信誉积分：1：已减少;
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer CARD_integral_TYPE = 1;
+    /**
+     * @Description:初始信誉值 60；
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer FRIST_REPUTATION_VALUE = 60;
+    /**
+     * @Description:初始积分值 1000；
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Integer FRIST_INTEGRAL = 1000;
+    /**
+     * @Description初始借款额度
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Double FRIST_BORROWBALANCE_MONEY= 30000.00;
+    /**
+     * @Description: 余额 0.00
+     * @Author: Liuwf
+     * @Date:
+     * @param null:
+     * @return: null
+     **/
+    Double FRIST_BALANCE = 0.00;
 }
