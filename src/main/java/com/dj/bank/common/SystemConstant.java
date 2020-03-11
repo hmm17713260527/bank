@@ -111,7 +111,7 @@ public interface SystemConstant {
     Integer BANK_STATUS_PID = 15;
 
     /**
-     *
+     *  未审核
      */
    Integer CARD_STATUS_AWAIT = 16;
 
