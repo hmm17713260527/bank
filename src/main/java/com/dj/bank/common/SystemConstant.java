@@ -245,4 +245,9 @@ public interface SystemConstant {
      * 欢迎登陆掌上银行APP
      */
     String WELCOME = "欢迎登陆掌上银行APP";
+
+    /**
+     * 借款类型 0
+     */
+    Integer TYPE = 0;
 }

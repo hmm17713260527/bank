@@ -51,7 +51,8 @@ public class BankCardServiceImpl extends ServiceImpl<BankCardMapper, BankCard> i
         updateWrapper.eq("id", bankLoans.getBankCardId());
         this.update(updateWrapper);
         //借款进行新增
-        bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber());
+        bankLoans.setPayMoneyMonth(bankLoans.getPayMoneyAll() / bankLoans.getPayMonthNumber())
+        .setType(SystemConstant.TYPE);
         loansService.save(bankLoans);
     }
 

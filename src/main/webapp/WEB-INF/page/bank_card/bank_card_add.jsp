@@ -69,8 +69,9 @@
                 "<%=request.getContextPath()%>/bankCard/insertCard",
                 $("#frm").serialize(),
                 function (data){
-                    layer.close(index);
+                    
                     if(data.code != 200){
+                        layer.close(index);
                         layer.msg(data.msg, {icon: 5});
                         return;
                     }
@@ -79,7 +80,7 @@
                         time: 2000 //2秒关闭（如果不配置，默认是3秒）
                     }, function(){
 
-                        parent.window.location.href = "<%=request.getContextPath()%>/index/toIndex";
+                        window.location.href = "<%=request.getContextPath()%>/bankCard/toAdd";
                     });
                 })
         }
