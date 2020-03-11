@@ -45,7 +45,7 @@ public class BankProductController {
     public ResultModel<Object> updateIsDelById(Integer id) {
         try {
             UpdateWrapper<BankProduct> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.set("is_del", 2);
+            updateWrapper.set("is_del", SystemConstant.DELETE_IS_DEL);
             updateWrapper.eq("id", id);
             bankProductService.update(updateWrapper);
             return new ResultModel<>().success();
