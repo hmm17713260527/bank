@@ -1,13 +1,10 @@
 package com.dj.bank.web;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
-import com.dj.bank.service.LoansService;
-import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,11 +33,6 @@ public class BankCardController {
     @Autowired
     private BankCardService bankCardService;
 
-    @Autowired
-    private TradingRecordService tradingRecordService;
-
-    @Autowired
-    private LoansService loansService;
 
     /**
      * 分期还款时间判断，改变状态

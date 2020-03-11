@@ -48,8 +48,7 @@ public class MyProductController {
             QueryWrapper<MyProduct> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("user_id" , user.getId());
             List<MyProduct> myProductList = myProductService.list(queryWrapper);
-            for (MyProduct list : myProductList
-                 ) {
+            for (MyProduct list : myProductList) {
                 BankProduct bankProduct = bankProductService.getById(list.getProId());
                 list.setProName(bankProduct.getProName());
                 list.setProIntegral(bankProduct.getProIntegral());

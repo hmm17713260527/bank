@@ -1,20 +1,15 @@
 package com.dj.bank.web;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.dj.bank.common.ResultModel;
 import com.dj.bank.common.SystemConstant;
-import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankLoans;
 import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.TradingRecord;
-import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.LoansService;
-import com.dj.bank.service.TradingRecordService;
 import com.dj.bank.util.MessageVerifyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,11 +29,6 @@ public class BankLoansController {
     @Autowired
     private LoansService loansService;
 
-    @Autowired
-    private TradingRecordService tradingRecordService;
-
-    @Autowired
-    private BankCardService bankCardService;
 
     /**
      * 还款
