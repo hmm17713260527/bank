@@ -32,7 +32,7 @@ public interface SystemConstant {
 
 
     /**
-     * 1：未删除
+     * 1：未删除 //月份差
      */
     Integer NOT_DELETE_IS_DEL = 1;
 
@@ -137,7 +137,7 @@ public interface SystemConstant {
      **/
     String SUCCESS = "操作成功";
     /**
-     * @Description: 银行类型p_id = 10
+     * @Description: 银行类型p_id = 10 //信誉积分
      * @Author: Liuwf
      * @Date:
      * @param null:
@@ -247,7 +247,7 @@ public interface SystemConstant {
     String WELCOME = "欢迎登陆掌上银行APP";
 
     /**
-     * 借款类型 0
+     * 借款类型 0  //月份差
      */
     Integer TYPE = 0;
 

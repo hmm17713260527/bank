@@ -50,39 +50,39 @@ public class BankCardController {
             bankCardQueryWrapper.eq("user_id", user.getId());
             List<BankCard> bankCardList = bankCardService.list(bankCardQueryWrapper);
             for (BankCard bankCard : bankCardList) {
-                if (bankCard.getStatus() == SystemConstant.BANK_CARD_LOCK) {
+                if (bankCard.getStatus().equals(SystemConstant.BANK_CARD_LOCK)) {
                     return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
                 }
             }
 
-            List<BankLoans> repaymentList = loansService.findRepaymentList(2, user.getId());
+            List<BankLoans> repaymentList = loansService.findRepaymentList(SystemConstant.DELETE_IS_DEL, user.getId());
             for (BankLoans bankLoans : repaymentList) {
                 Integer i = loansService.findDate(bankLoans.getRepaymentTime());
-                int time = 1 + i;
+                int time = SystemConstant.NOT_DELETE_IS_DEL + i;
                 BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
-                if (time > 0 && bankLoan != null) {
+                if (time > SystemConstant.TYPE && bankLoan != null) {
                     UpdateWrapper<BankLoans> updateWrapper = new UpdateWrapper<>();
-                    updateWrapper.set("is_del", 1);
+                    updateWrapper.set("is_del", SystemConstant.NOT_DELETE_IS_DEL);
                     updateWrapper.set("repayment_time", new Date());
                     updateWrapper.eq("id", bankLoans.getId());
                     loansService.update(updateWrapper);
                 }
             }
 
-            List<BankLoans> repaymentList2 = loansService.findRepaymentList(1, user.getId());
+            List<BankLoans> repaymentList2 = loansService.findRepaymentList(SystemConstant.NOT_DELETE_IS_DEL, user.getId());
 
-            Integer count = 0;
+            Integer count = SystemConstant.TYPE;
 
             for (BankLoans bankLoans : repaymentList2) {
-                Integer i = loansService.findDate(bankLoans.getRepaymentTime()) + 1;
-                int time = 1 + i;
+                Integer i = loansService.findDate(bankLoans.getRepaymentTime()) + SystemConstant.NOT_DELETE_IS_DEL;
+                int time = SystemConstant.NOT_DELETE_IS_DEL + i;
                 BankCard card = bankCardService.getById(bankLoans.getBankCardId());
                 BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
-                if (time > 0 && bankLoan != null) {
+                if (time > SystemConstant.TYPE && bankLoan != null) {
                     card.setStatus(SystemConstant.BANK_CARD_LOCK);
                     count++;
-                    if (bankLoans.getType() == 0) {
-                        int i1 = card.getReputationValue() - 10;
+                    if (bankLoans.getType().equals(SystemConstant.TYPE)) {
+                        int i1 = card.getReputationValue() - SystemConstant.BANK_TYPE_PID;
                         card.setReputationValue(i1);
                         bankLoans.setType(SystemConstant.CARD_integral_TYPE);
                     }

@@ -6,7 +6,6 @@ import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
