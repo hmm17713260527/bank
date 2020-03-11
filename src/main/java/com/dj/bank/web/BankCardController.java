@@ -90,7 +90,7 @@ public class BankCardController {
                 loansService.updateById(bankLoans);
                 bankCardService.updateById(card);
             }
-            if (count > 0) {
+            if (count > SystemConstant.TYPE) {
                 return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
             }
             return new ResultModel<>().error(SystemConstant.WELCOME);
