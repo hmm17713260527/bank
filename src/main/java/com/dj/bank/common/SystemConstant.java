@@ -58,11 +58,6 @@ public interface SystemConstant {
     Integer DELETE_IS_DEL = 2;
 
     /**
-     * 分页2
-     */
-    Integer PAGE_SIZE = 2;
-
-    /**
      * 输入不能为空
      */
     String NOT_NULL = "输入不能为空";
@@ -72,34 +67,13 @@ public interface SystemConstant {
      */
     String EXCEPTION = "";
 
-    /**
-     * 账号或密码错误
-     */
-    String NUMBER_PWD_ERROR = "账号或密码错误";
 
-    /**
-     * 该邮箱已注册
-     */
-    String EMAIL_ERROR = "该邮箱已注册";
-
-    /**
-     * 该电话号已注册
-     */
-    String PHONE_ERROR = "该电话号已注册";
-
-    /**
-     * 该用户名已注册
-     */
-    String NAME_ERROR = "该用户名已注册";
 
     /**
      * 输入有误
      */
     String INPUT_ERROR = "输入有误";
-    /**
-     * 父级pid
-     */
-    Integer PARENT_ID = 0;
+
     /**
      * 交易记录
      */
@@ -110,10 +84,6 @@ public interface SystemConstant {
      */
     String USER_SESSION = "USER_SESSION";
 
-    /**
-     * 用户资源USER_RESOURCE
-     */
-    String  USER_RESOURCE = "USER_RESOURCE";
 
     /**
      * 用户名不存在
@@ -160,10 +130,6 @@ public interface SystemConstant {
      */
     Integer FIRST = 1;
 
-    /**
-     * 第二次及以上借款 2
-     */
-    Integer MANY = 2;
     /**
      * @Description:银行卡密码输入错误，请重新输入
      * @Author: Liuwf
