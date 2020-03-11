@@ -29,8 +29,10 @@ public class MyProductController {
     @PostMapping("add")
     public ResultModel<Object> add(MyProduct myProduct, Integer type) {
         try {
-            if (StringUtils.isEmpty(myProduct.getMyPhone()) || StringUtils.isEmpty(myProduct.getMySite()) || StringUtils.isEmpty(type)){
-                return new ResultModel<>().error("不得为空");
+            if (StringUtils.isEmpty(myProduct.getMyPhone())
+                    || StringUtils.isEmpty(myProduct.getMySite())
+                    || StringUtils.isEmpty(type)){
+                return new ResultModel<>().error(SystemConstant.NOT_NULL);
             }
             myProductService.add(myProduct, type);
             return new ResultModel<>().success();
