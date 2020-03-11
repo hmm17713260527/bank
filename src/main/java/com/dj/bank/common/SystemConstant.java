@@ -5,6 +5,22 @@ import java.util.Date;
 public interface SystemConstant {
 
     /**
+     * "验证码已失效"
+     */
+    String MESSAGE = "验证码已失效";
+
+    /**
+     * "用户已被删除!"
+     */
+    String USER_DEL = "用户已被删除!";
+
+
+    /**
+     * "手机号与验证码不匹配!!"
+     */
+    String PHONE_LOGIN = "手机号与验证码不匹配!!";
+
+    /**
      * 系统正在维护...请稍后再试
      */
     String ERROR = "系统正在维护...请稍后再试";
@@ -32,7 +48,7 @@ public interface SystemConstant {
 
 
     /**
-     * 1：未删除 //月份差
+     * 1：未删除 //月份差 //借款状态
      */
     Integer NOT_DELETE_IS_DEL = 1;
 
@@ -81,89 +97,48 @@ public interface SystemConstant {
      */
     String INPUT_ERROR = "输入有误";
     /**
-     * @Description:父级pid -1
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
+     * 父级pid
+     */
     Integer PARENT_ID = 0;
     /**
-     * @Description:parentId=0
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
+     * 交易记录
+     */
     String PARENT_NAME  = "-";
+
     /**
-     * @Description:用户session USER_SESSION
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
+     * 用户session USER_SESSION
+     */
     String USER_SESSION = "USER_SESSION";
+
     /**
-     * @Description:用户资源USER_RESOURCE
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
+     * 用户资源USER_RESOURCE
+     */
     String  USER_RESOURCE = "USER_RESOURCE";
+
     /**
-     * @Description:用户名不存在
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
+     * 用户名不存在
+     */
     String NULL_USERNAME  = "用户名不存在";
+
     /**
-     * @Description:手机号不存在，请注册
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
+     * 手机号不存在，请注册
      **/
     String PHONE_REGISTER  = "手机号不存在，请注册";
+
     /**
-     * @Description:操作成功
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
+     * 操作成功
      **/
     String SUCCESS = "操作成功";
+
     /**
-     * @Description: 银行类型p_id = 10 //信誉积分
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
+     * 银行类型p_id = 10 //信誉积分
      **/
     Integer BANK_TYPE_PID= 10;
+
     /**
      * 银行审核状态p_id = 15
      */
     Integer BANK_STATUS_PID = 15;
-    /**
-     * @Description:正常
-     * @Author: Liuwf
-     * @Date:  
-     * @param null: 
-     * @return: null
-     **/
-    Integer BANK_STATUS_NORMAL = 1;
-    /**
-     * @Description: 冻结
-     * @Author: Liuwf
-     * @Date:
-     * @param null:
-     * @return: null
-     **/
-    Integer BANK_STATUS_LOCK = 2;
 
     /**
      *
@@ -181,7 +156,7 @@ public interface SystemConstant {
     Integer INTEGRAL = 100;
 
     /**
-     * 第一次借款 1
+     * 用户等级
      */
     Integer FIRST = 1;
 
@@ -313,4 +288,30 @@ public interface SystemConstant {
      * @return: null
      **/
     Double FRIST_BALANCE = 0.00;
+
+    /**
+     * 审核未通过
+     */
+    Integer LOANS_STATUS_NOT = 18;
+
+    /**
+     * 审核通过
+     */
+    Integer LOANS_STATUS = 17;
+
+    /**
+     * 资源查看
+     */
+    Integer RESOURCES_TYPEZ = 1;
+
+    /**
+     * user资源查看
+     */
+    Integer RESOURCES_TYPEZ_USER = 2;
+
+    /**
+     * 管理资源查看
+     */
+    Integer RESOURCES_TYPEZ_ADMIN = 3;
+
 }

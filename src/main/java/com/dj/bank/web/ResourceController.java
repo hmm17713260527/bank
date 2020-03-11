@@ -34,12 +34,12 @@ public class ResourceController {
 
         BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
         QueryWrapper<BankResource> wrapper = new QueryWrapper<BankResource>();
-        if (user.getType() == 1) {
-            wrapper.or().eq("type", 1)
-                    .or().eq("type", 2);
+        if (user.getType().equals(SystemConstant.FIRST)) {
+            wrapper.or().eq("type", SystemConstant.RESOURCES_TYPEZ)
+                    .or().eq("type", SystemConstant.RESOURCES_TYPEZ_USER);
         } else {
-            wrapper.or().eq("type", 1)
-                    .or().eq("type", 3);
+            wrapper.or().eq("type", SystemConstant.RESOURCES_TYPEZ)
+                    .or().eq("type", SystemConstant.RESOURCES_TYPEZ_ADMIN);
         }
         List<BankResource> ResourceList = resourceService.list(wrapper);
 

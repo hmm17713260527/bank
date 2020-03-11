@@ -111,20 +111,20 @@ public class UserController {
     public ResultModel<Object> updatePwd(String phone, String password, String message, String salt) {
         try {
             if (StringUtils.isEmpty(phone) || StringUtils.isEmpty(message)) {
-                return new ResultModel<Object>().error("手机号或验证码不得为空!");
+                return new ResultModel<Object>().error(SystemConstant.NOT_NULL);
             }
             QueryWrapper<BankUser> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("phone", phone);
             queryWrapper.eq("message", message);
             BankUser user1 = userService.getOne(queryWrapper);
             if (user1 == null) {
-                return new ResultModel<Object>().error("手机号与验证码不匹配!!");
+                return new ResultModel<Object>().error(SystemConstant.PHONE_LOGIN);
             }
-            if (user1.getIsDel() == 2) {
-                return new ResultModel<Object>().error("用户已被删除!");
+            if (user1.getIsDel().equals(SystemConstant.DELETE_IS_DEL)) {
+                return new ResultModel<Object>().error(SystemConstant.USER_DEL);
             }
             if (user1.getEndTime().compareTo(new Date()) != 1) {
-                return new ResultModel<>().error("验证码已失效");
+                return new ResultModel<>().error(SystemConstant.MESSAGE);
             }
             UpdateWrapper<BankUser> updateWrapper = new UpdateWrapper<>();
             updateWrapper.set("password", password);
@@ -149,7 +149,7 @@ public class UserController {
             QueryWrapper<BankUser> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("phone", phone);
             BankUser user1 = userService.getOne(queryWrapper);
-            if (user1.getIsDel() == 1 && user1 != null ) {
+            if (user1.getIsDel().equals(SystemConstant.NOT_DELETE_IS_DEL) && user1 != null) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTime(new Date());
                 cal.add(Calendar.MINUTE, 2);
@@ -161,7 +161,7 @@ public class UserController {
                 MessageVerifyUtils.sendSms(phone, newCode);
                 return new ResultModel<Object>().success();
             }
-            return new ResultModel<Object>().error("用户不存在");
+            return new ResultModel<Object>().error(SystemConstant.NULL_USERNAME);
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

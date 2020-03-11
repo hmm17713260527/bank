@@ -54,14 +54,14 @@ public class BankLoansController {
 
             UpdateWrapper<BankCard> updateWrapper = new UpdateWrapper<>();
             double v = bankCard.getBalance() - bankLoans.getPayMoneyMonth();
-            int i = bankCard.getReputationValue() + 1;
-            int i1 = bankCard.getIntegral() + 100;
+            int i = bankCard.getReputationValue() + SystemConstant.CREDIT_INTEGRAL;
+            int i1 = bankCard.getIntegral() + SystemConstant.INTEGRAL;
             updateWrapper.set("balance", v).set("reputation_value", i).set("integral", i1);
             updateWrapper.eq("id",bankCard.getId());
 
             UpdateWrapper<BankLoans> updateWrapper1 = new UpdateWrapper<>();
-            int i2 = bankLoans.getPayMonthNumber() - 1;
-            updateWrapper1.set("is_del", 2).set("pay_month_number", i2).set("repayment_time", new Date()).set("type", 1);
+            int i2 = bankLoans.getPayMonthNumber() - SystemConstant.CREDIT_INTEGRAL;
+            updateWrapper1.set("is_del", SystemConstant.DELETE_IS_DEL).set("pay_month_number", i2).set("repayment_time", new Date()).set("type",SystemConstant.NOT_DELETE_IS_DEL);
             updateWrapper1.eq("id", bankLoans.getId());
 
 
@@ -167,11 +167,11 @@ public class BankLoansController {
     public ResultModel<Object> updateStatusById(TradingRecord tradingRecord) {
         try {
             //审核未通过
-            if (tradingRecord.getStatus() == 18) {
+            if (tradingRecord.getStatus().equals(SystemConstant.LOANS_STATUS_NOT)) {
                 MessageVerifyUtils.sendSms(tradingRecord.getPhone(), "您的借款审核未通过");
             }
             //审核通过
-            if (tradingRecord.getStatus() == 17) {
+            if (tradingRecord.getStatus().equals(SystemConstant.LOANS_STATUS)) {
                 UpdateWrapper<BankLoans> wrapper = new UpdateWrapper<BankLoans>();
                 wrapper.set("status",tradingRecord.getStatus());
                 wrapper.eq("id", tradingRecord.getId());
