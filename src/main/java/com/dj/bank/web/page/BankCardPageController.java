@@ -6,6 +6,7 @@ import com.dj.bank.pojo.BankUser;
 import com.dj.bank.pojo.BaseData;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,12 +46,12 @@ public class BankCardPageController {
         modelAndView.addObject("bankCard", bankCard);
 
         QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
-        baseDataQueryWrapper.eq("parent_id", 15);
+        baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_STATUS_PID);
         List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
         modelAndView.addObject("baseDataList",baseDataList);
 
         QueryWrapper<BaseData> baseDataQueryWrapper1 = new QueryWrapper<>();
-        baseDataQueryWrapper1.eq("parent_id", 10);
+        baseDataQueryWrapper1.eq("parent_id", SystemConstant.BANK_TYPE_PID);
         List<BaseData> baseDataList1 = baseDataService.list(baseDataQueryWrapper1);
         modelAndView.addObject("baseDataList1",baseDataList1);
 
@@ -122,7 +123,7 @@ public class BankCardPageController {
     public String toShowReputationValue(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
-        queryWrapper.eq("status", 17);
+        queryWrapper.eq("status", SystemConstant.APPROVE_STATUS);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
         for (BankCard list : bankCardList) {
             BaseData baseData = baseDataService.getById(list.getType());
@@ -142,9 +143,9 @@ public class BankCardPageController {
     private String toShowIntegral(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
-        queryWrapper.eq("status", 17);
+        queryWrapper.eq("status", SystemConstant.APPROVE_STATUS);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
-        Integer sumIntegral = 0;
+        Integer sumIntegral = SystemConstant.SUM_INTEGRAL;
         for (BankCard list : bankCardList
         ) {
             sumIntegral += list.getIntegral();
@@ -170,7 +171,7 @@ public class BankCardPageController {
     public String toTransfer(@SessionAttribute(SystemConstant.USER_SESSION) BankUser user, Model model) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
-        queryWrapper.eq("status", 17);
+        queryWrapper.eq("status", SystemConstant.APPROVE_STATUS);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
         model.addAttribute("bankCardList" , bankCardList);
         return "bank_card/bank_card_transfer";

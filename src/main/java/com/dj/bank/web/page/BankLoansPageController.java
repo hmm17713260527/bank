@@ -1,6 +1,7 @@
 package com.dj.bank.web.page;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.*;
 import com.dj.bank.service.BankCardService;
 import com.dj.bank.service.BaseDataService;
@@ -70,7 +71,7 @@ public class BankLoansPageController {
         modelAndView.setViewName("bank_loans/update_status");
 
         QueryWrapper<BaseData> baseDataQueryWrapper = new QueryWrapper<>();
-        baseDataQueryWrapper.eq("parent_id", 15);
+        baseDataQueryWrapper.eq("parent_id", SystemConstant.BANK_STATUS_PID);
         List<BaseData> baseDataList = baseDataService.list(baseDataQueryWrapper);
         modelAndView.addObject("baseDataList",baseDataList);
 

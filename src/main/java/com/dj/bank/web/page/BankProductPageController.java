@@ -1,5 +1,6 @@
 package com.dj.bank.web.page;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankProduct;
 import com.dj.bank.service.BankProductService;
 import com.dj.bank.util.QiniuUtils;
@@ -48,19 +49,19 @@ public class BankProductPageController {
     @RequestMapping("add")
     public String updateImg(MultipartFile file, BankProduct bankProduct, Model model) {
         try {
-            String fileName = UUID.randomUUID().toString().replace("-", "")
-                    + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+            String fileName = UUID.randomUUID().toString().replace(SystemConstant.PARENT_NAME, SystemConstant.EXCEPTION)
+                    + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(SystemConstant.SYMBOL));
             //通过inputStream上传文件
             InputStream inputStream = file.getInputStream();
             //调用七牛云工具类中的上传方法
             QiniuUtils.uploadByInputStream(inputStream, fileName);
             bankProduct.setProImg(fileName);
             bankProductService.save(bankProduct);
-            model.addAttribute("msg", "成功");
+            model.addAttribute("msg", SystemConstant.SUCCESS);
             return "product/show";
         } catch (Exception e) {
             e.printStackTrace();
-            model.addAttribute("msg", "失败");
+            model.addAttribute("msg", SystemConstant.ERROR);
             return "product/add";
         }
     }
@@ -89,8 +90,8 @@ public class BankProductPageController {
         try {
             UpdateWrapper<BankProduct> updateWrapper = new UpdateWrapper<>();
             if (file != null && !file.isEmpty()) {
-                String fileName = UUID.randomUUID().toString().replace("-", "")
-                        + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf('.'));
+                String fileName = UUID.randomUUID().toString().replace(SystemConstant.PARENT_NAME, SystemConstant.EXCEPTION)
+                        + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(SystemConstant.SYMBOL));
                 //通过inputStream上传文件
                 InputStream inputStream = file.getInputStream();
                 //调用七牛云工具类中的上传方法

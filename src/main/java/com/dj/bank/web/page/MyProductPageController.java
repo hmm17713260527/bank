@@ -1,5 +1,6 @@
 package com.dj.bank.web.page;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dj.bank.common.SystemConstant;
 import com.dj.bank.pojo.BankCard;
 import com.dj.bank.pojo.BankProduct;
 import com.dj.bank.pojo.BankUser;
@@ -44,7 +45,7 @@ public class MyProductPageController {
     public String toAddMyProduct(@PathVariable Integer id, Model model, @SessionAttribute("USER_SESSION") BankUser user) {
         QueryWrapper<BankCard> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id", user.getId());
-        queryWrapper.eq("status", 17);
+        queryWrapper.eq("status", SystemConstant.APPROVE_STATUS);
         List<BankCard> bankCardList = bankCardService.list(queryWrapper);
         for (BankCard list : bankCardList
              ) {

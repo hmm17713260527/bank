@@ -250,4 +250,19 @@ public interface SystemConstant {
      * 借款类型 0
      */
     Integer TYPE = 0;
+
+    /**
+     * 基础数据表中审核通过状态的id 17
+     */
+    Integer APPROVE_STATUS = 17;
+
+    /**
+     * 个人总积分初始值 0
+     */
+    Integer SUM_INTEGRAL = 0;
+
+    /**
+     * 符号 .
+     */
+    String SYMBOL = ".";
 }
