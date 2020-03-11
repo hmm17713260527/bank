@@ -52,56 +52,8 @@ public class BankCardController {
         try {
             //查询用户是否有冻结银行卡
             BankUser user = (BankUser) session.getAttribute(SystemConstant.USER_SESSION);
-            QueryWrapper<BankCard> bankCardQueryWrapper = new QueryWrapper<>();
-            bankCardQueryWrapper.eq("user_id", user.getId());
-            List<BankCard> bankCardList = bankCardService.list(bankCardQueryWrapper);
-            for (BankCard bankCard : bankCardList) {
-                if (bankCard.getStatus().equals(SystemConstant.BANK_CARD_LOCK)) {
-                    return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
-                }
-            }
-
-            //判断上个月已经还款的
-            List<BankLoans> repaymentList = loansService.findRepaymentList(SystemConstant.DELETE_IS_DEL, user.getId());
-            for (BankLoans bankLoans : repaymentList) {
-                Integer i = loansService.findDate(bankLoans.getRepaymentTime());
-                int time = SystemConstant.NOT_DELETE_IS_DEL + i;
-                BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
-                if (time > SystemConstant.TYPE && bankLoan != null) {
-                    UpdateWrapper<BankLoans> updateWrapper = new UpdateWrapper<>();
-                    updateWrapper.set("is_del", SystemConstant.NOT_DELETE_IS_DEL);
-                    updateWrapper.set("repayment_time", new Date());
-                    updateWrapper.eq("id", bankLoans.getId());
-                    loansService.update(updateWrapper);
-                }
-            }
-
-            //判断上个月没还款的
-            List<BankLoans> repaymentList2 = loansService.findRepaymentList(SystemConstant.NOT_DELETE_IS_DEL, user.getId());
-
-            Integer count = SystemConstant.TYPE;
-
-            for (BankLoans bankLoans : repaymentList2) {
-                Integer i = loansService.findDate(bankLoans.getRepaymentTime()) + SystemConstant.NOT_DELETE_IS_DEL;
-                int time = SystemConstant.NOT_DELETE_IS_DEL + i;
-                BankCard card = bankCardService.getById(bankLoans.getBankCardId());
-                BankLoans bankLoan = loansService.findLoansStatus(bankLoans.getId());
-                if (time > SystemConstant.TYPE && bankLoan != null) {
-                    card.setStatus(SystemConstant.BANK_CARD_LOCK);
-                    count++;
-                    if (bankLoans.getType().equals(SystemConstant.TYPE)) {
-                        int i1 = card.getReputationValue() - SystemConstant.BANK_TYPE_PID;
-                        card.setReputationValue(i1);
-                        bankLoans.setType(SystemConstant.CARD_integral_TYPE);
-                    }
-                }
-                loansService.updateById(bankLoans);
-                bankCardService.updateById(card);
-            }
-            if (count > SystemConstant.TYPE) {
-                return new ResultModel<>().error(SystemConstant.ACCOUNT_IS_FROZEN);
-            }
-            return new ResultModel<>().error(SystemConstant.WELCOME);
+            ResultModel<Object> result = bankCardService.getBankCardAndGetLoansAndUpdateLoansByIdAndUpdateBankCardById(user);
+            return result;
         } catch (Exception e) {
             e.printStackTrace();
             return new ResultModel<>().error(SystemConstant.EXCEPTION);
@@ -347,26 +299,7 @@ public class BankCardController {
             if (bankCardOut.getBalance() < bankCard.getBalance()) {
                 return  new ResultModel<>().error(SystemConstant.NOT_SUFFICIENT_FUNDS);
             }
-            bankCardOut.setBalance(bankCardOut.getBalance() - bankCard.getBalance());
-            bankCardService.updateById(bankCardOut);
-            bankCardIn.setBalance(bankCardIn.getBalance() + bankCard.getBalance());
-            bankCardService.updateById(bankCardIn);
-            TradingRecord tradingRecordOut = new TradingRecord();
-            tradingRecordOut.setUserId(bankCardOut.getUserId())
-                        .setUserCard(bankCardOut.getBankCardNumber())
-                        .setDealMoney("-" + bankCard.getBalance().toString())
-                        .setDealTime(SystemConstant.NOW_TIME)
-                        .setBalanceMoney(bankCardOut.getBalance())
-                        .setPayWay(SystemConstant.TRANSFER);
-            TradingRecord tradingRecordIn = new TradingRecord();
-            tradingRecordIn.setUserId(bankCardIn.getUserId())
-                    .setUserCard(bankCardIn.getBankCardNumber())
-                    .setDealMoney("+" + bankCard.getBalance().toString())
-                    .setDealTime(SystemConstant.NOW_TIME)
-                    .setBalanceMoney(bankCardIn.getBalance())
-                    .setPayWay(SystemConstant.TRANSFER);
-            tradingRecordService.save(tradingRecordOut);
-            tradingRecordService.save(tradingRecordIn);
+            bankCardService.updateBankCardByIdAndSaveTradingRecord(bankCardOut, bankCardIn, bankCard);
             return new ResultModel<>().success();
         }catch (Exception e){
             e.printStackTrace();

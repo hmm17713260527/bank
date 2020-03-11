@@ -1,7 +1,10 @@
 package com.dj.bank.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.dj.bank.common.ResultModel;
 import com.dj.bank.pojo.BankLoans;
+import com.dj.bank.pojo.BankUser;
+import com.dj.bank.pojo.TradingRecord;
 
 import java.util.Date;
 import java.util.List;
@@ -27,4 +30,21 @@ public interface LoansService extends IService<BankLoans> {
     Double findPayMoneyAllSum(Integer carId) throws Exception;
 
     List<BankLoans> findLoansList(Integer isDel, Integer id) throws Exception;
+
+    /**
+     * 还款
+     * @param loansId
+     * @param carId
+     * @param user
+     */
+    ResultModel<Object> getLoansAndGetBankCardAndUpdateLoansAndUpdateBankCardAndSaveTradingRecord(Integer loansId,
+                                                                                                  Integer carId,
+                                                                                                  BankUser user
+    ) throws Exception;
+
+    /**
+     * 审核
+     * @param tradingRecord
+     */
+    ResultModel<Object> updateLoansAndUpdateBankCardAndSaveTradingRecord(TradingRecord tradingRecord);
 }
