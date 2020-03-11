@@ -39,6 +39,7 @@
                 password:{
                     required:true,
                     minlength:6,
+                    maxlength:6,
                     digits:true
                 },
                 confirmPassword:{
@@ -51,7 +52,8 @@
 
                 password:{
                     required:"请输入密码",
-                    minlength:"输入符规则的长度",
+                    minlength:"输入符规则的长度6位",
+                    maxlength:"输入符规则的长度6位",
                     digits:"必须输入数字"
                 },
                 confirmPassword:{

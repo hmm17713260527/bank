@@ -189,8 +189,8 @@
 <body>
 <form id="fm">
     用户名:<input type="text" name="userName" id="userName"><br />
-    密码:<input type="text" name="password" id="pwd"><br />
-    确认密码:<input type="text" name="password2"><br />
+    密码:<input type="password" name="password" id="pwd"><br />
+    确认密码:<input type="password" name="password2"><br />
     手机号:<input type="text" name="phone" id="phone"><br />
     年龄:<input type="text" name="age" id="age"><br />
     邮箱:<input type="text" name="email" id="email"><br />
